@@ -1,0 +1,34 @@
+{
+  "name": "larapacks/administration",
+  "description": "An administration panel for Laravel.",
+  "keywords": ["authorization", "laravel", "permissions", "roles", "acl"],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": ">=5.5.9",
+    "laravel/framework": "~5.2",
+    "stevebauman/authorization": "1.3.*",
+    "stevebauman/flash": "1.0.*",
+    "stevebauman/active": "1.0.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8",
+    "orchestra/testbench": "~3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Larapacks\\Administration\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Larapacks\\Administration\\Tests\\": "tests/"
+    },
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}
