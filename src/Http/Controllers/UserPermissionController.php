@@ -3,25 +3,10 @@
 namespace Larapacks\Administration\Http\Controllers;
 
 use Larapacks\Administration\Processors\Admin\UserPermissionProcessor;
-use Larapacks\Administration\Http\Requests\Admin\UserPermissionRequest;
+use Larapacks\Administration\Http\Requests\UserPermissionRequest;
 
 class UserPermissionController extends Controller
 {
-    /**
-     * @var UserPermissionProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param UserPermissionProcessor $processor
-     */
-    public function __construct(UserPermissionProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Adds the requested permissions to the specified user.
      *

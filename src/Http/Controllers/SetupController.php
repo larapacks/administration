@@ -2,8 +2,6 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Jobs\Admin\Setup\Finish;
-use Larapacks\Administration\Processors\Admin\SetupProcessor;
 use Larapacks\Authorization\Authorization;
 use Larapacks\Administration\Http\Requests\SetupRequest;
 

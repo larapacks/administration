@@ -2,27 +2,14 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
+use Larapacks\Administration\Http\Requests\UserRequest;
 use Larapacks\Administration\Processors\Admin\UserProcessor;
-use Larapacks\Administration\Http\Requests\Admin\UserRequest;
+
 use Larapacks\Administration\Exceptions\Admin\CannotRemoveRolesException;
+use Larapacks\Authorization\Authorization;
 
 class UserController extends Controller
 {
-    /**
-     * @var UserProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param UserProcessor $processor
-     */
-    public function __construct(UserProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Displays all users.
      *
@@ -30,7 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $this->authorize('admin.users.index');
+
+        $users = Authorization::user()->paginate();
+
+        return view('admin::users.index', compact('users'));
     }
 
     /**
@@ -40,7 +31,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $this->authorize('admin.users.create');
+
+        return view('admin::users.create');
     }
 
     /**
@@ -52,7 +45,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if ($this->processor->store($request)) {
+        if ($request->persist(Authorization::user())) {
             flash()->success('Success!', 'Successfully created user.');
 
             return redirect()->route('admin.users.index');
@@ -72,7 +65,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $this->authorize('admin.users.show');
+
+        $user = Authorization::user()->with(['roles', 'permissions'])->findOrFail($id);
+
+        $permissions =  Authorization::permission()->whereDoesntHave('users', function ($q) use ($user) {
+            $q->whereId($user->id);
+        })->get()->pluck('label', 'id');
+
+        return view('admin::users.show', compact('user', 'permissions'));
     }
 
     /**

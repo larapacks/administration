@@ -1,4 +1,4 @@
-@extends('layouts.jumbotron')
+@extends('admin::layouts.app')
 
 @section('title', 'Welcome')
 

@@ -2,25 +2,10 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Processors\Admin\WelcomeProcessor;
+use Larapacks\Authorization\Authorization;
 
 class WelcomeController extends Controller
 {
-    /**
-     * @var WelcomeProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param WelcomeProcessor $processor
-     */
-    public function __construct(WelcomeProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Displays the admin welcome page.
      *
@@ -28,6 +13,14 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $this->authorize('admin.welcome.index');
+
+        $users = Authorization::user()->count();
+
+        $roles = Authorization::role()->count();
+
+        $permissions = Authorization::permission()->count();
+
+        return view('admin::welcome.index', compact('users', 'roles', 'permissions'));
     }
 }
