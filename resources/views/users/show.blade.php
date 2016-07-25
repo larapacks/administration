@@ -7,7 +7,9 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading">
+
             <i class="fa fa-list"></i>
+
             Profile <span class="hidden-xs">Details</span>
 
             <div class="btn-group pull-right">
@@ -177,6 +179,8 @@
 
                         <th>Permission</th>
 
+                        <th>Remove</th>
+
                     </tr>
 
                 </thead>
@@ -188,6 +192,19 @@
                         <tr>
 
                             <td>{{ $permission->label }}</td>
+
+                            <td>
+
+                                <a
+                                        class="btn btn-xs btn-danger"
+                                        data-post="delete"
+                                        data-message="Are you sure you want to remove permission '{{ $permission->label }}'?"
+                                        href="{{ route('admin.users.permissions.destroy', [$user->id, $permission->id]) }}"
+                                >
+                                    Remove
+                                </a>
+
+                            </td>
 
                         </tr>
 

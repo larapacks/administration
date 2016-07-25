@@ -2,7 +2,7 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Processors\Admin\UserPermissionProcessor;
+use Larapacks\Authorization\Authorization;
 use Larapacks\Administration\Http\Requests\UserPermissionRequest;
 
 class UserPermissionController extends Controller
@@ -17,15 +17,25 @@ class UserPermissionController extends Controller
      */
     public function store(UserPermissionRequest $request, $userId)
     {
-        if ($this->processor->store($request, $userId)) {
-            flash()->success('Success!', 'Successfully added permissions.');
+        $this->authorize('admin.users.permissions.store');
 
-            return redirect()->route('admin.users.show', [$userId]);
-        } else {
-            flash()->error('Error!', "You didn't select any permissions.");
+        $user = Authorization::user()->findOrFail($userId);
 
-            return redirect()->route('admin.users.show', [$userId]);
+        $permissions = $request->input('permissions', []);
+
+        if (count($permissions) > 0) {
+            $permissions = Authorization::permission()->findMany($permissions);
+
+            if ($user->permissions()->saveMany($permissions)) {
+                flash()->success('Success!', 'Successfully added permissions.');
+
+                return redirect()->route('admin.users.show', [$userId]);
+            }
         }
+
+        flash()->error('Error!', "You didn't select any permissions.");
+
+        return redirect()->route('admin.users.show', [$userId]);
     }
 
     /**
@@ -38,14 +48,20 @@ class UserPermissionController extends Controller
      */
     public function destroy($userId, $permissionId)
     {
-        if ($this->processor->destroy($userId, $permissionId)) {
+        $this->authorize('admin.users.permissions.destroy');
+
+        $user = Authorization::user()->findOrFail($userId);
+
+        $permission = $user->permissions()->findOrFail($permissionId);
+
+        if ($user->permissions()->detach($permission)) {
             flash()->success('Success!', 'Successfully removed permission.');
 
             return redirect()->route('admin.users.show', [$userId]);
-        } else {
-            flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
-
-            return redirect()->route('admin.users.show', [$userId]);
         }
+
+        flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
+
+        return redirect()->route('admin.users.show', [$userId]);
     }
 }
