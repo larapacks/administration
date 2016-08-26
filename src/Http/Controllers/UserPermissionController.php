@@ -21,16 +21,10 @@ class UserPermissionController extends Controller
 
         $user = Authorization::user()->findOrFail($userId);
 
-        $permissions = $request->input('permissions', []);
+        if ($request->persist($user)) {
+            flash()->success('Success!', 'Successfully added permissions.');
 
-        if (count($permissions) > 0) {
-            $permissions = Authorization::permission()->findMany($permissions);
-
-            if ($user->permissions()->saveMany($permissions)) {
-                flash()->success('Success!', 'Successfully added permissions.');
-
-                return redirect()->route('admin.users.show', [$userId]);
-            }
+            return redirect()->route('admin.users.show', [$userId]);
         }
 
         flash()->error('Error!', "You didn't select any permissions.");

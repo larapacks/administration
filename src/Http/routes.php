@@ -46,6 +46,11 @@ Route::group(['middleware' => ['auth']], function () {
         'only' => ['store', 'destroy'],
     ]);
 
+    // The user roles resource.
+    Route::resource('users.roles', 'UserRoleController', [[
+        'only' => ['store', 'destroy'],
+    ]]);
+
     // The roles resource.
     Route::resource('roles', 'RoleController');
 

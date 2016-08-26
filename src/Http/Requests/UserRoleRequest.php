@@ -5,22 +5,22 @@ namespace Larapacks\Administration\Http\Requests;
 use Illuminate\Database\Eloquent\Model;
 use Larapacks\Authorization\Authorization;
 
-class UserPermissionRequest extends Request
+class UserRoleRequest
 {
     /**
-     * The user permission request validation rules.
+     * The user role validation rules.
      *
      * @return array
      */
     public function rules()
     {
         return [
-            'permissions.*' => 'exists:permissions,id',
+            'roles.*' => 'exists:roles,id',
         ];
     }
 
     /**
-     * Allows all users to add permissions to users.
+     * Allows users to add roles to other users.
      *
      * @return bool
      */
@@ -38,9 +38,9 @@ class UserPermissionRequest extends Request
      */
     public function persist(Model $user)
     {
-        $permissions = Authorization::permission()->findMany($this->input('permissions', []));
+        $roles = Authorization::role()->findMany($this->input('roles', []));
 
-        if ($user->permissions()->saveMany($permissions)) {
+        if ($user->roles()->saveMany($roles)) {
             return true;
         }
 

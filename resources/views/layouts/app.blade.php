@@ -61,7 +61,9 @@
                     <ul class="nav navbar-nav">
 
                         @if(auth()->user()->can('admin.welcome.index'))
-                            <li><a href="{{ route('admin.welcome.index') }}">Home</a></li>
+                            <li>
+                                <a href="{{ route('admin.welcome.index') }}">Dashboard</a>
+                            </li>
                         @endif
 
                     </ul>

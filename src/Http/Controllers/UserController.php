@@ -2,11 +2,8 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\UserRequest;
-use Larapacks\Administration\Processors\Admin\UserProcessor;
-
-use Larapacks\Administration\Exceptions\Admin\CannotRemoveRolesException;
 use Larapacks\Authorization\Authorization;
+use Larapacks\Administration\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -45,6 +42,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('admin.users.create');
+
         if ($request->persist(Authorization::user())) {
             flash()->success('Success!', 'Successfully created user.');
 
@@ -69,11 +68,21 @@ class UserController extends Controller
 
         $user = Authorization::user()->with(['roles', 'permissions'])->findOrFail($id);
 
-        $permissions =  Authorization::permission()->whereDoesntHave('users', function ($q) use ($user) {
+        $withoutCurrentUser = function ($q) use ($user) {
             $q->whereId($user->id);
-        })->get()->pluck('label', 'id');
+        };
 
-        return view('admin::users.show', compact('user', 'permissions'));
+        $roles = Authorization::role()
+            ->whereDoesntHave('users', $withoutCurrentUser)
+            ->get()
+            ->pluck('label', 'id');
+
+        $permissions =  Authorization::permission()
+            ->whereDoesntHave('users', $withoutCurrentUser)
+            ->get()
+            ->pluck('label', 'id');
+
+        return view('admin::users.show', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -85,7 +94,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $this->authorize('admin.users.edit');
+
+        $user = Authorization::user()->findOrFail($id);
+
+        return view('admin::users.edit', compact('user'));
     }
 
     /**
@@ -98,21 +111,19 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        try {
-            if ($this->processor->update($request, $id)) {
-                flash()->success('Success!', 'Successfully updated user.');
+        $this->authorize('admin.users.edit');
 
-                return redirect()->route('admin.users.show', [$id]);
-            } else {
-                flash()->error('Error!', 'There was an issue updating this user. Please try again.');
+        $user = Authorization::user()->findOrFail($id);
 
-                return redirect()->route('admin.users.edit', [$id]);
-            }
-        } catch (CannotRemoveRolesException $e) {
-            flash()->setTimer(null)->error('Error!', $e->getMessage());
+        if ($request->persist($user)) {
+            flash()->success('Success!', 'Successfully updated user.');
 
-            return redirect()->route('admin.users.edit', [$id]);
+            return redirect()->route('admin.users.show', [$id]);
         }
+
+        flash()->error('Error!', 'There was an issue updating this user. Please try again.');
+
+        return redirect()->route('admin.users.edit', [$id]);
     }
 
     /**
@@ -124,7 +135,31 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
+        $this->authorize('admin.users.destroy');
+
+        $user = Authorization::user()->findOrFail($id);
+
+        // We need to prevent the delete request if the user being
+        // deleted is the currently authenticated user.
+        if ($user->getKey() == auth()->user()->getKey()) {
+            flash()->setTimer(null)->error('Error', 'You cannot delete yourself.');
+
+            return redirect()->route('admin.users.show', [$id]);
+        }
+
+        // We need to prevent the delete request if the current user being
+        // deleted is the last administrator in the application.
+        if ($user->isAdministrator() && Authorization::user()->whereHas('roles', function ($q) {
+            $role = Authorization::role();
+
+            $q->whereName($role::getAdministratorName());
+        })->count() === 1) {
+            flash()->setTimer(null)->error('Error', "You cannot delete this account. No other administrator accounts exist.");
+
+            return redirect()->route('admin.users.show', [$id]);
+        }
+
+        if ($user->delete()) {
             flash()->success('Success!', 'Successfully deleted user.');
 
             return redirect()->route('admin.users.index');

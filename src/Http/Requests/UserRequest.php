@@ -20,8 +20,8 @@ class UserRequest extends Request
             'email' => "required|email|unique:users,email,$user",
         ];
 
-        if ($this->route()->getName() === 'admin.users.update') {
-            $rules['password'] = 'confirmed';
+        if ($this->method() === 'PATCH') {
+            $rules['password'] = 'confirmed|required_with:password_confirmation';
         } else {
             $rules['password'] = 'required|confirmed';
             $rules['password_confirmation'] = 'required';

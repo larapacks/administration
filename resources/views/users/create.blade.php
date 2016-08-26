@@ -10,12 +10,16 @@
 
 @section('content')
 
-    {!! Form::open(['url' => route('admin.users.store')]) !!}
+    <form method="post" action="{{ route('admin.users.store') }}">
 
-    @include('admin::users.form')
+        {!! csrf_field() !!}
 
-    {!! Form::submit('Create', ['class' => 'btn btn-lg btn-primary']) !!}
+        @include('admin::users.form')
 
-    {!! Form::close() !!}
+        <button type="submit" class="btn btn-primary">
+            Create
+        </button>
+
+    </form>
 
 @endsection
