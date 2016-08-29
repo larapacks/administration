@@ -1,5 +1,7 @@
 <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
 
+    <label class="help-block">Name</label>
+
     <input name="name" type="text" class="form-control" placeholder="Enter a name." value="{{ old('name', isset($user) ? $user->name : null) }}">
 
     <p class="help-block">{{ $errors->first('name') }}</p>
@@ -7,6 +9,8 @@
 </div>
 
 <div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
+
+    <label class="help-block">Email</label>
 
     <input name="email" type="email" class="form-control" placeholder="Enter an email address." value="{{ old('email', isset($user) ? $user->email : null) }}">
 
@@ -28,6 +32,8 @@
 
 <div class="form-group {{ $errors->has('password') ? 'has-error' : null }}">
 
+    <label class="help-block">Password</label>
+
     <input name="password" type="password" class="form-control" placeholder="Enter a password.">
 
     <p class="help-block">{{ $errors->first('password') }}</p>
@@ -35,6 +41,8 @@
 </div>
 
 <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : null }}">
+
+    <label class="help-block">Confirm Password</label>
 
     <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm the above password.">
 

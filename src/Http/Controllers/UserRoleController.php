@@ -58,7 +58,7 @@ class UserRoleController extends Controller
             })->count();
 
             if ($users <= 1) {
-                flash()->error('Error', 'You cannot remove the administrator role. This account is the only administrator.');
+                flash()->setTimer(null)->error('Error', 'This account is the only administrator. You must have one other administrator.');
 
                 return redirect()->route('admin.users.show', [$userId]);
             }

@@ -1,6 +1,14 @@
 @extends('admin::layouts.app')
 
-@section('title', 'Edit Permission')
+@section('header')
+
+    <h3>
+        @section('title') Edit Permission @show
+    </h3>
+
+    <hr>
+
+@endsection
 
 @section('content')
 

@@ -27,6 +27,8 @@
 
                 <th>Label</th>
 
+                <th>Created</th>
+
             </tr>
 
         </thead>
@@ -43,6 +45,10 @@
                             {{ $permission->label }}
                         </a>
 
+                    </td>
+
+                    <td>
+                        {{ $permission->created_at->diffForHumans() }}
                     </td>
 
                 </tr>

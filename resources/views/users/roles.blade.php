@@ -71,54 +71,58 @@
 
         </div>
 
-        <table class="table">
+        <div class="table-responsive">
 
-            <thead>
+            <table class="table table-striped">
 
-            <tr>
-
-                <th>Role</th>
-
-                <th>Remove</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            @foreach($user->roles as $role)
+                <thead>
 
                 <tr>
 
-                    <td>{{ $role->label }}</td>
+                    <th>Role</th>
 
-                    <td>
-
-                        <a
-                                class="btn btn-xs btn-danger"
-                                data-post="delete"
-                                data-message="Are you sure you want to remove role '{{ $role->label }}'?"
-                                href="{{ route('admin.users.roles.destroy', [$user->id, $role->id]) }}"
-                        >
-                            Remove
-                        </a>
-
-                    </td>
+                    <th>Remove</th>
 
                 </tr>
 
-            @endforeach
+                </thead>
 
-            @if($user->roles->isEmpty())
+                <tbody>
 
-                <tr><td class="text-muted">There are no roles to display.</td></tr>
+                @foreach($user->roles as $role)
 
-            @endif
+                    <tr>
 
-            </tbody>
+                        <td>{{ $role->label }}</td>
 
-        </table>
+                        <td>
+
+                            <a
+                                    class="btn btn-xs btn-danger"
+                                    data-post="delete"
+                                    data-message="Are you sure you want to remove role '{{ $role->label }}'?"
+                                    href="{{ route('admin.users.roles.destroy', [$user->id, $role->id]) }}"
+                            >
+                                Remove
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                @endforeach
+
+                @if($user->roles->isEmpty())
+
+                    <tr><td class="text-muted">There are no roles to display.</td></tr>
+
+                @endif
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 

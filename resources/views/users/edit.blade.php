@@ -1,10 +1,12 @@
 @extends('admin::layouts.app')
 
-@section('title', 'Edit User')
-
 @section('header')
 
-    <h3>Edit User</h3>
+    <h3>
+        @section('title') Edit User @show
+    </h3>
+
+    <hr>
 
 @endsection
 

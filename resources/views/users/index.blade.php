@@ -19,9 +19,9 @@
 
 @section('content')
 
-    <div class="table table-responsive table-striped">
+    <div class="table table-responsive">
 
-        <table class="table">
+        <table class="table table-striped">
 
             <thead>
 

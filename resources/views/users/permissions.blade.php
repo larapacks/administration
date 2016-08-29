@@ -71,54 +71,58 @@
 
         </div>
 
-        <table class="table">
+        <div class="table-responsive">
 
-            <thead>
+            <table class="table table-striped">
 
-            <tr>
-
-                <th>Permission</th>
-
-                <th>Remove</th>
-
-            </tr>
-
-            </thead>
-
-            <tbody>
-
-            @foreach($user->permissions as $permission)
+                <thead>
 
                 <tr>
 
-                    <td>{{ $permission->label }}</td>
+                    <th>Permission</th>
 
-                    <td>
-
-                        <a
-                                class="btn btn-xs btn-danger"
-                                data-post="delete"
-                                data-message="Are you sure you want to remove permission '{{ $permission->label }}'?"
-                                href="{{ route('admin.users.permissions.destroy', [$user->id, $permission->id]) }}"
-                        >
-                            Remove
-                        </a>
-
-                    </td>
+                    <th>Remove</th>
 
                 </tr>
 
-            @endforeach
+                </thead>
 
-            @if($user->permissions->isEmpty())
+                <tbody>
 
-                <tr><td class="text-muted">There are no permissions to display.</td></tr>
+                @foreach($user->permissions as $permission)
 
-            @endif
+                    <tr>
 
-            </tbody>
+                        <td>{{ $permission->label }}</td>
 
-        </table>
+                        <td>
+
+                            <a
+                                    class="btn btn-xs btn-danger"
+                                    data-post="delete"
+                                    data-message="Are you sure you want to remove permission '{{ $permission->label }}'?"
+                                    href="{{ route('admin.users.permissions.destroy', [$user->id, $permission->id]) }}"
+                            >
+                                Remove
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                @endforeach
+
+                @if($user->permissions->isEmpty())
+
+                    <tr><td class="text-muted">There are no permissions to display.</td></tr>
+
+                @endif
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
