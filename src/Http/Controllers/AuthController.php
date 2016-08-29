@@ -2,7 +2,6 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Presenters\Admin\AuthPresenter;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
@@ -22,19 +21,10 @@ class AuthController extends Controller
     use AuthenticatesUsers, ThrottlesLogins;
 
     /**
-     * @var AuthPresenter
-     */
-    protected $presenter;
-
-    /**
      * Create a new authentication controller instance.
-     *
-     * @param AuthPresenter $presenter
      */
-    public function __construct(AuthPresenter $presenter)
+    public function __construct()
     {
-        $this->presenter = $presenter;
-
         // Set the redirect to route after users login.
         $this->redirectTo = route('admin.welcome.index');
 
@@ -47,8 +37,6 @@ class AuthController extends Controller
      */
     public function showLoginForm()
     {
-        $form = $this->presenter->form();
-
-        return view('admin.auth.login', compact('form'));
+        return view('admin.auth.login');
     }
 }

@@ -3,6 +3,7 @@
 namespace Larapacks\Administration;
 
 use Illuminate\Routing\Router;
+use Larapacks\Administration\Http\Middleware\AdminAuthMiddleware;
 use Larapacks\Administration\Http\Middleware\SetupMiddleware;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -28,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes($router);
 
         $router->middleware('admin.setup', SetupMiddleware::class);
+        $router->middleware('admin.auth', AdminAuthMiddleware::class);
     }
 
     /**
@@ -44,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
             'middleware'    => 'web',
             'namespace'     => $this->namespace,
             'prefix'        => config('admin.prefix')
-        ], function ($router) {
+        ], function () {
             require __DIR__.'/Http/routes.php';
         });
     }

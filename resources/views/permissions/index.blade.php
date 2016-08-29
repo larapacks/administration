@@ -1,6 +1,6 @@
 @extends('admin::layouts.app')
 
-@section('title.header')
+@section('header')
 
     <h3>
         @section('title') All Permissions @show
@@ -19,6 +19,40 @@
 
 @section('content')
 
-    {!! $permissions !!}
+    <table class="table table-responsive table-striped">
+
+        <thead>
+
+            <tr>
+
+                <th>Label</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach($permissions as $permission)
+
+                <tr>
+
+                    <td>
+
+                        <a href="{{ route('admin.permissions.show', [$permission->getKey()]) }}">
+                            {{ $permission->label }}
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
+
+    <div class="text-center">{!! $permissions !!}</div>
 
 @endsection

@@ -22,54 +22,50 @@
 
             <div class="modal-dialog">
 
-                {!!
-                    Form::open([
-                        'url' => route('admin.users.roles.store', [$user->id])
-                    ])
-                !!}
+                <form method="POST" action="{{ route('admin.users.roles.store', [$user->id]) }}">
 
-                <div class="modal-content">
+                    {!! csrf_field() !!}
 
-                    <div class="modal-header">
+                    <div class="modal-content">
 
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div class="modal-header">
 
-                        <h4 class="modal-title">
-                            <i class="fa fa-user-md"></i>
-                            Add Roles
-                        </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
 
-                    </div>
+                            <h4 class="modal-title">
+                                <i class="fa fa-user-md"></i>
+                                Add Roles
+                            </h4>
 
-                    <div class="modal-body">
+                        </div>
 
-                        <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
+                        <div class="modal-body">
 
-                            {!!
-                                Form::select('roles[]', $roles, null, [
-                                    'class' => 'form-control selectize',
-                                    'placeholder' => 'Select Roles ',
-                                    'multiple' => true
-                                ])
-                            !!}
+                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
 
-                            <p class="help-block">{{ $errors->first('roles') }}</p>
+                                <select name="roles[]" class="form-control selectize" multiple placeholder="Select Roles">
+                                    @foreach($roles as $id => $role)
+                                        <option {{ old('roles') == $id ? 'selected': null }} value="{{ $id }}">{{ $role }}</option>
+                                    @endforeach
+                                </select>
+
+                                <p class="help-block">{{ $errors->first('roles') }}</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-primary">Add</button>
 
                         </div>
 
                     </div>
 
-                    <div class="modal-footer">
-
-                        {!! Form::submit('Add', ['class' => 'btn btn-primary']) !!}
-
-                    </div>
-
-                </div>
-
-                {!! Form::close() !!}
+                </form>
 
             </div>
 

@@ -11,12 +11,6 @@
 |
 */
 
-Route::get('/', [
-    'as'         => 'admin.welcome.index',
-    'uses'       => 'WelcomeController@index',
-    'middleware' => ['auth'],
-]);
-
 // The administration setup group.
 Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'middleware' => ['admin.setup']], function () {
     // The administration begin setup route.
@@ -37,7 +31,12 @@ Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'middleware' => ['adm
     ]);
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['admin.auth']], function () {
+    Route::get('/', [
+        'as'    => 'admin.welcome.index',
+        'uses'  => 'WelcomeController@index',
+    ]);
+
     // The users resource.
     Route::resource('users', 'UserController');
 
@@ -99,6 +98,6 @@ Route::group(['as' => 'admin.'], function () {
     Route::get('auth/logout', [
         'as'            => 'auth.logout',
         'uses'          => 'AuthController@getLogout',
-        'middleware'    => ['auth'],
+        'middleware'    => ['admin.auth'],
     ]);
 });

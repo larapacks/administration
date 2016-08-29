@@ -2,6 +2,8 @@
 
 namespace Larapacks\Administration\Http\Requests;
 
+use Illuminate\Database\Eloquent\Model;
+
 class PermissionRequest extends Request
 {
     /**
@@ -14,10 +16,11 @@ class PermissionRequest extends Request
         $permissions = $this->route('permissions');
 
         $rules = [
+            'name'  => 'required',
             'label' => 'required',
         ];
 
-        if ($this->route()->getName() === 'admin.permissions.create') {
+        if ($this->method() === 'PATCH') {
             $rules['name'] = "required|unique:permissions,name,$permissions";
         }
 
@@ -32,5 +35,20 @@ class PermissionRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Persist the changes.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $permission
+     *
+     * @return bool
+     */
+    public function persist(Model $permission)
+    {
+        $permission->name = $this->name;
+        $permission->label = $this->label;
+
+        return $permission->save();
     }
 }

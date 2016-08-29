@@ -11,9 +11,11 @@ class AdministrationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerConfig();
+        $this->bootConfig();
+
         $this->registerRoutes();
-        $this->registerViews();
+
+        $this->loadViews();
     }
 
     /**
@@ -29,7 +31,7 @@ class AdministrationServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerConfig()
+    public function bootConfig()
     {
         $config = __DIR__.'/Config/config.php';
 
@@ -57,7 +59,7 @@ class AdministrationServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerViews()
+    public function loadViews()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
     }

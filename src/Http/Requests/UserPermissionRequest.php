@@ -40,7 +40,7 @@ class UserPermissionRequest extends Request
     {
         $permissions = Authorization::permission()->findMany($this->input('permissions', []));
 
-        if ($user->permissions()->saveMany($permissions)) {
+        if ($permissions->count() > 0 && $user->permissions()->saveMany($permissions)) {
             return true;
         }
 

@@ -19,7 +19,7 @@
 
 @section('content')
 
-    <div class="table-responsive">
+    <div class="table table-responsive table-striped">
 
         <table class="table">
 

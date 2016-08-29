@@ -5,7 +5,7 @@ namespace Larapacks\Administration\Http\Requests;
 use Illuminate\Database\Eloquent\Model;
 use Larapacks\Authorization\Authorization;
 
-class UserRoleRequest
+class UserRoleRequest extends Request
 {
     /**
      * The user role validation rules.
@@ -40,7 +40,7 @@ class UserRoleRequest
     {
         $roles = Authorization::role()->findMany($this->input('roles', []));
 
-        if ($user->roles()->saveMany($roles)) {
+        if ($roles->count() > 0 && $user->roles()->saveMany($roles)) {
             return true;
         }
 

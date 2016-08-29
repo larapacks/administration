@@ -22,54 +22,50 @@
 
             <div class="modal-dialog">
 
-                {!!
-                    Form::open([
-                        'url' => route('admin.users.permissions.store', [$user->id])
-                    ])
-                !!}
+                <form method="POST" action="{{ route('admin.users.permissions.store', [$user->id]) }}">
 
-                <div class="modal-content">
+                    {!! csrf_field() !!}
 
-                    <div class="modal-header">
+                    <div class="modal-content">
 
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div class="modal-header">
 
-                        <h4 class="modal-title">
-                            <i class="fa fa-check-circle-o"></i>
-                            Add Permissions
-                        </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
 
-                    </div>
+                            <h4 class="modal-title">
+                                <i class="fa fa-check-circle-o"></i>
+                                Add Permissions
+                            </h4>
 
-                    <div class="modal-body">
+                        </div>
 
-                        <div class="form-group {{ $errors->has('permissions') ? 'has-error' : null }}">
+                        <div class="modal-body">
 
-                            {!!
-                                Form::select('permissions[]', $permissions, null, [
-                                    'class' => 'form-control selectize',
-                                    'placeholder' => 'Select Permissions ',
-                                    'multiple' => true
-                                ])
-                            !!}
+                            <div class="form-group {{ $errors->has('permissions') ? 'has-error' : null }}">
 
-                            <p class="help-block">{{ $errors->first('permissions') }}</p>
+                                <select name="permissions[]" class="form-control selectize" multiple placeholder="Select permissions">
+                                    @foreach($permissions as $id => $permission)
+                                        <option {{ old('permissions') == $id ? 'selected' : null }} value="{{ $id }}">{{ $permission }}</option>
+                                    @endforeach
+                                </select>
+
+                                <p class="help-block">{{ $errors->first('permissions') }}</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-primary">Add</button>
 
                         </div>
 
                     </div>
 
-                    <div class="modal-footer">
-
-                        {!! Form::submit('Add', ['class' => 'btn btn-primary']) !!}
-
-                    </div>
-
-                </div>
-
-                {!! Form::close() !!}
+                </form>
 
             </div>
 

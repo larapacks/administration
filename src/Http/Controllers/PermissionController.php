@@ -2,26 +2,11 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\Admin\PermissionRequest;
-use Larapacks\Administration\Processors\Admin\PermissionProcessor;
+use Larapacks\Authorization\Authorization;
+use Larapacks\Administration\Http\Requests\PermissionRequest;
 
 class PermissionController extends Controller
 {
-    /**
-     * @var PermissionProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param PermissionProcessor $processor
-     */
-    public function __construct(PermissionProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Displays all permissions.
      *
@@ -29,7 +14,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $this->authorize('admin.permissions.index');
+
+        $permissions = Authorization::permission()->paginate();
+
+        return view('admin::permissions.index', compact('permissions'));
     }
 
     /**
@@ -39,7 +28,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $this->authorize('admin.permissions.create');
+
+        return view('admin::permissions.create');
     }
 
     /**
@@ -51,7 +42,11 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        if ($this->processor->store($request)) {
+        $this->authorize('admin.permissions.create');
+
+        $permission = Authorization::permission()->newInstance();
+
+        if ($request->persist($permission)) {
             flash()->success('Success!', 'Successfully created permission.');
 
             return redirect()->route('admin.permissions.index');
@@ -71,7 +66,19 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $this->authorize('admin.permissions.show');
+
+        $permission = Authorization::permission()->with(['users', 'roles'])->findOrFail($id);
+
+        $users = Authorization::user()->whereDoesntHave('permissions', function ($q) use ($permission) {
+            return $q->whereName($permission->name);
+        })->get();
+
+        $roles = Authorization::role()->whereDoesntHave('permissions', function ($q) use ($permission) {
+            return $q->whereName($permission->name);
+        })->get();
+
+        return view('admin::permissions.show', compact('permission', 'users', 'roles'));
     }
 
     /**
@@ -83,7 +90,11 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $this->authorize('admin.permissions.edit');
+
+        $permission = Authorization::permission()->findOrFail($id);
+
+        return view('admin::permissions.edit', compact('permission'));
     }
 
     /**
@@ -96,7 +107,11 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $this->authorize('admin.permissions.edit');
+
+        $permission = Authorization::permission()->findOrFail($id);
+
+        if ($request->persist($permission)) {
             flash()->success('Success!', 'Successfully updated permission.');
 
             return redirect()->route('admin.permissions.show', [$id]);
@@ -116,7 +131,9 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
+        $permission = Authorization::permission()->findOrFail($id);
+
+        if ($permission->delete()) {
             flash()->success('Success!', 'Successfully deleted permission.');
 
             return redirect()->route('admin.permissions.index');

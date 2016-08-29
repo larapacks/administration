@@ -41,7 +41,7 @@ class UserRequest extends Request
     }
 
     /**
-     * Persist the model.
+     * Persist the changes to the model.
      *
      * @param \Illuminate\Database\Eloquent\Model $user
      *
