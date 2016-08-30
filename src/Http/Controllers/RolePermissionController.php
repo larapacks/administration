@@ -2,26 +2,11 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
+use Larapacks\Administration\Http\Requests\RolePermissionRequest;
 use Larapacks\Administration\Processors\Admin\RolePermissionProcessor;
-use Larapacks\Administration\Http\Requests\Admin\RolePermissionRequest;
 
 class RolePermissionController extends Controller
 {
-    /**
-     * @var RolePermissionProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param RolePermissionProcessor $processor
-     */
-    public function __construct(RolePermissionProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Adds the requested permissions to the specified role.
      *
@@ -55,12 +40,10 @@ class RolePermissionController extends Controller
     {
         if ($this->processor->destroy($roleId, $permissionId)) {
             flash()->success('Success!', 'Successfully removed permission.');
-
-            return redirect()->route('admin.roles.show', [$roleId]);
         } else {
             flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
-
-            return redirect()->route('admin.roles.show', [$roleId]);
         }
+
+        return redirect()->back();
     }
 }

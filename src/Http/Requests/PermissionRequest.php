@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class PermissionRequest extends Request
 {
     /**
+     * Allows all users to create / edit permissions.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The permission request validation rules.
      *
      * @return array
@@ -25,16 +35,6 @@ class PermissionRequest extends Request
         }
 
         return $rules;
-    }
-
-    /**
-     * Allows all users to create / edit permissions.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**

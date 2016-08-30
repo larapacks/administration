@@ -93,7 +93,11 @@
 
                     <tr>
 
-                        <td>{{ $role->label }}</td>
+                        <td>
+                            <a href="{{ route('admin.roles.show', [$role->getKey()]) }}">
+                                {{ $role->label }}
+                            </a>
+                        </td>
 
                         <td>
 

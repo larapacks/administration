@@ -8,6 +8,16 @@ use Larapacks\Authorization\Authorization;
 class UserPermissionRequest extends Request
 {
     /**
+     * Allows all users to add permissions to users.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The user permission request validation rules.
      *
      * @return array
@@ -17,16 +27,6 @@ class UserPermissionRequest extends Request
         return [
             'permissions.*' => 'exists:permissions,id',
         ];
-    }
-
-    /**
-     * Allows all users to add permissions to users.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**

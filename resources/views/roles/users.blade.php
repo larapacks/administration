@@ -82,11 +82,15 @@
 
                 <tbody>
 
-                    @foreach($role->users as $user)
+                    @foreach($roleUsers as $user)
 
                         <tr>
 
-                            <td>{{ $user->name }}</td>
+                            <td>
+                                <a href="{{ route('admin.users.show', [$user->getKey()]) }}">
+                                    {{ $user->name }}
+                                </a>
+                            </td>
 
                             <td>{{ $user->email }}</td>
 
@@ -110,6 +114,8 @@
                 </tbody>
 
             </table>
+
+            <div class="text-center">{{ $roleUsers->appends(request()->all())->links() }}</div>
 
         </div>
 

@@ -2,8 +2,20 @@
 
 namespace Larapacks\Administration\Http\Requests;
 
+use Illuminate\Database\Eloquent\Model;
+
 class RolePermissionRequest extends Request
 {
+    /**
+     * Allows all users to add permissions to roles.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
     /**
      * The role permission request validation rules.
      *
@@ -16,13 +28,8 @@ class RolePermissionRequest extends Request
         ];
     }
 
-    /**
-     * Allows all users to add permissions to roles.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function persist(Model $role)
     {
-        return true;
+        //
     }
 }

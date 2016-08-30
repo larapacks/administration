@@ -1,6 +1,12 @@
-@extends('admin::layouts.app')
+@extends('admin::layouts.setup')
 
-@section('title', 'Setup Administration')
+@section('header')
+
+    <h3 class="text-center">@section('title') Setup @show</h3>
+
+    <hr>
+
+@endsection
 
 @section('content')
 
@@ -11,71 +17,65 @@
             Create an Administrator Account
         </h3>
 
-        {!!
-            Form::open([
-                'url' => route('admin.setup.finish'),
-            ])
-        !!}
+        <hr>
 
-        <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
+        <form method="POST" action="{{ route('admin.setup.finish') }}">
 
-            {!!
-                Form::text('name', null, [
-                    'placeholder' => 'Enter the Administrators name',
-                    'class' => 'form-control',
-                ])
-            !!}
+            {!! csrf_field() !!}
 
-            <p class="help-block">{{ $errors->first('name') }}</p>
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
 
-        </div>
+                <label class="help-block">Name</label>
 
-        <div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
+                <input name="name" type="text" class="form-control" placeholder="Enter the administrators name">
 
-            {!!
-                Form::text('email', null, [
-                    'placeholder' => 'Enter the Administrators email',
-                    'class' => 'form-control',
-                ])
-            !!}
+                <p class="help-block">{{ $errors->first('name') }}</p>
 
-            <p class="help-block">{{ $errors->first('email') }}</p>
+            </div>
 
-        </div>
+            <div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
 
-        <div class="form-group {{ $errors->has('password') ? 'has-error' : null }}">
+                <label class="help-block">Email</label>
 
-            {!!
-                Form::password('password', [
-                    'placeholder' => 'Enter Administrator Password',
-                    'class' => 'form-control',
-                ])
-            !!}
+                <input name="email" type="email" class="form-control" placeholder="Enter the administrators email">
 
-            <p class="help-block">{{ $errors->first('password') }}</p>
+                <p class="help-block">{{ $errors->first('email') }}</p>
 
-        </div>
+            </div>
 
-        <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : null }}">
+            <div class="form-group {{ $errors->has('password') ? 'has-error' : null }}">
 
-            {!!
-                Form::password('password_confirmation', [
-                    'placeholder' => 'Confirm Administrator Password',
-                    'class' => 'form-control',
-                ])
-            !!}
+                <label class="help-block">Password</label>
 
-            <p class="help-block">{{ $errors->first('password_confirmation') }}</p>
+                <input name="password" type="password" class="form-control" placeholder="Enter the administrator password">
 
-        </div>
+                <p class="help-block">{{ $errors->first('password') }}</p>
 
-        <div class="form-group text-center">
+            </div>
 
-            {!! Form::submit('Complete Setup', ['class' => 'btn btn-lg btn-primary']) !!}
+            <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : null }}">
 
-        </div>
+                <label class="help-block">Confirm Password</label>
 
-        {!! Form::close() !!}
+                <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm administrator password">
+
+                <p class="help-block">{{ $errors->first('password_confirmation') }}</p>
+
+            </div>
+
+            <div class="form-group text-center">
+
+                <button type="submit" class="btn btn-primary">
+
+                    <i class="fa fa-check-circle-o"></i>
+
+                    Complete Setup
+
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
 

@@ -78,11 +78,15 @@
 
                 <tbody>
 
-                    @foreach($role->permissions as $permission)
+                    @foreach($rolePermissions as $permission)
 
                         <tr>
 
-                            <td>{{ $permission->label }}</td>
+                            <td>
+                                <a href="{{ route('admin.permissions.show', [$permission->getKey()]) }}">
+                                    {{ $permission->label }}
+                                </a>
+                            </td>
 
                             <td>
                                 <a
@@ -102,6 +106,8 @@
                 </tbody>
 
             </table>
+
+            <div class="text-center">{{ $rolePermissions->appends(request()->all())->links() }}</div>
 
         </div>
 

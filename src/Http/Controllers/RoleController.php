@@ -62,13 +62,19 @@ class RoleController extends Controller
     /**
      * Displays the specified role.
      *
+     * @param int||string $id
+     *
      * @return \Illuminate\View\View
      */
     public function show($id)
     {
         $this->authorize('admin.roles.show');
 
-        $role = Authorization::role()->with(['users', 'permissions'])->findOrFail($id);
+        $role = Authorization::role()->findOrFail($id);
+
+        $roleUsers = $role->users()->paginate(10, ['*'], 'users');
+
+        $rolePermissions = $role->permissions()->paginate(10, ['*'], 'permissions');
 
         $users = Authorization::user()->whereDoesntHave('roles', function ($q) use ($role) {
             return $q->whereName($role->name);
@@ -78,17 +84,29 @@ class RoleController extends Controller
             return $q->whereName($role->name);
         })->get();
 
-        return view('admin::roles.show', compact('role', 'users', 'permissions'));
+        return view('admin::roles.show', compact(
+            'role',
+            'roleUsers',
+            'rolePermissions',
+            'users',
+            'permissions'
+        ));
     }
 
     /**
      * Displays the form for editing the specified role.
      *
+     * @param int||string $id
+     *
      * @return \Illuminate\View\View
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $this->authorize('admin.roles.edit');
+
+        $role = Authorization::role()->findOrFail($id);
+
+        return view('admin::roles.edit', compact('role'));
     }
 
     /**
@@ -101,7 +119,11 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $this->authorize('admin.roles.edit');
+
+        $role = Authorization::role()->findOrFail($id);
+
+        if ($request->persist($role)) {
             flash()->success('Success!', 'Successfully updated role.');
 
             return redirect()->route('admin.roles.show', [$id]);

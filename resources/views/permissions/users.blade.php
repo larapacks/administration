@@ -83,7 +83,11 @@
 
                     <tr>
 
-                        <td>{{ $user->name }}</td>
+                        <td>
+                            <a href="{{ route('admin.users.show', [$user->getKey()]) }}">
+                                {{ $user->name }}
+                            </a>
+                        </td>
 
                         <td>{{ $user->email }}</td>
 

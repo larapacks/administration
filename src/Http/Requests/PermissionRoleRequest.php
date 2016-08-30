@@ -8,6 +8,16 @@ use Larapacks\Authorization\Authorization;
 class PermissionRoleRequest extends Request
 {
     /**
+     * Allows all users to add roles to permissions.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The permission role request validation rules.
      *
      * @return array
@@ -17,16 +27,6 @@ class PermissionRoleRequest extends Request
         return [
             'roles.*' => 'exists:roles,id',
         ];
-    }
-
-    /**
-     * Allows all users to add roles to permissions.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**

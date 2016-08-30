@@ -8,6 +8,16 @@ use Larapacks\Authorization\Authorization;
 class RoleRequest extends Request
 {
     /**
+     * Allows all users to create / edit roles.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The role request validation rules.
      *
      * @return array
@@ -23,25 +33,13 @@ class RoleRequest extends Request
             'label' => 'required',
         ];
 
-        if ($role instanceof Role && $role->isAdministrator()) {
+        if ($role instanceof Model && $role->isAdministrator()) {
             // If the user is editing an administrator, we need to
-            // remove the name validation from the request
-            // because they aren't allowed to edit
-            // the administrators name.
-            unset($rules['name']);
+            // prevent them from editing the name of the role.
+            $rules['name'] = "in:{$role::getAdministratorName()}";
         }
 
         return $rules;
-    }
-
-    /**
-     * Allows all users to create / edit roles.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**

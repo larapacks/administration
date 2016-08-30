@@ -1,6 +1,6 @@
-@extends('admin::layouts.app')
+@extends('admin::layouts.setup')
 
-@section('title.header')
+@section('header')
 
     <h3 class="text-center">@section('title') Setup Complete @show</h3>
 

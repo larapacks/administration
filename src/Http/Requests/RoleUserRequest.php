@@ -5,6 +5,16 @@ namespace Larapacks\Administration\Http\Requests;
 class RoleUserRequest extends Request
 {
     /**
+     * Allows all users to add users to roles.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The role user request validation rules.
      *
      * @return array
@@ -14,15 +24,5 @@ class RoleUserRequest extends Request
         return [
             'users.*' => 'exists:users,id',
         ];
-    }
-
-    /**
-     * Allows all users to add users to roles.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 }

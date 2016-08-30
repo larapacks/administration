@@ -85,14 +85,18 @@
 
                     <tr>
 
-                        <td>{{ $role->label }}</td>
+                        <td>
+                            <a href="{{ route('admin.roles.show', [$role->getKey()]) }}">
+                                {{ $role->label }}
+                            </a>
+                        </td>
 
                         <td>
                             <a
                                     class="btn btn-xs btn-danger"
                                     data-post="delete"
                                     data-message="Are you sure you want to remove role '{{ $role->label }}'?"
-                                    href="{{ route('admin.permissions.roles.destroy', [$permission->id, $role->id]) }}"
+                                    href="{{ route('admin.roles.permissions.destroy', [$permission->id, $role->id]) }}"
                             >
                                 Remove
                             </a>

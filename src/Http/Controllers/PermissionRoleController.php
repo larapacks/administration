@@ -31,31 +31,4 @@ class PermissionRoleController extends Controller
             return redirect()->route('admin.permissions.show', [$permissionId]);
         }
     }
-
-    /**
-     * Removes the specified role from the specified permission.
-     *
-     * @param int|string $permissionId
-     * @param int|string $roleId
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($permissionId, $roleId)
-    {
-        $this->authorize('admin.roles.permissions.destroy');
-
-        $permission = Authorization::permission()->findOrFail($permissionId);
-
-        $role = Authorization::role()->findOrFail($roleId);
-
-        if ($permission->roles()->detach($role)) {
-            flash()->success('Success!', 'Successfully removed role.');
-
-            return redirect()->route('admin.permissions.show', [$permissionId]);
-        } else {
-            flash()->error('Error!', 'There was an issue removing this role. Please try again.');
-
-            return redirect()->route('admin.permissions.show', [$permissionId]);
-        }
-    }
 }

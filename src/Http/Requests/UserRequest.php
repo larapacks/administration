@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class UserRequest extends Request
 {
     /**
+     * Allows all users to create / edit users.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The user request validation rules.
      *
      * @return array
@@ -28,16 +38,6 @@ class UserRequest extends Request
         }
 
         return $rules;
-    }
-
-    /**
-     * Allows all users to create / edit users.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**

@@ -5,7 +5,6 @@ namespace Larapacks\Administration\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Larapacks\Authorization\Authorization;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SetupMiddleware
 {
@@ -36,6 +35,6 @@ class SetupMiddleware
 
         // If the administrator role hasn't already been created,
         // we'll throw an Unauthorized Exception.
-        throw new HttpException(403, 'Unauthorized.');
+        abort(403, 'Unauthorized');
     }
 }

@@ -8,6 +8,16 @@ use Larapacks\Authorization\Authorization;
 class SetupRequest extends Request
 {
     /**
+     * Allows all users to complete setup.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      * The setup request validation rules.
      *
      * @return array
@@ -20,16 +30,6 @@ class SetupRequest extends Request
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
         ];
-    }
-
-    /**
-     * Allows all users to complete setup.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**
