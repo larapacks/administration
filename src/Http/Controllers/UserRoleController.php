@@ -60,18 +60,16 @@ class UserRoleController extends Controller
             if ($users <= 1) {
                 flash()->setTimer(null)->error('Error', 'This account is the only administrator. You must have one other administrator.');
 
-                return redirect()->route('admin.users.show', [$userId]);
+                return redirect()->back();
             }
         }
 
         if ($user->permissions()->detach($role)) {
             flash()->success('Success!', 'Successfully removed role.');
-
-            return redirect()->route('admin.users.show', [$userId]);
+        } else {
+            flash()->error('Error!', 'There was an issue removing this role. Please try again.');
         }
 
-        flash()->error('Error!', 'There was an issue removing this role. Please try again.');
-
-        return redirect()->route('admin.users.show', [$userId]);
+        return redirect()->back();
     }
 }

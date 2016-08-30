@@ -1,6 +1,12 @@
 @extends('admin::layouts.app')
 
-@section('title', "Permission: $permission->label")
+@section('header')
+
+    <h3>@section('title') Permission: {{ $permission->label }} @show</h3>
+
+    <hr>
+
+@endsection
 
 @section('content')
 

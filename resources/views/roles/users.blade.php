@@ -1,13 +1,16 @@
 <div class="panel panel-primary">
 
     <div class="panel-heading">
+
         <i class="fa fa-users"></i>
-        Users <span class="hidden-xs">that specifically have this Permission</span>
+
+        Users <span class="hidden-xs">Assigned to this Role</span>
 
         <a data-toggle="modal" data-target="#form-users" class="btn btn-xs btn-success pull-right">
             <i class="fa fa-plus-circle"></i>
             Add
         </a>
+
     </div>
 
     <div class="panel-body">
@@ -31,7 +34,7 @@
 
                     </div>
 
-                    <form method="POST" action="{{ route('admin.permissions.users.store', [$permission->getKey()]) }}">
+                    <form method="POST" action="{{ route('admin.roles.users.store', [$role->getKey()]) }}">
 
                         {!! csrf_field() !!}
 
@@ -41,8 +44,8 @@
 
                             <select name="users[]" multiple class="form-control selectize" placeholder="Select users ">
 
-                                @foreach($users as $user)
-                                    <option value="{{ $user->getKey() }}">{{ $user->name }}</option>
+                                @foreach($users as $value => $user)
+                                    <option value="{{ $value }}">{{ $user }}</option>
                                 @endforeach
 
                             </select>
@@ -69,44 +72,40 @@
 
                 <thead>
 
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Remove</th>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Remove</th>
+                    </tr>
 
                 </thead>
 
                 <tbody>
 
-                @foreach($permission->users as $user)
+                    @foreach($role->users as $user)
 
-                    <tr>
+                        <tr>
 
-                        <td>{{ $user->name }}</td>
+                            <td>{{ $user->name }}</td>
 
-                        <td>{{ $user->email }}</td>
+                            <td>{{ $user->email }}</td>
 
-                        <td>
-                            <a
-                                    class="btn btn-xs btn-danger"
-                                    data-post="delete"
-                                    data-message="Are you sure you want to remove user '{{ $user->name }}'?"
-                                    href="{{ route('admin.users.permissions.destroy', [$user->id, $permission->id]) }}"
-                            >
-                                Remove
-                            </a>
-                        </td>
+                            <td>
 
-                    </tr>
+                                <a
+                                        class="btn btn-xs btn-danger"
+                                        data-post="delete"
+                                        data-message="Are you sure you want to remove user '{{ $user->name }}'?"
+                                        href="{{ route('admin.users.roles.destroy', [$user->id, $role->id]) }}"
+                                >
+                                    Remove
+                                </a>
 
-                @endforeach
+                            </td>
 
-                @if($permission->users->isEmpty())
+                        </tr>
 
-                    <tr><td colspan="3" class="text-muted">There are no users to display.</td></tr>
-
-                @endif
+                    @endforeach
 
                 </tbody>
 

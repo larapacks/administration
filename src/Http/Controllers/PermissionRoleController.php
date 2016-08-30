@@ -2,26 +2,11 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\Admin\PermissionRoleRequest;
-use Larapacks\Administration\Processors\Admin\PermissionRoleProcessor;
+use Larapacks\Authorization\Authorization;
+use Larapacks\Administration\Http\Requests\PermissionRoleRequest;
 
 class PermissionRoleController extends Controller
 {
-    /**
-     * @var PermissionRoleProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param PermissionRoleProcessor $processor
-     */
-    public function __construct(PermissionRoleProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Adds the specified permission to the requested roles.
      *
@@ -32,7 +17,11 @@ class PermissionRoleController extends Controller
      */
     public function store(PermissionRoleRequest $request, $permissionId)
     {
-        if ($this->processor->store($request, $permissionId)) {
+        $this->authorize('admin.roles.permissions.store');
+
+        $permission = Authorization::permission()->findOrFail($permissionId);
+
+        if ($request->persist($permission)) {
             flash()->success('Success!', 'Successfully added roles.');
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
@@ -53,7 +42,13 @@ class PermissionRoleController extends Controller
      */
     public function destroy($permissionId, $roleId)
     {
-        if ($this->processor->destroy($permissionId, $roleId)) {
+        $this->authorize('admin.roles.permissions.destroy');
+
+        $permission = Authorization::permission()->findOrFail($permissionId);
+
+        $role = Authorization::role()->findOrFail($roleId);
+
+        if ($permission->roles()->detach($role)) {
             flash()->success('Success!', 'Successfully removed role.');
 
             return redirect()->route('admin.permissions.show', [$permissionId]);

@@ -35,8 +35,11 @@
 
                     <form method="POST" action="{{ route('admin.permissions.roles.store', [$permission->getKey()]) }}">
 
+                        {!! csrf_field() !!}
 
                         <div class="modal-body">
+
+                            <label>Roles</label>
 
                             <select name="roles[]" multiple class="form-control selectize" placeholder="Select permissions ">
 
@@ -83,7 +86,17 @@
                     <tr>
 
                         <td>{{ $role->label }}</td>
-                        <td></td>
+
+                        <td>
+                            <a
+                                    class="btn btn-xs btn-danger"
+                                    data-post="delete"
+                                    data-message="Are you sure you want to remove role '{{ $role->label }}'?"
+                                    href="{{ route('admin.permissions.roles.destroy', [$permission->id, $role->id]) }}"
+                            >
+                                Remove
+                            </a>
+                        </td>
 
                     </tr>
 

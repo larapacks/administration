@@ -2,6 +2,9 @@
 
 namespace Larapacks\Administration\Http\Requests;
 
+use Illuminate\Database\Eloquent\Model;
+use Larapacks\Authorization\Authorization;
+
 class PermissionUserRequest extends Request
 {
     /**
@@ -24,5 +27,25 @@ class PermissionUserRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Persist the changes to the model.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $permission
+     *
+     * @return bool
+     */
+    public function persist(Model $permission)
+    {
+        $users = $this->input('users', []);
+
+        if (count($users) > 0) {
+            $users = Authorization::user()->findMany($users);
+
+            return $permission->users()->saveMany($users);
+        }
+
+        return false;
     }
 }

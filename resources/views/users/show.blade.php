@@ -1,6 +1,12 @@
 @extends('admin::layouts.app')
 
-@section('title', "User: $user->name")
+@section('header')
+
+    <h3>@section('title') User: {{ $user->name }} @show</h3>
+
+    <hr>
+
+@endsection
 
 @section('content')
 

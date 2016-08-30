@@ -22,14 +22,12 @@ class UserPermissionController extends Controller
         $user = Authorization::user()->findOrFail($userId);
 
         if ($request->persist($user)) {
-            flash()->success('Success!', 'Successfully added permissions.');
-
-            return redirect()->route('admin.users.show', [$userId]);
+            flash()->success('Success!', 'Successfully added permissions to user.');
+        } else {
+            flash()->error('Error!', "You didn't select any permissions.");
         }
 
-        flash()->error('Error!', "You didn't select any permissions.");
-
-        return redirect()->route('admin.users.show', [$userId]);
+        return redirect()->back();
     }
 
     /**
@@ -49,13 +47,11 @@ class UserPermissionController extends Controller
         $permission = $user->permissions()->findOrFail($permissionId);
 
         if ($user->permissions()->detach($permission)) {
-            flash()->success('Success!', 'Successfully removed permission.');
-
-            return redirect()->route('admin.users.show', [$userId]);
+            flash()->success('Success!', 'Successfully removed permission from user.');
+        } else {
+            flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
         }
 
-        flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
-
-        return redirect()->route('admin.users.show', [$userId]);
+        return redirect()->back();
     }
 }

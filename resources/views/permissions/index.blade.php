@@ -19,46 +19,50 @@
 
 @section('content')
 
-    <table class="table table-responsive table-striped">
+    <div class="table-responsive">
 
-        <thead>
+        <table class="table table-responsive table-striped">
 
-            <tr>
-
-                <th>Label</th>
-
-                <th>Created</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-            @foreach($permissions as $permission)
+            <thead>
 
                 <tr>
 
-                    <td>
+                    <th>Label</th>
 
-                        <a href="{{ route('admin.permissions.show', [$permission->getKey()]) }}">
-                            {{ $permission->label }}
-                        </a>
-
-                    </td>
-
-                    <td>
-                        {{ $permission->created_at->diffForHumans() }}
-                    </td>
+                    <th>Created</th>
 
                 </tr>
 
-            @endforeach
+            </thead>
 
-        </tbody>
+            <tbody>
 
-    </table>
+                @foreach($permissions as $permission)
 
-    <div class="text-center">{!! $permissions !!}</div>
+                    <tr>
+
+                        <td>
+
+                            <a href="{{ route('admin.permissions.show', [$permission->getKey()]) }}">
+                                {{ $permission->label }}
+                            </a>
+
+                        </td>
+
+                        <td>
+                            {{ $permission->created_at->diffForHumans() }}
+                        </td>
+
+                    </tr>
+
+                @endforeach
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="text-center">{{ $permissions->links() }}</div>
 
 @endsection

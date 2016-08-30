@@ -4,7 +4,7 @@ namespace Larapacks\Administration\Processors\Admin;
 
 use Larapacks\Administration\Exceptions\Admin\CannotDeleteAdministratorRole;
 use Larapacks\Administration\Http\Presenters\Admin\RolePresenter;
-use Larapacks\Administration\Http\Requests\Admin\RoleRequest;
+use Larapacks\Administration\Http\Requests\RoleRequest;
 use Larapacks\Administration\Jobs\Admin\Role\Store;
 use Larapacks\Administration\Jobs\Admin\Role\Update;
 use Larapacks\Administration\Models\Role;

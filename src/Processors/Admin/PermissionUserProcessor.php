@@ -2,10 +2,8 @@
 
 namespace Larapacks\Administration\Processors\Admin;
 
-use Larapacks\Administration\Http\Requests\Admin\PermissionUserRequest;
-use Larapacks\Administration\Models\Permission;
-use Larapacks\Administration\Models\User;
 use Larapacks\Administration\Processors\Processor;
+use Larapacks\Administration\Http\Requests\PermissionUserRequest;
 
 class PermissionUserProcessor extends Processor
 {

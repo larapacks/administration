@@ -2,27 +2,13 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\Admin\RoleRequest;
+use Larapacks\Administration\Http\Requests\RoleRequest;
 use Larapacks\Administration\Processors\Admin\RoleProcessor;
 use Larapacks\Administration\Exceptions\Admin\CannotDeleteAdministratorRole;
+use Larapacks\Authorization\Authorization;
 
 class RoleController extends Controller
 {
-    /**
-     * @var RoleProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param RoleProcessor $processor
-     */
-    public function __construct(RoleProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Displays all roles.
      *
@@ -30,7 +16,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $this->authorize('admin.roles.index');
+
+        $roles = Authorization::role()->paginate();
+
+        return view('admin::roles.index', compact('roles'));
     }
 
     /**
@@ -40,7 +30,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $this->authorize('admin.roles.create');
+
+        return view('admin::roles.create');
     }
 
     /**
@@ -52,7 +44,11 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        if ($this->processor->store($request)) {
+        $this->authorize('admin.roles.create');
+
+        $role = Authorization::role()->newInstance();
+
+        if ($request->persist($role)) {
             flash()->success('Success!', 'Successfully created role.');
 
             return redirect()->route('admin.roles.index');
@@ -70,7 +66,19 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $this->authorize('admin.roles.show');
+
+        $role = Authorization::role()->with(['users', 'permissions'])->findOrFail($id);
+
+        $users = Authorization::user()->whereDoesntHave('roles', function ($q) use ($role) {
+            return $q->whereName($role->name);
+        })->get();
+
+        $permissions = Authorization::permission()->whereDoesntHave('roles', function ($q) use ($role) {
+            return $q->whereName($role->name);
+        })->get();
+
+        return view('admin::roles.show', compact('role', 'users', 'permissions'));
     }
 
     /**
