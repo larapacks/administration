@@ -12,7 +12,7 @@
 
     <form method="post" action="{{ route('admin.users.store') }}">
 
-        {!! csrf_field() !!}
+        {{ csrf_field() }}
 
         @include('admin::users.form')
 

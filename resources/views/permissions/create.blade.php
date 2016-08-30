@@ -14,7 +14,7 @@
 
     <form method="POST" action="{{ route('admin.permissions.store') }}">
 
-        {!! csrf_field() !!}
+        {{ csrf_field() }}
 
         @include('admin::permissions.form')
 

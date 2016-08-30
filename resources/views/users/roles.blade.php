@@ -24,7 +24,7 @@
 
                 <form method="POST" action="{{ route('admin.users.roles.store', [$user->id]) }}">
 
-                    {!! csrf_field() !!}
+                    {{ csrf_field() }}
 
                     <div class="modal-content">
 

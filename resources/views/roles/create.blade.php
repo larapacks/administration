@@ -12,7 +12,7 @@
 
     <form method="POST" action="{{ route('admin.roles.store') }}">
 
-        {!! csrf_field() !!}
+        {{ csrf_field() }}
 
         @include('admin::roles.form')
 

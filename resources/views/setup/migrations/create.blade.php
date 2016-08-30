@@ -12,7 +12,7 @@
 
         <form method="POST" action="{{ route('admin.setup.migrations.store') }}">
 
-            {!! csrf_field() !!}
+            {{ csrf_field() }}
 
             <button type="submit" class="btn btn-lg btn-primary btn-block">
 

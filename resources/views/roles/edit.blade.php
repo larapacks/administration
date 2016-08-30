@@ -12,9 +12,9 @@
 
     <form method="POST" action="{{ route('admin.roles.update', [$role->getKey()]) }}">
 
-        {!! method_field('PATCH') !!}
+        {{ method_field('PATCH') }}
 
-        {!! csrf_field() !!}
+        {{ csrf_field() }}
 
         @include('admin::roles.form')
 

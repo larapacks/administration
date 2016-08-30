@@ -33,7 +33,7 @@
 
                     <form method="POST" action="{{ route('admin.permissions.users.store', [$permission->getKey()]) }}">
 
-                        {!! csrf_field() !!}
+                        {{ csrf_field() }}
 
                         <div class="modal-body">
 

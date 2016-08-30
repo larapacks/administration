@@ -12,7 +12,7 @@
 
         <form method="POST" action="{{ route('admin.setup.account.store') }}">
 
-            {!! csrf_field() !!}
+            {{ csrf_field() }}
 
             <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
 

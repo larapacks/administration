@@ -14,9 +14,9 @@
 
     <form method="POST" action="{{ route('admin.permissions.update', [$permission->getKey()]) }}">
 
-        {!! method_field('PATCH') !!}
+        {{ method_field('PATCH') }}
 
-        {!! csrf_field() !!}
+        {{ csrf_field() }}
 
         @include('admin::permissions.form')
 

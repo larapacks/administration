@@ -37,6 +37,7 @@ Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'namespace' => 'Setup
 });
 
 Route::group(['middleware' => ['admin.auth']], function () {
+
     Route::get('/', [
         'as'    => 'admin.welcome.index',
         'uses'  => 'WelcomeController@index',

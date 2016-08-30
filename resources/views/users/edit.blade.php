@@ -14,9 +14,9 @@
 
     <form method="post" action="{{ route('admin.users.update', [$user->getKey()]) }}">
 
-        {!! method_field('patch') !!}
+        {{ method_field('PATCH') }}
 
-        {!! csrf_field() !!}
+        {{ csrf_field() }}
 
         @include('admin::users.form')
 

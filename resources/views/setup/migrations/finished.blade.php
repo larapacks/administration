@@ -10,7 +10,13 @@
 
         <hr>
 
-        <a href="{{ route('admin.setup.account.create') }}">Create an Administrator Account</a>
+        <a
+                href="{{ route('admin.setup.account.create') }}"
+                class="btn btn-lg btn-primary btn-block"
+        >
+            <i class="fa fa-user-md"></i>
+            Create an Administrator Account
+        </a>
 
     </div>
 

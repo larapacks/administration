@@ -11,7 +11,15 @@
     <div class="col-md-3"></div>
 
     <div class="col-md-6">
-        {!! $form !!}
+
+        <form method="POST" action="{{ route('admin.auth.login') }}">
+
+            {{ csrf_field() }}
+
+
+
+        </form>
+
     </div>
 
     <div class="col-md-3"></div>
