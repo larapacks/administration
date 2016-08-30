@@ -1,12 +1,5 @@
 @extends('admin::layouts.setup')
 
-@section('header')
-
-    <h3 class="text-center">@section('title') Setup Complete @show</h3>
-
-    <hr>
-@endsection
-
 @section('content')
 
     <div class="col-md-12 text-center">

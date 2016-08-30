@@ -4,7 +4,8 @@ namespace Larapacks\Administration;
 
 use Illuminate\Routing\Router;
 use Larapacks\Administration\Http\Middleware\AdminAuthMiddleware;
-use Larapacks\Administration\Http\Middleware\SetupMiddleware;
+use Larapacks\Administration\Http\Middleware\SetupMigrationsMiddleware;
+use Larapacks\Administration\Http\Middleware\SetupAdministratorMiddleware;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -28,8 +29,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes($router);
 
-        $router->middleware('admin.setup', SetupMiddleware::class);
         $router->middleware('admin.auth', AdminAuthMiddleware::class);
+        $router->middleware('admin.setup.account', SetupAdministratorMiddleware::class);
+        $router->middleware('admin.setup.migrations', SetupMigrationsMiddleware::class);
     }
 
     /**

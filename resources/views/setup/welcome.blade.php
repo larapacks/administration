@@ -1,12 +1,5 @@
 @extends('admin::layouts.setup')
 
-@section('header')
-
-    <h2 class="text-center">@section('title') Setup @show</h2>
-
-    <hr>
-@endsection
-
 @section('content')
 
     <div class="col-md-12 text-center">
@@ -18,7 +11,7 @@
         <br>
 
         <p>
-            <a class="btn btn-primary" href="{{ route('admin.setup.begin') }}">
+            <a class="btn btn-primary" href="{{ route('admin.setup.migrations.create') }}">
                 <i class="fa fa-cog"></i>
                 Begin Setup
             </a>

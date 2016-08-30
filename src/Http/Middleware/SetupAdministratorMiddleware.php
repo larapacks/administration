@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Larapacks\Authorization\Authorization;
 
-class SetupMiddleware
+class SetupAdministratorMiddleware
 {
     /**
      * Handle an incoming request.

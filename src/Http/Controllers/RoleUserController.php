@@ -2,27 +2,11 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\Admin\RoleUserRequest;
-use Larapacks\Administration\Processors\Admin\RoleUserProcessor;
+use Larapacks\Administration\Http\Requests\RoleUserRequest;
 use Larapacks\Administration\Exceptions\Admin\CannotRemoveRolesException;
 
 class RoleUserController extends Controller
 {
-    /**
-     * @var RoleUserProcessor
-     */
-    protected $processor;
-
-    /**
-     * Constructor.
-     *
-     * @param RoleUserProcessor $processor
-     */
-    public function __construct(RoleUserProcessor $processor)
-    {
-        $this->processor = $processor;
-    }
-
     /**
      * Adds the requested users to the specified role.
      *

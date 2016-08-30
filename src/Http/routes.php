@@ -12,22 +12,27 @@
 */
 
 // The administration setup group.
-Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'middleware' => ['admin.setup']], function () {
+Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'namespace' => 'Setup'], function () {
     // The administration begin setup route.
     Route::get('/', [
-        'as'    => 'welcome',
-        'uses'  => 'SetupController@welcome',
+        'as'    => 'index',
+        'uses'  => 'WelcomeController@index',
     ]);
 
-    Route::get('begin', [
-        'as'   => 'begin',
-        'uses' => 'SetupController@begin',
+    Route::resource('migrations', 'MigrationController', [
+        'only' => ['create', 'store'],
+        'names' => [
+            'create' => 'migrations.create',
+            'store' => 'migrations.store',
+        ],
     ]);
 
-    // The administration finish setup route.
-    Route::post('finish', [
-        'as'    => 'finish',
-        'uses'  => 'SetupController@finish',
+    Route::resource('account', 'AccountController', [
+        'only' => ['create', 'store'],
+        'names' => [
+            'create' => 'account.create',
+            'store' => 'account.store',
+        ],
     ]);
 });
 

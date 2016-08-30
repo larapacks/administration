@@ -1,20 +1,19 @@
 <?php
 
-namespace Larapacks\Administration\Http\Controllers;
+namespace Larapacks\Administration\Http\Controllers\Setup;
 
 use Larapacks\Authorization\Authorization;
 use Larapacks\Administration\Http\Requests\SetupRequest;
+use Larapacks\Administration\Http\Controllers\Controller;
 
-class SetupController extends Controller
+class AccountController extends Controller
 {
     /**
-     * Displays the welcome page for setting up administration.
-     *
-     * @return \Illuminate\View\View
+     * Constructor.
      */
-    public function welcome()
+    public function __construct()
     {
-        return view('admin::setup.welcome');
+        $this->middleware('admin.setup.account');
     }
 
     /**
@@ -22,9 +21,9 @@ class SetupController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function begin()
+    public function create()
     {
-        return view('admin::setup.begin');
+        return view('admin::setup.account.create');
     }
 
     /**
@@ -34,14 +33,14 @@ class SetupController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function finish(SetupRequest $request)
+    public function store(SetupRequest $request)
     {
         if ($request->persist(Authorization::user())) {
-            return view('admin::setup.complete');
+            return view('admin::setup.account.finished');
         }
 
         flash()->error('Error!', 'There was an issue completing setup. Please try again.');
 
-        return redirect()->route('admin.setup.begin');
+        return redirect()->route('admin.setup.account.create');
     }
 }
