@@ -34,7 +34,7 @@ class MigrationController extends Controller
     public function store()
     {
         if (Artisan::call('migrate') !== 0) {
-            flash()->error('Error', 'There was an issue processing migrations');
+            flash()->error('Error', 'There was an issue processing migrations.');
 
             return redirect()->back();
         }
