@@ -18,11 +18,11 @@ class RolePermissionController extends Controller
     public function store(RolePermissionRequest $request, $roleId)
     {
         if ($this->processor->store($request, $roleId)) {
-            flash()->success('Success!', 'Successfully added permissions.');
+            flash()->success('Successfully added permissions.');
 
             return redirect()->route('admin.roles.show', [$roleId]);
         } else {
-            flash()->error('Error!', "You didn't select any permissions.");
+            flash()->error("You didn't select any permissions.");
 
             return redirect()->route('admin.roles.show', [$roleId]);
         }
@@ -39,9 +39,9 @@ class RolePermissionController extends Controller
     public function destroy($roleId, $permissionId)
     {
         if ($this->processor->destroy($roleId, $permissionId)) {
-            flash()->success('Success!', 'Successfully removed permission.');
+            flash()->success('Successfully removed permission.');
         } else {
-            flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
+            flash()->error('There was an issue removing this permission. Please try again.');
         }
 
         return redirect()->back();

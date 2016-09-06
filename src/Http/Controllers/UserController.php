@@ -45,11 +45,11 @@ class UserController extends Controller
         $this->authorize('admin.users.create');
 
         if ($request->persist(Authorization::user())) {
-            flash()->success('Success!', 'Successfully created user.');
+            flash()->success('Successfully created user.');
 
             return redirect()->route('admin.users.index');
         } else {
-            flash()->error('Error!', 'There was an issue creating a user. Please try again.');
+            flash()->error('There was an issue creating a user. Please try again.');
 
             return redirect()->route('admin.users.create');
         }
@@ -116,12 +116,12 @@ class UserController extends Controller
         $user = Authorization::user()->findOrFail($id);
 
         if ($request->persist($user)) {
-            flash()->success('Success!', 'Successfully updated user.');
+            flash()->success('Successfully updated user.');
 
             return redirect()->route('admin.users.show', [$id]);
         }
 
-        flash()->error('Error!', 'There was an issue updating this user. Please try again.');
+        flash()->error('There was an issue updating this user. Please try again.');
 
         return redirect()->route('admin.users.edit', [$id]);
     }
@@ -142,7 +142,7 @@ class UserController extends Controller
         // We need to prevent the delete request if the user being
         // deleted is the currently authenticated user.
         if ($user->getKey() == auth()->user()->getKey()) {
-            flash()->setTimer(null)->error('Error', 'You cannot delete yourself.');
+            flash()->important()->error('You cannot delete yourself.');
 
             return redirect()->route('admin.users.show', [$id]);
         }
@@ -154,17 +154,17 @@ class UserController extends Controller
 
             $q->whereName($role::getAdministratorName());
         })->count() === 1) {
-            flash()->setTimer(null)->error('Error', "You cannot delete this account. No other administrator accounts exist.");
+            flash()->important()->error('You cannot delete this account. No other administrator accounts exist.');
 
             return redirect()->route('admin.users.show', [$id]);
         }
 
         if ($user->delete()) {
-            flash()->success('Success!', 'Successfully deleted user.');
+            flash()->success('Successfully deleted user.');
 
             return redirect()->route('admin.users.index');
         } else {
-            flash()->success('Success!', 'There was an issue deleting this user. Please try again.');
+            flash()->success('There was an issue deleting this user. Please try again.');
 
             return redirect()->route('admin.users.show', [$id]);
         }

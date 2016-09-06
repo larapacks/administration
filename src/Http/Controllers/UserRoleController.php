@@ -22,12 +22,12 @@ class UserRoleController extends Controller
         $user = Authorization::user()->findOrFail($userId);
 
         if ($request->persist($user)) {
-            flash()->success('Success!', 'Successfully added roles.');
+            flash()->success('Successfully added roles.');
 
             return redirect()->route('admin.users.show', [$userId]);
         }
 
-        flash()->error('Error!', "You didn't select any roles.");
+        flash()->error("You didn't select any roles.");
 
         return redirect()->route('admin.users.show', [$userId]);
     }
@@ -58,16 +58,14 @@ class UserRoleController extends Controller
             })->count();
 
             if ($users <= 1) {
-                flash()->setTimer(null)->error('Error', 'This account is the only administrator. You must have one other administrator.');
-
-                return redirect()->back();
+                flash()->important()->error(
+                    'This account is the only administrator. You must have one other administrator.'
+                );
             }
-        }
-
-        if ($user->permissions()->detach($role)) {
-            flash()->success('Success!', 'Successfully removed role.');
+        } elseif ($user->permissions()->detach($role)) {
+            flash()->success('Successfully removed role.');
         } else {
-            flash()->error('Error!', 'There was an issue removing this role. Please try again.');
+            flash()->error('There was an issue removing this role. Please try again.');
         }
 
         return redirect()->back();

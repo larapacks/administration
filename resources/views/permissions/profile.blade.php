@@ -4,25 +4,15 @@
         <i class="fa fa-list"></i>
         Profile <span class="hidden-xs">Details</span>
 
-        <div class="btn-group pull-right">
+        <div class="pull-right">
 
             <a href="{{ route('admin.permissions.edit', [$permission->getKey()]) }}" class="btn btn-xs btn-warning">
-                <i class="fa fa-edit"></i>
+                <i class="fa fa-pencil"></i>
                 Edit
             </a>
 
-            <a
-                    data-post="DELETE"
-                    data-title="Delete Permission?"
-                    data-message="Are you sure you want to delete this permission?"
-                    href="{{ route('admin.permissions.destroy', [$permission->getKey()]) }}"
-                    class="btn btn-xs btn-danger"
-            >
-                <i class="fa fa-trash"></i>
-                Delete
-            </a>
-
         </div>
+
     </div>
 
     <div class="panel-body">

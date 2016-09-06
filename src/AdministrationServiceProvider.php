@@ -3,6 +3,7 @@
 namespace Larapacks\Administration;
 
 use Illuminate\Support\ServiceProvider;
+use Laracasts\Flash\FlashServiceProvider;
 
 class AdministrationServiceProvider extends ServiceProvider
 {
@@ -10,28 +11,6 @@ class AdministrationServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     public function boot()
-    {
-        $this->bootConfig();
-
-        $this->registerRoutes();
-
-        $this->loadViews();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function register()
-    {
-        //
-    }
-
-    /**
-     * Registers the administration configuration file.
-     *
-     * @return void
-     */
-    public function bootConfig()
     {
         $config = __DIR__.'/Config/config.php';
 
@@ -45,22 +24,15 @@ class AdministrationServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registers the administration routes.
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function registerRoutes()
+    public function register()
     {
+        // Register our service providers.
         $this->app->register(RouteServiceProvider::class);
-    }
+        $this->app->register(FlashServiceProvider::class);
 
-    /**
-     * Registers the administration views.
-     *
-     * @return void
-     */
-    public function loadViews()
-    {
+        // Load our views.
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
     }
 }

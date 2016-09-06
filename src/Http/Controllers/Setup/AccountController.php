@@ -39,7 +39,7 @@ class AccountController extends Controller
             return view('admin::setup.account.finished');
         }
 
-        flash()->error('Error!', 'There was an issue completing setup. Please try again.');
+        flash()->error('There was an issue completing setup. Please try again.');
 
         return redirect()->route('admin.setup.account.create');
     }

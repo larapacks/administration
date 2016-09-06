@@ -41,7 +41,7 @@
 
                             <label>Roles</label>
 
-                            <select name="roles[]" multiple class="form-control selectize" placeholder="Select permissions ">
+                            <select name="roles[]" multiple class="form-control selectize" placeholder="Select roles ">
 
                                 @foreach($roles as $role)
                                     <option value="{{ $role->getKey() }}">{{ $role->label }}</option>
@@ -50,7 +50,6 @@
                             </select>
 
                         </div>
-
 
                         <div class="modal-footer">
 
@@ -92,14 +91,10 @@
                         </td>
 
                         <td>
-                            <a
-                                    class="btn btn-xs btn-danger"
-                                    data-post="delete"
-                                    data-message="Are you sure you want to remove role '{{ $role->label }}'?"
-                                    href="{{ route('admin.roles.permissions.destroy', [$permission->id, $role->id]) }}"
-                            >
-                                Remove
-                            </a>
+                            @include('admin::partials.forms.remove', [
+                                'action' => route('admin.roles.permissions.destroy', [$permission->id, $role->id]),
+                                'message' => "Are you sure you want to remove role: {$role->label}?",
+                            ])
                         </td>
 
                     </tr>

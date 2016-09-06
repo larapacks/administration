@@ -20,16 +20,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.2/css/selectize.bootstrap3.min.css">
 
-        <style>
-            body {
-                font-family: 'Lato';
-            }
-
-            .fa-btn {
-                margin-right: 6px;
-            }
-        </style>
-
     </head>
 
     <body id="app">
@@ -41,6 +31,8 @@
         </nav>
 
         <div class="container">
+
+            @include('flash::message')
 
             @yield('header')
 
@@ -57,46 +49,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.2/js/standalone/selectize.min.js"></script>
 
         <script type="text/javascript">
+            // Add multi-select to selectize form inputs.
             $('.selectize').selectize();
 
-            $('#app').on('click', '[data-post]', function(e)
-            {
-                e.preventDefault();
-
-                var self = this;
-
-                var title = $(self).data('title');
-                var url = $(self).attr('href');
-
-                var form = $("<form></form>");
-
-                form.attr('method', 'POST');
-                form.attr('action', url);
-
-                form.append('<input name="_method" type="hidden" value="'+ $(self).data('post') +'" />');
-                form.append('<input name="_token" type="hidden" value="'+ $("meta[name='csrf-token']").attr('content') +'" />');
-
-                swal({
-                    title: (title ? title : "Are you sure?"),
-                    text: $(self).data('message'),
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Cancel",
-                    closeOnConfirm: false,
-                    animation:false
-                }, function(confirmed) {
-                    if (confirmed) {
-                        $('body').append(form);
-
-                        return form.submit();
-                    }
-                });
-            });
+            // Fade out alerts.
+            $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         </script>
-
-        @include('admin::partials.flash')
 
         @yield('scripts')
 

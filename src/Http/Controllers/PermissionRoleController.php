@@ -22,11 +22,11 @@ class PermissionRoleController extends Controller
         $permission = Authorization::permission()->findOrFail($permissionId);
 
         if ($request->persist($permission)) {
-            flash()->success('Success!', 'Successfully added roles.');
+            flash()->success('Successfully added roles.');
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
         } else {
-            flash()->error('Error!', "You didn't select any roles!");
+            flash()->error("You didn't select any roles!");
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
         }

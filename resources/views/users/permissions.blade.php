@@ -97,14 +97,10 @@
 
                         <td>
 
-                            <a
-                                    class="btn btn-xs btn-danger"
-                                    data-post="delete"
-                                    data-message="Are you sure you want to remove permission '{{ $permission->label }}'?"
-                                    href="{{ route('admin.users.permissions.destroy', [$user->id, $permission->id]) }}"
-                            >
-                                Remove
-                            </a>
+                            @include('admin::partials.forms.remove', [
+                                'action' => route('admin.users.permissions.destroy', [$user->id, $permission->id]),
+                                'message' => "Are you sure you want to remove permission: {$permission->label}?",
+                            ])
 
                         </td>
 

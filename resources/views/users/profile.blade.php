@@ -15,16 +15,10 @@
 
             {{-- Prevent user from deleting self. --}}
             @if (auth()->user()->id != $user->id)
-                <a
-                        data-post="DELETE"
-                        data-title="Delete User?"
-                        data-message="Are you sure you want to delete this user?"
-                        href="{{ route('admin.users.destroy', [$user->id]) }}"
-                        class="btn btn-xs btn-danger"
-                >
-                    <i class="fa fa-trash"></i>
-                    Delete
-                </a>
+                @include('admin::partials.forms.delete', [
+                    'action' => route('admin.users.destroy', [$user->id]),
+                    'message' => 'Are you sure you want to delete this user?',
+                ])
             @endif
 
         </div>

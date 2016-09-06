@@ -18,11 +18,11 @@ class RoleUserController extends Controller
     public function store(RoleUserRequest $request, $roleId)
     {
         if ($this->processor->store($request, $roleId)) {
-            flash()->success('Success!', 'Successfully added users.');
+            flash()->success('Successfully added users.');
 
             return redirect()->route('admin.roles.show', [$roleId]);
         } else {
-            flash()->error('Error!', "You didn't specify any users.");
+            flash()->error("You didn't specify any users.");
 
             return redirect()->route('admin.roles.show', [$roleId]);
         }
@@ -40,11 +40,11 @@ class RoleUserController extends Controller
     {
         try {
             if ($this->processor->destroy($roleId, $userId)) {
-                flash()->success('Success!', 'Successfully removed user.');
+                flash()->success('Successfully removed user.');
 
                 return redirect()->route('admin.roles.show', [$roleId]);
             } else {
-                flash()->error('Error!', 'There was an issue removing this user. Please try again.');
+                flash()->error('There was an issue removing this user. Please try again.');
 
                 return redirect()->route('admin.roles.show', [$roleId]);
             }

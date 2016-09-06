@@ -22,11 +22,11 @@ class PermissionUserController extends Controller
         $permission = Authorization::permission()->findOrFail($permissionId);
 
         if ($request->persist($permission)) {
-            flash()->success('Success!', 'Successfully added users.');
+            flash()->success('Successfully added users.');
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
         } else {
-            flash()->error('Error!', "You didn't select any users!");
+            flash()->error("You didn't select any users!");
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
         }

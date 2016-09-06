@@ -47,11 +47,11 @@ class PermissionController extends Controller
         $permission = Authorization::permission()->newInstance();
 
         if ($request->persist($permission)) {
-            flash()->success('Success!', 'Successfully created permission.');
+            flash()->success('Successfully created permission.');
 
             return redirect()->route('admin.permissions.index');
         } else {
-            flash()->error('Error!', 'There was an error creating a permission. Please try again.');
+            flash()->error('There was an error creating a permission. Please try again.');
 
             return redirect()->route('admin.permissions.create');
         }
@@ -112,11 +112,11 @@ class PermissionController extends Controller
         $permission = Authorization::permission()->findOrFail($id);
 
         if ($request->persist($permission)) {
-            flash()->success('Success!', 'Successfully updated permission.');
+            flash()->success('Successfully updated permission.');
 
             return redirect()->route('admin.permissions.show', [$id]);
         } else {
-            flash()->error('Error!', 'There was an error updating this permission. Please try again.');
+            flash()->error('There was an error updating this permission. Please try again.');
 
             return redirect()->route('admin.permissions.edit', [$id]);
         }
@@ -134,11 +134,11 @@ class PermissionController extends Controller
         $permission = Authorization::permission()->findOrFail($id);
 
         if ($permission->delete()) {
-            flash()->success('Success!', 'Successfully deleted permission.');
+            flash()->success('Successfully deleted permission.');
 
             return redirect()->route('admin.permissions.index');
         } else {
-            flash()->error('Error!', 'There was an error deleting this permission. Please try again.');
+            flash()->error('There was an error deleting this permission. Please try again.');
 
             return redirect()->route('admin.permissions.create');
         }

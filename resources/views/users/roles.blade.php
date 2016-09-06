@@ -101,14 +101,10 @@
 
                         <td>
 
-                            <a
-                                    class="btn btn-xs btn-danger"
-                                    data-post="delete"
-                                    data-message="Are you sure you want to remove role '{{ $role->label }}'?"
-                                    href="{{ route('admin.users.roles.destroy', [$user->id, $role->id]) }}"
-                            >
-                                Remove
-                            </a>
+                            @include('admin::partials.forms.remove', [
+                                'action' => route('admin.users.roles.destroy', [$user->id, $role->id]),
+                                'message' => "Are you sure you want to remove role: {$role->label}?",
+                            ])
 
                         </td>
 
