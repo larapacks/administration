@@ -6,70 +6,78 @@
 
         <span class="hidden-xs">User Specific</span> Permissions
 
-        <a data-toggle="modal" data-target="#form-permissions" class="btn btn-xs btn-success pull-right">
+        @if(auth()->user()->can('admin.permissions'))
 
-            <i class="fa fa-plus-circle"></i>
+            <a data-toggle="modal" data-target="#form-permissions" class="btn btn-xs btn-success pull-right">
 
-            Add
+                <i class="fa fa-plus-circle"></i>
 
-        </a>
+                Add
+
+            </a>
+
+        @endif
 
     </div>
 
     <div class="panel-body">
 
-        <div class="modal fade" id="form-permissions" tabindex="-1" role="dialog">
+        @if(auth()->user()->can('admin.permissions'))
 
-            <div class="modal-dialog">
+            <div class="modal fade" id="form-permissions" tabindex="-1" role="dialog">
 
-                <form method="POST" action="{{ route('admin.users.permissions.store', [$user->id]) }}">
+                <div class="modal-dialog">
 
-                    {{ csrf_field() }}
+                    <form method="POST" action="{{ route('admin.users.permissions.store', [$user->id]) }}">
 
-                    <div class="modal-content">
+                        {{ csrf_field() }}
 
-                        <div class="modal-header">
+                        <div class="modal-content">
 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
 
-                            <h4 class="modal-title">
-                                <i class="fa fa-check-circle-o"></i>
-                                Add Permissions
-                            </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
 
-                        </div>
+                                <h4 class="modal-title">
+                                    <i class="fa fa-check-circle-o"></i>
+                                    Add Permissions
+                                </h4>
 
-                        <div class="modal-body">
+                            </div>
 
-                            <div class="form-group {{ $errors->has('permissions') ? 'has-error' : null }}">
+                            <div class="modal-body">
 
-                                <select name="permissions[]" class="form-control selectize" multiple placeholder="Select permissions">
-                                    @foreach($permissions as $id => $permission)
-                                        <option {{ old('permissions') == $id ? 'selected' : null }} value="{{ $id }}">{{ $permission }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="form-group {{ $errors->has('permissions') ? 'has-error' : null }}">
 
-                                <p class="help-block">{{ $errors->first('permissions') }}</p>
+                                    <select name="permissions[]" class="form-control selectize" multiple placeholder="Select permissions">
+                                        @foreach($permissions as $id => $permission)
+                                            <option {{ old('permissions') == $id ? 'selected' : null }} value="{{ $id }}">{{ $permission }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <p class="help-block">{{ $errors->first('permissions') }}</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-primary">Add</button>
 
                             </div>
 
                         </div>
 
-                        <div class="modal-footer">
+                    </form>
 
-                            <button type="submit" class="btn btn-primary">Add</button>
-
-                        </div>
-
-                    </div>
-
-                </form>
+                </div>
 
             </div>
 
-        </div>
+        @endif
 
         <div class="table-responsive">
 
@@ -93,14 +101,31 @@
 
                     <tr>
 
-                        <td>{{ $permission->label }}</td>
+                        <td>
+                            @if(auth()->user()->can('admin.permissions'))
+
+                                <a href="{{ route('admin.permissions.show', [$permission->getKey()]) }}">
+                                    {{ $permission->label }}
+                                </a>
+
+                            @else
+
+                                {{ $permission->label }}
+
+                            @endif
+
+                        </td>
 
                         <td>
 
-                            @include('admin::partials.forms.remove', [
-                                'action' => route('admin.users.permissions.destroy', [$user->id, $permission->id]),
-                                'message' => "Are you sure you want to remove permission: {$permission->label}?",
-                            ])
+                            @if(auth()->user()->can('admin.permissions'))
+
+                                @include('admin::partials.forms.remove', [
+                                    'action' => route('admin.users.permissions.destroy', [$user->id, $permission->id]),
+                                    'message' => "Are you sure you want to remove permission: {$permission->label}?",
+                                ])
+
+                            @endif
 
                         </td>
 

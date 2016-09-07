@@ -6,70 +6,78 @@
 
         Roles
 
-        <a data-toggle="modal" data-target="#form-roles" class="btn btn-xs btn-success pull-right">
+        @if(auth()->user()->can('admin.roles'))
 
-            <i class="fa fa-plus-circle"></i>
+            <a data-toggle="modal" data-target="#form-roles" class="btn btn-xs btn-success pull-right">
 
-            Add
+                <i class="fa fa-plus-circle"></i>
 
-        </a>
+                Add
+
+            </a>
+
+        @endif
 
     </div>
 
     <div class="panel-body">
 
-        <div class="modal fade" id="form-roles" tabindex="-1" role="dialog">
+        @if(auth()->user()->can('admin.roles'))
 
-            <div class="modal-dialog">
+            <div class="modal fade" id="form-roles" tabindex="-1" role="dialog">
 
-                <form method="POST" action="{{ route('admin.users.roles.store', [$user->id]) }}">
+                <div class="modal-dialog">
 
-                    {{ csrf_field() }}
+                    <form method="POST" action="{{ route('admin.users.roles.store', [$user->id]) }}">
 
-                    <div class="modal-content">
+                        {{ csrf_field() }}
 
-                        <div class="modal-header">
+                        <div class="modal-content">
 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <div class="modal-header">
 
-                            <h4 class="modal-title">
-                                <i class="fa fa-user-md"></i>
-                                Add Roles
-                            </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
 
-                        </div>
+                                <h4 class="modal-title">
+                                    <i class="fa fa-user-md"></i>
+                                    Add Roles
+                                </h4>
 
-                        <div class="modal-body">
+                            </div>
 
-                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
+                            <div class="modal-body">
 
-                                <select name="roles[]" class="form-control selectize" multiple placeholder="Select Roles">
-                                    @foreach($roles as $id => $role)
-                                        <option {{ old('roles') == $id ? 'selected': null }} value="{{ $id }}">{{ $role }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
 
-                                <p class="help-block">{{ $errors->first('roles') }}</p>
+                                    <select name="roles[]" class="form-control selectize" multiple placeholder="Select Roles">
+                                        @foreach($roles as $id => $role)
+                                            <option {{ old('roles') == $id ? 'selected': null }} value="{{ $id }}">{{ $role }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <p class="help-block">{{ $errors->first('roles') }}</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-primary">Add</button>
 
                             </div>
 
                         </div>
 
-                        <div class="modal-footer">
+                    </form>
 
-                            <button type="submit" class="btn btn-primary">Add</button>
-
-                        </div>
-
-                    </div>
-
-                </form>
+                </div>
 
             </div>
 
-        </div>
+        @endif
 
         <div class="table-responsive">
 
@@ -94,17 +102,28 @@
                     <tr>
 
                         <td>
-                            <a href="{{ route('admin.roles.show', [$role->getKey()]) }}">
+                            @if(auth()->user()->can('admin.roles'))
+
+                                <a href="{{ route('admin.roles.show', [$role->getKey()]) }}">
+                                    {{ $role->label }}
+                                </a>
+
+                            @else
+
                                 {{ $role->label }}
-                            </a>
+
+                            @endif
                         </td>
 
                         <td>
+                            @if(auth()->user()->can('admin.roles'))
 
-                            @include('admin::partials.forms.remove', [
-                                'action' => route('admin.users.roles.destroy', [$user->id, $role->id]),
-                                'message' => "Are you sure you want to remove role: {$role->label}?",
-                            ])
+                                @include('admin::partials.forms.remove', [
+                                    'action' => route('admin.users.roles.destroy', [$user->id, $role->id]),
+                                    'message' => "Are you sure you want to remove role: {$role->label}?",
+                                ])
+
+                            @endif
 
                         </td>
 
@@ -114,7 +133,7 @@
 
                 @if($user->roles->isEmpty())
 
-                    <tr><td class="text-muted">There are no roles to display.</td></tr>
+                    <tr><td colspan="3" class="text-muted">There are no roles to display.</td></tr>
 
                 @endif
 

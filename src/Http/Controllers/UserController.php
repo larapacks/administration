@@ -138,7 +138,7 @@ class UserController extends Controller
         if ($user->getKey() == auth()->user()->getKey()) {
             flash()->important()->error('You cannot delete yourself.');
 
-            return redirect()->route('admin.users.show', [$id]);
+            return redirect()->back();
         }
 
         // We need to prevent the delete request if the current user being
@@ -150,7 +150,7 @@ class UserController extends Controller
         })->count() === 1) {
             flash()->important()->error('You cannot delete this account. No other administrator accounts exist.');
 
-            return redirect()->route('admin.users.show', [$id]);
+            return redirect()->back();
         }
 
         if ($user->delete()) {
@@ -160,7 +160,7 @@ class UserController extends Controller
         } else {
             flash()->success('There was an issue deleting this user. Please try again.');
 
-            return redirect()->route('admin.users.show', [$id]);
+            return redirect()->back();
         }
     }
 }
