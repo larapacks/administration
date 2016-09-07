@@ -34,7 +34,7 @@ class MigrationController extends Controller
     public function store()
     {
         if (Artisan::call('migrate') !== 0) {
-            flash()->error('Error', 'There was an issue processing migrations.');
+            flash()->error('There was an issue processing migrations.');
 
             return redirect()->back();
         }
@@ -42,10 +42,12 @@ class MigrationController extends Controller
         if (Artisan::call('db:seed', [
             '--class' => RoleAndPermissionSeeder::class,
         ]) !== 0) {
-            flash()->error('Error', 'There was an issue seeding.');
+            flash()->error('There was an issue seeding.');
 
             return redirect()->back();
         }
+
+        flash()->success('Successfully migrated database tables.');
 
         return view('admin::setup.migrations.finished');
     }

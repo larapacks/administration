@@ -110,7 +110,7 @@
 
                 @if($user->permissions->isEmpty())
 
-                    <tr><td class="text-muted">There are no permissions to display.</td></tr>
+                    <tr><td colspan="2" class="text-muted">There are no permissions to display.</td></tr>
 
                 @endif
 
