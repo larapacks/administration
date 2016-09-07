@@ -8,6 +8,14 @@ use Larapacks\Authorization\Authorization;
 class RoleUserController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.roles,admin.users');
+    }
+
+    /**
      * Adds the requested users to the specified role.
      *
      * @param RoleUserRequest $request
@@ -17,8 +25,6 @@ class RoleUserController extends Controller
      */
     public function store(RoleUserRequest $request, $roleId)
     {
-        $this->authorize('admin.roles.users.store');
-
         $role = Authorization::role()->findOrFail($roleId);
 
         if ($request->persist($role)) {

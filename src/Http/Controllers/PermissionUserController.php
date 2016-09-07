@@ -8,6 +8,14 @@ use Larapacks\Administration\Http\Requests\PermissionUserRequest;
 class PermissionUserController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.permissions,admin.users');
+    }
+
+    /**
      * Adds the specified permission on the requested users.
      *
      * @param PermissionUserRequest $request
@@ -17,8 +25,6 @@ class PermissionUserController extends Controller
      */
     public function store(PermissionUserRequest $request, $permissionId)
     {
-        $this->authorize('admin.users.permissions.store');
-
         $permission = Authorization::permission()->findOrFail($permissionId);
 
         if ($request->persist($permission)) {

@@ -8,6 +8,14 @@ use Larapacks\Authorization\Authorization;
 class UserRoleController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.users,admin.roles');
+    }
+
+    /**
      * Adds roles to the specified user.
      *
      * @param UserRoleRequest $request
@@ -17,8 +25,6 @@ class UserRoleController extends Controller
      */
     public function store(UserRoleRequest $request, $userId)
     {
-        $this->authorize('admin.roles.users.store');
-
         $user = Authorization::user()->findOrFail($userId);
 
         if ($request->persist($user)) {
@@ -42,8 +48,6 @@ class UserRoleController extends Controller
      */
     public function destroy($userId, $roleId)
     {
-        $this->authorize('admin.roles.users.destroy');
-
         $user = Authorization::user()->findOrFail($userId);
 
         $role = $user->roles()->findOrFail($roleId);

@@ -2,12 +2,19 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\RolePermissionRequest;
-use Larapacks\Administration\Processors\Admin\RolePermissionProcessor;
 use Larapacks\Authorization\Authorization;
+use Larapacks\Administration\Http\Requests\RolePermissionRequest;
 
 class RolePermissionController extends Controller
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.roles,admin.permissions');
+    }
+
     /**
      * Adds the requested permissions to the specified role.
      *

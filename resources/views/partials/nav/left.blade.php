@@ -1,6 +1,6 @@
 @if(auth()->check())
 
-    @if(auth()->user()->can('admin.welcome.index'))
+    @if(auth()->user()->can('admin'))
         <li>
             <a href="{{ route('admin.welcome.index') }}">
                 <i class="fa fa-bars"></i>
@@ -9,7 +9,7 @@
         </li>
     @endif
 
-    @if(auth()->user()->can('admin.users.index'))
+    @if(auth()->user()->can('admin.users'))
         <li>
             <a href="{{ route('admin.users.index') }}">
                 <i class="fa fa-users"></i>
@@ -18,7 +18,7 @@
         </li>
     @endif
 
-    @if(auth()->user()->can('admin.roles.index'))
+    @if(auth()->user()->can('admin.roles'))
         <li>
             <a href="{{ route('admin.roles.index') }}">
                 <i class="fa fa-user-md"></i>
@@ -27,7 +27,7 @@
         </li>
     @endif
 
-    @if(auth()->user()->can('admin.permissions.index'))
+    @if(auth()->user()->can('admin.permissions'))
         <li>
             <a href="{{ route('admin.permissions.index') }}">
                 <i class="fa fa-check-circle-o"></i>

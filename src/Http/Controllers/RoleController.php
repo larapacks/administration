@@ -2,13 +2,19 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
-use Larapacks\Administration\Http\Requests\RoleRequest;
-use Larapacks\Administration\Processors\Admin\RoleProcessor;
-use Larapacks\Administration\Exceptions\Admin\CannotDeleteAdministratorRole;
 use Larapacks\Authorization\Authorization;
+use Larapacks\Administration\Http\Requests\RoleRequest;
 
 class RoleController extends Controller
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.roles');
+    }
+
     /**
      * Displays all roles.
      *
@@ -16,8 +22,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin.roles.index');
-
         $roles = Authorization::role()->paginate();
 
         return view('admin::roles.index', compact('roles'));
@@ -30,8 +34,6 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $this->authorize('admin.roles.create');
-
         return view('admin::roles.create');
     }
 
@@ -44,8 +46,6 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $this->authorize('admin.roles.create');
-
         $role = Authorization::role()->newInstance();
 
         if ($request->persist($role)) {
@@ -68,8 +68,6 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('admin.roles.show');
-
         $role = Authorization::role()->findOrFail($id);
 
         $roleUsers = $role->users()->paginate(10, ['*'], 'users');
@@ -102,8 +100,6 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('admin.roles.edit');
-
         $role = Authorization::role()->findOrFail($id);
 
         return view('admin::roles.edit', compact('role'));
@@ -119,8 +115,6 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id)
     {
-        $this->authorize('admin.roles.edit');
-
         $role = Authorization::role()->findOrFail($id);
 
         if ($request->persist($role)) {
@@ -143,8 +137,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('admin.roles.destroy');
-
         $role = Authorization::role()->findOrFail($id);
 
         if ($role->isAdministrator()) {

@@ -7,14 +7,20 @@ use Larapacks\Authorization\Authorization;
 class WelcomeController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin');
+    }
+
+    /**
      * Displays the admin welcome page.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $this->authorize('admin.welcome.index');
-
         $users = Authorization::user()->count();
 
         $roles = Authorization::role()->count();

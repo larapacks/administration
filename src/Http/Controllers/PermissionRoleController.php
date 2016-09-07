@@ -8,6 +8,14 @@ use Larapacks\Administration\Http\Requests\PermissionRoleRequest;
 class PermissionRoleController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.permissions,admin.roles');
+    }
+
+    /**
      * Adds the specified permission to the requested roles.
      *
      * @param PermissionRoleRequest $request
@@ -17,8 +25,6 @@ class PermissionRoleController extends Controller
      */
     public function store(PermissionRoleRequest $request, $permissionId)
     {
-        $this->authorize('admin.roles.permissions.store');
-
         $permission = Authorization::permission()->findOrFail($permissionId);
 
         if ($request->persist($permission)) {

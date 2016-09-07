@@ -8,14 +8,20 @@ use Larapacks\Administration\Http\Requests\PermissionRequest;
 class PermissionController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.permissions');
+    }
+
+    /**
      * Displays all permissions.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $this->authorize('admin.permissions.index');
-
         $permissions = Authorization::permission()->paginate();
 
         return view('admin::permissions.index', compact('permissions'));
@@ -28,8 +34,6 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $this->authorize('admin.permissions.create');
-
         return view('admin::permissions.create');
     }
 
@@ -42,8 +46,6 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        $this->authorize('admin.permissions.create');
-
         $permission = Authorization::permission()->newInstance();
 
         if ($request->persist($permission)) {
@@ -66,8 +68,6 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('admin.permissions.show');
-
         $permission = Authorization::permission()->with(['users', 'roles'])->findOrFail($id);
 
         $users = Authorization::user()->whereDoesntHave('permissions', function ($q) use ($permission) {
@@ -90,8 +90,6 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('admin.permissions.edit');
-
         $permission = Authorization::permission()->findOrFail($id);
 
         return view('admin::permissions.edit', compact('permission'));
@@ -107,8 +105,6 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, $id)
     {
-        $this->authorize('admin.permissions.edit');
-
         $permission = Authorization::permission()->findOrFail($id);
 
         if ($request->persist($permission)) {

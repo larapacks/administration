@@ -8,6 +8,14 @@ use Larapacks\Administration\Http\Requests\UserPermissionRequest;
 class UserPermissionController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.users,admin.permissions');
+    }
+
+    /**
      * Adds the requested permissions to the specified user.
      *
      * @param UserPermissionRequest $request
@@ -17,8 +25,6 @@ class UserPermissionController extends Controller
      */
     public function store(UserPermissionRequest $request, $userId)
     {
-        $this->authorize('admin.users.permissions.store');
-
         $user = Authorization::user()->findOrFail($userId);
 
         if ($request->persist($user)) {
@@ -40,8 +46,6 @@ class UserPermissionController extends Controller
      */
     public function destroy($userId, $permissionId)
     {
-        $this->authorize('admin.users.permissions.destroy');
-
         $user = Authorization::user()->findOrFail($userId);
 
         $permission = $user->permissions()->findOrFail($permissionId);

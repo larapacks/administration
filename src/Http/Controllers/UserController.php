@@ -8,14 +8,20 @@ use Larapacks\Administration\Http\Requests\UserRequest;
 class UserController extends Controller
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:admin.users');
+    }
+
+    /**
      * Displays all users.
      *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $this->authorize('admin.users.index');
-
         $users = Authorization::user()->paginate();
 
         return view('admin::users.index', compact('users'));
@@ -28,8 +34,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->authorize('admin.users.create');
-
         return view('admin::users.create');
     }
 
@@ -42,8 +46,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $this->authorize('admin.users.create');
-
         if ($request->persist(Authorization::user())) {
             flash()->success('Successfully created user.');
 
@@ -64,8 +66,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('admin.users.show');
-
         $user = Authorization::user()->with(['roles', 'permissions'])->findOrFail($id);
 
         $withoutCurrentUser = function ($q) use ($user) {
@@ -94,8 +94,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $this->authorize('admin.users.edit');
-
         $user = Authorization::user()->findOrFail($id);
 
         return view('admin::users.edit', compact('user'));
@@ -111,8 +109,6 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $id)
     {
-        $this->authorize('admin.users.edit');
-
         $user = Authorization::user()->findOrFail($id);
 
         if ($request->persist($user)) {
@@ -135,8 +131,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('admin.users.destroy');
-
         $user = Authorization::user()->findOrFail($id);
 
         // We need to prevent the delete request if the user being
