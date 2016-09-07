@@ -1,7 +1,7 @@
 {
   "name": "larapacks/administration",
   "description": "An administration panel for Laravel.",
-  "keywords": ["authorization", "laravel", "permissions", "roles", "acl"],
+  "keywords": ["admin", "panel", "administration", "backend", "acl", "permissions", "management"],
   "license": "MIT",
   "type": "project",
   "require": {
