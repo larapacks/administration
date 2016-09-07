@@ -52,20 +52,18 @@ class UserRoleController extends Controller
 
         $role = $user->roles()->findOrFail($roleId);
 
+        // We'll grab all users that are administrators.
+        $users = Authorization::user()->whereHas('roles', function ($q) use ($role) {
+            return $q->whereName($role->name);
+        })->count();
+
         // If the user is an administrator and the role being removed is an
         // administrator role, we need to verify that there are other
         // administrators in the system before allowing the removal.
-        if ($user->isAdministrator() && $role->isAdministrator()) {
-            // We'll grab all users that are administrators.
-            $users = Authorization::user()->whereHas('roles', function ($q) use ($role) {
-                return $q->whereName($role->name);
-            })->count();
-
-            if ($users <= 1) {
-                flash()->important()->error(
-                    'This account is the only administrator. You must have one other administrator.'
-                );
-            }
+        if ($user->isAdministrator() && $role->isAdministrator() && $users <= 1) {
+            flash()->important()->error(
+                'This account is the only administrator. You must have one other administrator.'
+            );
         } elseif ($user->roles()->detach($role)) {
             flash()->success('Successfully removed role.');
         } else {
