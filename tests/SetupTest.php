@@ -14,7 +14,7 @@ class SetupTest extends TestCase
     {
         $this->visit(route('admin.setup.migrations.create'))
             ->submitForm('Begin')
-            ->see('Completed');
+            ->see('migrated');
     }
 
     public function test_account_creation()
@@ -36,5 +36,16 @@ class SetupTest extends TestCase
             'password',
             'password_confirmation',
         ]));
+    }
+
+    public function test_account_creation_validation()
+    {
+        $this->test_migrate();
+
+        $this->visit(route('admin.setup.account.create'))
+            ->submitForm('Complete Setup')
+            ->see('name field is required')
+            ->see('email field is required')
+            ->see('password field is required');
     }
 }
