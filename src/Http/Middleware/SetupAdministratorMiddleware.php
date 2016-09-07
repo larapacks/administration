@@ -3,8 +3,9 @@
 namespace Larapacks\Administration\Http\Middleware;
 
 use Closure;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\Contracts\Validation\UnauthorizedException;
 use Larapacks\Authorization\Authorization;
 
 class SetupAdministratorMiddleware
@@ -42,6 +43,6 @@ class SetupAdministratorMiddleware
 
         // If the administrator role hasn't already been created,
         // we'll throw an Unauthorized Exception.
-        abort(403, 'Unauthorized');
+        throw new UnauthorizedException();
     }
 }
