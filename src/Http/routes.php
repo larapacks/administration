@@ -61,7 +61,7 @@ Route::group(['middleware' => ['admin.auth']], function () {
 
     // The role users resource.
     Route::resource('roles.users', 'RoleUserController', [
-        'only' => ['store', 'destroy'],
+        'only' => ['store'],
     ]);
 
     // The role permissions resource.
@@ -74,12 +74,12 @@ Route::group(['middleware' => ['admin.auth']], function () {
 
     // The permission roles resource.
     Route::resource('permissions.roles', 'PermissionRoleController', [
-        'only' => ['store', 'destroy'],
+        'only' => ['store'],
     ]);
 
     // The permission users resource.
     Route::resource('permissions.users', 'PermissionUserController', [
-        'only' => ['store', 'destroy'],
+        'only' => ['store'],
     ]);
 });
 

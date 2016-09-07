@@ -4,6 +4,7 @@ namespace Larapacks\Administration\Http\Controllers;
 
 use Larapacks\Administration\Http\Requests\RolePermissionRequest;
 use Larapacks\Administration\Processors\Admin\RolePermissionProcessor;
+use Larapacks\Authorization\Authorization;
 
 class RolePermissionController extends Controller
 {
@@ -17,15 +18,15 @@ class RolePermissionController extends Controller
      */
     public function store(RolePermissionRequest $request, $roleId)
     {
-        if ($this->processor->store($request, $roleId)) {
-            flash()->success('Successfully added permissions.');
+        $role = Authorization::role()->findOrFail($roleId);
 
-            return redirect()->route('admin.roles.show', [$roleId]);
+        if ($request->persist($role)) {
+            flash()->success('Successfully added permissions.');
         } else {
             flash()->error("You didn't select any permissions.");
-
-            return redirect()->route('admin.roles.show', [$roleId]);
         }
+
+        return redirect()->back();
     }
 
     /**
@@ -38,7 +39,11 @@ class RolePermissionController extends Controller
      */
     public function destroy($roleId, $permissionId)
     {
-        if ($this->processor->destroy($roleId, $permissionId)) {
+        $role = Authorization::role()->findOrFail($roleId);
+
+        $permission = $role->permissions()->findOrFail($permissionId);
+
+        if ($role->permissions()->detach($permission)) {
             flash()->success('Successfully removed permission.');
         } else {
             flash()->error('There was an issue removing this permission. Please try again.');

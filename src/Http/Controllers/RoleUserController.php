@@ -3,7 +3,7 @@
 namespace Larapacks\Administration\Http\Controllers;
 
 use Larapacks\Administration\Http\Requests\RoleUserRequest;
-use Larapacks\Administration\Exceptions\Admin\CannotRemoveRolesException;
+use Larapacks\Authorization\Authorization;
 
 class RoleUserController extends Controller
 {
@@ -17,41 +17,16 @@ class RoleUserController extends Controller
      */
     public function store(RoleUserRequest $request, $roleId)
     {
-        if ($this->processor->store($request, $roleId)) {
+        $this->authorize('admin.roles.users.store');
+
+        $role = Authorization::role()->findOrFail($roleId);
+
+        if ($request->persist($role)) {
             flash()->success('Successfully added users.');
-
-            return redirect()->route('admin.roles.show', [$roleId]);
         } else {
-            flash()->error("You didn't specify any users.");
-
-            return redirect()->route('admin.roles.show', [$roleId]);
+            flash()->error("You didn't select any users!");
         }
-    }
 
-    /**
-     * Removes the specified user from the specified role.
-     *
-     * @param int|string $roleId
-     * @param int|string $userId
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($roleId, $userId)
-    {
-        try {
-            if ($this->processor->destroy($roleId, $userId)) {
-                flash()->success('Successfully removed user.');
-
-                return redirect()->route('admin.roles.show', [$roleId]);
-            } else {
-                flash()->error('There was an issue removing this user. Please try again.');
-
-                return redirect()->route('admin.roles.show', [$roleId]);
-            }
-        } catch (CannotRemoveRolesException $e) {
-            flash()->setTimer(null)->error('Error!', $e->getMessage());
-
-            return redirect()->route('admin.roles.show', [$roleId]);
-        }
+        return redirect()->route('admin.roles.show', [$roleId]);
     }
 }

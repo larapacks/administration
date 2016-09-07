@@ -62,7 +62,7 @@ class UserRoleController extends Controller
                     'This account is the only administrator. You must have one other administrator.'
                 );
             }
-        } elseif ($user->permissions()->detach($role)) {
+        } elseif ($user->roles()->detach($role)) {
             flash()->success('Successfully removed role.');
         } else {
             flash()->error('There was an issue removing this role. Please try again.');

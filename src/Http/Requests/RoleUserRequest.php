@@ -2,6 +2,9 @@
 
 namespace Larapacks\Administration\Http\Requests;
 
+use Illuminate\Database\Eloquent\Model;
+use Larapacks\Authorization\Authorization;
+
 class RoleUserRequest extends Request
 {
     /**
@@ -24,5 +27,25 @@ class RoleUserRequest extends Request
         return [
             'users.*' => 'exists:users,id',
         ];
+    }
+
+    /**
+     * Persist the changes.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $role
+     *
+     * @return bool
+     */
+    public function persist(Model $role)
+    {
+        $users = $this->input('users', []);
+
+        if (count($users) > 0) {
+            $users = Authorization::user()->findMany($users);
+
+            return $role->users()->saveMany($users);
+        }
+
+        return false;
     }
 }

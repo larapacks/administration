@@ -39,10 +39,10 @@
 
                             <label>Permissions</label>
 
-                            <select name="permissions[]" multiple class="form-control selectize">
+                            <select name="permissions[]" multiple class="form-control selectize" placeholder="Select permissions ">
 
-                                @foreach($permissions as $value => $permission)
-                                    <option value="{{ $value }}">{{ $permission }}</option>
+                                @foreach($permissions as $permission)
+                                    <option value="{{ $permission->getKey() }}">{{ $permission->label }}</option>
                                 @endforeach
 
                             </select>
@@ -103,11 +103,19 @@
 
                     @endforeach
 
+                    @if($rolePermissions->isEmpty())
+
+                        <tr><td colspan="2" class="text-muted">There are no permissions to display.</td></tr>
+
+                    @endif
+
                 </tbody>
 
             </table>
 
-            <div class="text-center">{{ $rolePermissions->appends(request()->all())->links() }}</div>
+            <div class="text-center">
+                {{ $rolePermissions->appends(request()->all())->links() }}
+            </div>
 
         </div>
 

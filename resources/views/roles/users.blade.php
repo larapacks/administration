@@ -44,8 +44,8 @@
 
                             <select name="users[]" multiple class="form-control selectize" placeholder="Select users ">
 
-                                @foreach($users as $value => $user)
-                                    <option value="{{ $value }}">{{ $user }}</option>
+                                @foreach($users as $user)
+                                    <option value="{{ $user->getKey() }}">{{ $user->name }}</option>
                                 @endforeach
 
                             </select>
@@ -96,20 +96,22 @@
 
                             <td>
 
-                                <a
-                                        class="btn btn-xs btn-danger"
-                                        data-post="delete"
-                                        data-message="Are you sure you want to remove user '{{ $user->name }}'?"
-                                        href="{{ route('admin.users.roles.destroy', [$user->id, $role->id]) }}"
-                                >
-                                    Remove
-                                </a>
+                                @include('admin::partials.forms.remove', [
+                                    'action' => route('admin.users.roles.destroy', [$user->id, $role->id]),
+                                    'message' => "Are you sure you want to remove user: {$user->name}?",
+                                ])
 
                             </td>
 
                         </tr>
 
                     @endforeach
+
+                    @if($roleUsers->isEmpty())
+
+                        <tr><td colspan="3" class="text-muted">There are no users to display.</td></tr>
+
+                    @endif
 
                 </tbody>
 

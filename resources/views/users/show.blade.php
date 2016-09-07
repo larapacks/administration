@@ -16,4 +16,16 @@
 
     @include('admin::users.permissions')
 
+    {{-- Prevent user from deleting self. --}}
+    @if (auth()->user()->id != $user->id)
+
+        <div class="col-md-2 col-md-offset-5">
+            @include('admin::partials.forms.delete', [
+                'action' => route('admin.users.destroy', [$user->id]),
+                'message' => 'Are you sure you want to delete this user?',
+            ])
+        </div>
+
+    @endif
+
 @endsection

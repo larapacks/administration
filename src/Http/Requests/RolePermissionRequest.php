@@ -3,6 +3,7 @@
 namespace Larapacks\Administration\Http\Requests;
 
 use Illuminate\Database\Eloquent\Model;
+use Larapacks\Authorization\Authorization;
 
 class RolePermissionRequest extends Request
 {
@@ -28,8 +29,23 @@ class RolePermissionRequest extends Request
         ];
     }
 
+    /**
+     * Persist the changes.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $role
+     *
+     * @return bool
+     */
     public function persist(Model $role)
     {
-        //
+        $permissions = $this->input('permissions', []);
+
+        if (count($permissions) > 0) {
+            $permissions = Authorization::permission()->findMany($permissions);
+
+            return $role->permissions()->saveMany($permissions);
+        }
+
+        return false;
     }
 }

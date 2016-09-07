@@ -12,22 +12,6 @@
                 Edit
             </a>
 
-            {{-- Prevent user from deleting role that they are apart of. --}}
-            @if (!request()->user()->hasRole($role->name))
-
-                <a
-                        data-post="DELETE"
-                        data-title="Delete Role?"
-                        data-message="Are you sure you want to delete this role?"
-                        href="{{ route('admin.roles.destroy', [$role->getKey()]) }}"
-                        class="btn btn-xs btn-danger"
-                >
-                    <i class="fa fa-trash"></i>
-                    Delete
-                </a>
-
-            @endif
-
         </div>
     </div>
 

@@ -13,14 +13,6 @@
                 Edit
             </a>
 
-            {{-- Prevent user from deleting self. --}}
-            @if (auth()->user()->id != $user->id)
-                @include('admin::partials.forms.delete', [
-                    'action' => route('admin.users.destroy', [$user->id]),
-                    'message' => 'Are you sure you want to delete this user?',
-                ])
-            @endif
-
         </div>
 
     </div>
