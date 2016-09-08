@@ -22,7 +22,7 @@
 
     <div class="form-group">
 
-        <div class="alert alert-warning">
+        <div class="alert alert-warning alert-important">
             Enter a password only if you would like to change the users current password.
         </div>
 
