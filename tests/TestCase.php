@@ -52,6 +52,9 @@ class TestCase extends BaseTestCase
         $app['config']->set('authorization.user', User::class);
         $app['config']->set('authorization.role', Role::class);
         $app['config']->set('authorization.permission', Permission::class);
+
+        $app['config']->set('app.cipher', 'AES-256-CBC');
+        $app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
     }
 
     protected function createUsersTable()

@@ -5,7 +5,7 @@ namespace Larapacks\Administration\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
-use Illuminate\Contracts\Validation\UnauthorizedException;
+use Illuminate\Validation\UnauthorizedException;
 use Larapacks\Authorization\Authorization;
 
 class SetupAdministratorMiddleware

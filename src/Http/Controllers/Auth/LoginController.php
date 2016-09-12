@@ -1,24 +1,23 @@
 <?php
 
-namespace Larapacks\Administration\Http\Controllers;
+namespace Larapacks\Administration\Http\Controllers\Auth;
 
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Larapacks\Administration\Http\Controllers\Controller;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
-    use AuthenticatesUsers, ThrottlesLogins;
+    use AuthenticatesUsers;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
+        $this->middleware('guest', ['except' => 'logout']);
+
         // Set the redirect to route after users login.
         $this->redirectTo = route('admin.welcome.index');
-
-        // Set the redirect after logout route after users logout.
-        $this->redirectAfterLogout = route('admin.auth.login');
     }
 
     /**

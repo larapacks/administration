@@ -36,12 +36,10 @@ Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'namespace' => 'Setup
     ]);
 });
 
-Route::group(['middleware' => ['admin.auth']], function () {
+Route::group(['as' => 'admin.', 'middleware' => ['admin.auth']], function () {
 
-    Route::get('/', [
-        'as'    => 'admin.welcome.index',
-        'uses'  => 'WelcomeController@index',
-    ]);
+    Route::get('/', 'WelcomeController@index')
+        ->name('welcome.index');
 
     // The users resource.
     Route::resource('users', 'UserController');
@@ -84,26 +82,13 @@ Route::group(['middleware' => ['admin.auth']], function () {
 });
 
 // The 'admin' route prefixed group.
-Route::group(['as' => 'admin.'], function () {
-    // Guest Middleware group for login routes.
-    Route::group(['middleware' => ['guest']], function () {
-        // Administration login view.
-        Route::get('auth/login', [
-            'as'    => 'auth.login',
-            'uses'  => 'AuthController@getLogin',
-        ]);
+Route::group(['as' => 'admin.', 'namespace' => 'Auth'], function () {
+    Route::get('login', 'LoginController@showLoginForm')
+        ->name('auth.login');
 
-        // Administration post login view.
-        Route::post('auth/login', [
-            'as'    => 'auth.login',
-            'uses'  => 'AuthController@postLogin',
-        ]);
-    });
+    Route::post('login', 'LoginController@login')
+        ->name('auth.login');
 
-    // Administration logout.
-    Route::get('auth/logout', [
-        'as'            => 'auth.logout',
-        'uses'          => 'AuthController@getLogout',
-        'middleware'    => ['admin.auth'],
-    ]);
+    Route::post('logout', 'LoginController@logout')
+        ->name('auth.logout');
 });
