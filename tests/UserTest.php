@@ -13,6 +13,24 @@ class UserTest extends AdminTestCase
             ->see(Auth::user()->name);
     }
 
+    public function test_user_create()
+    {
+        $user = [
+            'name' => 'John Doe',
+            'email' => 'jdoe@example.com',
+            'password' => 'Password123',
+            'password_confirmation' => 'Password123',
+        ];
+
+        $this->visit(route('admin.users.create'))
+            ->submitForm('Create', $user);
+
+        $this->seeInDatabase('users', array_except($user, [
+            'password',
+            'password_confirmation',
+        ]));
+    }
+
     public function test_user_show()
     {
         $user = $this->createUser();

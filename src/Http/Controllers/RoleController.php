@@ -143,6 +143,8 @@ class RoleController extends Controller
             flash()->important()->error('You cannot delete the administrator role.');
         } elseif ($role->delete()) {
             flash()->success('Successfully deleted role.');
+
+            return redirect()->route('admin.roles.index');
         } else {
             flash()->error('There was an issue deleting this role. Please try again.');
         }
