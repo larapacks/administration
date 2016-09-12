@@ -10,29 +10,32 @@ class AdministrationServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function register()
     {
-        $config = __DIR__.'/Config/config.php';
-
-        // Set the configuration file to be publishable.
-        $this->publishes([
-            $config => config_path('admin.php'),
-        ], 'admin');
-
-        // We'll merge the configuration in case of updates.
-        $this->mergeConfigFrom($config, 'admin');
+        $this->app->register(RouteServiceProvider::class);
+        $this->app->register(FlashServiceProvider::class);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function boot()
     {
-        // Register our service providers.
-        $this->app->register(RouteServiceProvider::class);
-        $this->app->register(FlashServiceProvider::class);
-
         // Load our views.
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+
+        // Our configuration file.
+        $config = __DIR__.'/Config/config.php';
+
+        // Our views directory.
+        $views = __DIR__.'/../resources/views';
+
+        $this->publishes([
+            $config => config_path('admin.php'),
+            $views => resource_path('views/vendor/administration')
+        ], 'admin');
+
+        // We'll merge the configuration in case of updates.
+        $this->mergeConfigFrom($config, 'admin');
     }
 }
