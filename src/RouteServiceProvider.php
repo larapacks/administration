@@ -5,7 +5,7 @@ namespace Larapacks\Administration;
 use Illuminate\Routing\Router;
 use Larapacks\Authorization\Middleware\RoleMiddleware;
 use Larapacks\Authorization\Middleware\PermissionMiddleware;
-use Larapacks\Administration\Http\Middleware\AdminAuthMiddleware;
+use Larapacks\Administration\Http\Middleware\AuthMiddleware;
 use Larapacks\Administration\Http\Middleware\SetupMigrationsMiddleware;
 use Larapacks\Administration\Http\Middleware\SetupAdministratorMiddleware;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -31,9 +31,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes($router);
 
-        $router->middleware('admin.auth', AdminAuthMiddleware::class)
-            ->middleware('admin.setup.account', SetupAdministratorMiddleware::class)
+        $router->middleware('admin.auth', AuthMiddleware::class)
             ->middleware('admin.setup.migrations', SetupMigrationsMiddleware::class)
+            ->middleware('admin.setup.account', SetupAdministratorMiddleware::class)
             ->middleware('permission', PermissionMiddleware::class)
             ->middleware('role', RoleMiddleware::class);
     }

@@ -16,7 +16,9 @@ class SetupAdministratorMiddleware
      * @param Request $request
      * @param Closure $next
      *
-     * @return mixed
+     * @throws UnauthorizedException
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
