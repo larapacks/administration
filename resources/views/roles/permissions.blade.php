@@ -89,14 +89,14 @@
                             </td>
 
                             <td>
-                                <a
-                                        class="btn btn-xs btn-danger"
-                                        data-post="delete"
-                                        data-message="Are you sure you want to remove permission '{{ $permission->label }}' from '{{ $role->label }}'?"
-                                        href="{{ route('admin.roles.permissions.destroy', [$role->id, $permission->id]) }}"
-                                >
-                                    Remove
-                                </a>
+                                @if(auth()->user()->can('admin.permissions'))
+
+                                    @include('admin::partials.forms.remove', [
+                                        'action' => route('admin.roles.permissions.destroy', [$role->id, $permission->id]),
+                                        'message' => "Are you sure you want to remove permission: {$permission->label}?",
+                                    ])
+
+                                @endif
                             </td>
 
                         </tr>
