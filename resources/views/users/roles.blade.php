@@ -6,7 +6,7 @@
 
         Roles
 
-        @if(auth()->user()->can('admin.roles'))
+        @if(Auth::user()->can('admin.roles'))
 
             <a data-toggle="modal" data-target="#form-roles" class="btn btn-xs btn-success pull-right">
 
@@ -22,7 +22,7 @@
 
     <div class="panel-body">
 
-        @if(auth()->user()->can('admin.roles'))
+        @if(Auth::user()->can('admin.roles'))
 
             <div class="modal fade" id="form-roles" tabindex="-1" role="dialog">
 
@@ -102,7 +102,7 @@
                     <tr>
 
                         <td>
-                            @if(auth()->user()->can('admin.roles'))
+                            @if(Auth::user()->can('admin.roles'))
 
                                 <a href="{{ route('admin.roles.show', [$role->getKey()]) }}">
                                     {{ $role->label }}
@@ -116,7 +116,7 @@
                         </td>
 
                         <td>
-                            @if(auth()->user()->can('admin.roles'))
+                            @if(Auth::user()->can('admin.roles'))
 
                                 @include('admin::partials.forms.remove', [
                                     'action' => route('admin.users.roles.destroy', [$user->id, $role->id]),

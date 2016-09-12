@@ -89,7 +89,7 @@
                             </td>
 
                             <td>
-                                @if(auth()->user()->can('admin.permissions'))
+                                @if(Auth::user()->can('admin.permissions'))
 
                                     @include('admin::partials.forms.remove', [
                                         'action' => route('admin.roles.permissions.destroy', [$role->id, $permission->id]),

@@ -135,7 +135,7 @@ class UserController extends Controller
 
         // We need to prevent the delete request if the user being
         // deleted is the currently authenticated user.
-        if ($user->getKey() == auth()->user()->getKey()) {
+        if ($user->getKey() == Auth::user()->getKey()) {
             flash()->important()->error('You cannot delete yourself.');
 
             return redirect()->back();

@@ -17,7 +17,7 @@
     @include('admin::users.permissions')
 
     {{-- Prevent user from deleting self. --}}
-    @if (auth()->user()->id != $user->id)
+    @if (Auth::user()->id != $user->id)
 
         <div class="col-md-2 col-md-offset-5">
             @include('admin::partials.forms.delete', [

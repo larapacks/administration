@@ -14,7 +14,7 @@
 
     </div>
 
-    @if(auth()->user()->can('admin.users'))
+    @if(Auth::user()->can('admin.users'))
 
         <div class="col-md-4">
 
@@ -44,7 +44,7 @@
 
     @endif
 
-    @if(auth()->user()->can('admin.roles'))
+    @if(Auth::user()->can('admin.roles'))
 
         <div class="col-md-4">
 
@@ -74,7 +74,7 @@
 
     @endif
 
-    @if(auth()->user()->can('admin.permissions'))
+    @if(Auth::user()->can('admin.permissions'))
 
         <div class="col-md-4">
 
