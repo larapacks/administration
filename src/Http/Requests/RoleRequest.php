@@ -24,7 +24,7 @@ class RoleRequest extends Request
      */
     public function rules()
     {
-        $roles = $this->route('roles');
+        $roles = $this->route('role');
 
         $role = Authorization::role()->find($roles);
 

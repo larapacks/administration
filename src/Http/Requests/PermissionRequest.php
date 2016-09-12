@@ -23,7 +23,7 @@ class PermissionRequest extends Request
      */
     public function rules()
     {
-        $permissions = $this->route('permissions');
+        $permissions = $this->route('permission');
 
         $rules = [
             'name'  => 'required',

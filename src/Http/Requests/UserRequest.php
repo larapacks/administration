@@ -23,7 +23,7 @@ class UserRequest extends Request
      */
     public function rules()
     {
-        $user = $this->route('users');
+        $user = $this->route('user');
 
         $rules = [
             'name'  => 'required|min:2',
