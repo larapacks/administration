@@ -17,7 +17,7 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
 
         // Set the redirect to route after users login.
-        $this->redirectTo = route('admin.welcome.index');
+        $this->redirectTo = route('admin.dashboard.index');
     }
 
     /**

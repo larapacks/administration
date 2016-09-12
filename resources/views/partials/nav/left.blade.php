@@ -2,7 +2,7 @@
 
     @if(auth()->user()->can('admin'))
         <li>
-            <a href="{{ route('admin.welcome.index') }}">
+            <a href="{{ route('admin.dashboard.index') }}">
                 <i class="fa fa-bars"></i>
                 Dashboard
             </a>
