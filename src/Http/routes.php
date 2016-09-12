@@ -38,8 +38,8 @@ Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'namespace' => 'Setup
 
 Route::group(['as' => 'admin.', 'middleware' => ['admin.auth']], function () {
 
-    Route::get('/', 'WelcomeController@index')
-        ->name('welcome.index');
+    Route::get('/', 'DashboardController@index')
+        ->name('dashboard.index');
 
     // The users resource.
     Route::resource('users', 'UserController');

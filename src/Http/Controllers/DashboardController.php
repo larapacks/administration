@@ -4,7 +4,7 @@ namespace Larapacks\Administration\Http\Controllers;
 
 use Larapacks\Authorization\Authorization;
 
-class WelcomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Constructor.
