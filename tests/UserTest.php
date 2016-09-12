@@ -3,7 +3,6 @@
 namespace Larapacks\Administration\Tests;
 
 use Illuminate\Support\Facades\Auth;
-use Larapacks\Authorization\Authorization;
 
 class UserTest extends AdminTestCase
 {
@@ -57,20 +56,13 @@ class UserTest extends AdminTestCase
             ->seeInSession('flash_notification.level', 'danger');
     }
 
-    protected function createUser(array $attributes = [])
+    public function test_user_is_unauthorized()
     {
-        $attributes = count($attributes) == 0 ? [
-            'name' => 'User',
-            'email' => 'user@example.com',
-            'password' => bcrypt('testing123'),
-        ] : $attributes;
+        $user = $this->createUser();
 
-        $user = Authorization::user();
+        $response = $this->actingAs($user)
+            ->call('GET', route('admin.users.index'));
 
-        $user->forceFill($attributes);
-
-        $user->save();
-
-        return $user;
+        $this->assertEquals(403, $response->getStatusCode());
     }
 }

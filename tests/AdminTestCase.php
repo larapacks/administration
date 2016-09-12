@@ -32,4 +32,21 @@ class AdminTestCase extends TestCase
 
         $this->actingAs($user);
     }
+
+    protected function createUser(array $attributes = [])
+    {
+        $attributes = count($attributes) == 0 ? [
+            'name' => 'User',
+            'email' => 'user@example.com',
+            'password' => bcrypt('testing123'),
+        ] : $attributes;
+
+        $user = Authorization::user();
+
+        $user->forceFill($attributes);
+
+        $user->save();
+
+        return $user;
+    }
 }
