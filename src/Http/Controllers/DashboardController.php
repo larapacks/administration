@@ -21,12 +21,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $users = Authorization::user()->count();
-
-        $roles = Authorization::role()->count();
-
-        $permissions = Authorization::permission()->count();
-
-        return view('admin::welcome.index', compact('users', 'roles', 'permissions'));
+        return view('admin::dashboard.index', [
+            'users' => Authorization::user()->count(),
+            'roles' => Authorization::role()->count(),
+            'permissions' => Authorization::permission()->count(),
+        ]);
     }
 }
