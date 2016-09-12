@@ -48,6 +48,12 @@ class RolePermissionController extends Controller
     {
         $role = Authorization::role()->findOrFail($roleId);
 
+        if ($role->isAdministrator()) {
+            flash()->important()->error('You cannot remove permissions from the administrator role.');
+
+            return redirect()->back();
+        }
+
         $permission = $role->permissions()->findOrFail($permissionId);
 
         if ($role->permissions()->detach($permission)) {
