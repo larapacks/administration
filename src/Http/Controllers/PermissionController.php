@@ -129,6 +129,17 @@ class PermissionController extends Controller
     {
         $permission = Authorization::permission()->findOrFail($id);
 
+        foreach(config('admin.permissions', []) as $required) {
+            // We need to prevent users from deleting required permissions
+            // from the administration interface as this could deny
+            // them from accessing the administration interface.
+            if (array_key_exists('name', $required) && $required['name'] === $permission->name) {
+                flash()->important()->error('You cannot delete this permission. It is required.');
+
+                return redirect()->back();
+            }
+        }
+
         if ($permission->delete()) {
             flash()->success('Successfully deleted permission.');
 
@@ -136,7 +147,7 @@ class PermissionController extends Controller
         } else {
             flash()->error('There was an error deleting this permission. Please try again.');
 
-            return redirect()->route('admin.permissions.create');
+            return redirect()->back();
         }
     }
 }
