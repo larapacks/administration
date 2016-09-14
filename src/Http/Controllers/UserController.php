@@ -2,6 +2,7 @@
 
 namespace Larapacks\Administration\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Larapacks\Authorization\Authorization;
 use Larapacks\Administration\Http\Requests\UserRequest;
 
