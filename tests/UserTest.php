@@ -3,6 +3,7 @@
 namespace Larapacks\Administration\Tests;
 
 use Illuminate\Support\Facades\Auth;
+use Larapacks\Authorization\Authorization;
 
 class UserTest extends AdminTestCase
 {
@@ -71,7 +72,8 @@ class UserTest extends AdminTestCase
     {
         $this->delete(route('admin.users.destroy', [Auth::user()->id]))
             ->seeInSession('flash_notification.message')
-            ->seeInSession('flash_notification.level', 'danger');
+            ->seeInSession('flash_notification.level', 'danger')
+            ->seeStatusCode(302);
     }
 
     public function test_user_is_unauthorized()
@@ -82,5 +84,15 @@ class UserTest extends AdminTestCase
             ->call('GET', route('admin.users.index'));
 
         $this->assertEquals(403, $response->getStatusCode());
+    }
+
+    public function test_cannot_remove_only_administrator()
+    {
+        $role = Authorization::role()->whereName('administrator')->first();
+
+        $this->delete(route('admin.users.roles.destroy', [Auth::user()->id, $role->id]))
+            ->seeInSession('flash_notification.message')
+            ->seeInSession('flash_notification.level', 'danger')
+            ->seeStatusCode(302);
     }
 }
