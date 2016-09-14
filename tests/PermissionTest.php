@@ -12,24 +12,38 @@ class PermissionTest extends AdminTestCase
             ->see('Permissions');
     }
 
-    public function test_permissions_create()
-    {
-        $permission = [
-            'name' => 'permission',
-            'label' => 'Permission',
-        ];
-
-        $this->visit(route('admin.permissions.create'))
-            ->submitForm('Create', $permission);
-
-        $this->seeInDatabase('permissions', $permission);
-    }
-
     public function test_permission_show()
     {
         $permission = Authorization::permission()->first();
 
         $this->visit(route('admin.permissions.show', [$permission->id]))
             ->see($permission->label);
+    }
+
+    public function test_permission_edit()
+    {
+        $permission = Authorization::permission()->first();
+
+        $input = ['label' => 'Testing'];
+
+        $this->visit(route('admin.permissions.edit', [$permission->id]))
+            ->submitForm('Save', $input);
+
+        $this->seeInDatabase('permissions', $input);
+    }
+
+    public function test_permission_edit_cannot_change_name()
+    {
+        $permission = Authorization::permission()->first();
+
+        $input = [
+            'name' => 'New Name',
+            'label' => 'Testing',
+        ];
+
+        $this->visit(route('admin.permissions.edit', [$permission->id]))
+            ->submitForm('Save', $input);
+
+        $this->seeInDatabase('permissions', ['label' => 'Testing']);
     }
 }

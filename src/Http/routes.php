@@ -68,7 +68,9 @@ Route::group(['as' => 'admin.', 'middleware' => ['admin.auth']], function () {
     ]);
 
     // The permissions resource.
-    Route::resource('permissions', 'PermissionController');
+    Route::resource('permissions', 'PermissionController', [
+        'except' => ['create', 'store', 'destroy']
+    ]);
 
     // The permission roles resource.
     Route::resource('permissions.roles', 'PermissionRoleController', [

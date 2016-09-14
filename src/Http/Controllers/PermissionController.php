@@ -28,38 +28,6 @@ class PermissionController extends Controller
     }
 
     /**
-     * Displays the form for creating a new permission.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('admin::permissions.create');
-    }
-
-    /**
-     * Creates a permission.
-     *
-     * @param PermissionRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(PermissionRequest $request)
-    {
-        $permission = Authorization::permission()->newInstance();
-
-        if ($request->persist($permission)) {
-            flash()->success('Successfully created permission.');
-
-            return redirect()->route('admin.permissions.index');
-        } else {
-            flash()->error('There was an error creating a permission. Please try again.');
-
-            return redirect()->route('admin.permissions.create');
-        }
-    }
-
-    /**
      * Displays the specified permission.
      *
      * @param int|string $id
@@ -115,39 +83,6 @@ class PermissionController extends Controller
             flash()->error('There was an error updating this permission. Please try again.');
 
             return redirect()->route('admin.permissions.edit', [$id]);
-        }
-    }
-
-    /**
-     * Deletes the specified permission.
-     *
-     * @param int|string $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($id)
-    {
-        $permission = Authorization::permission()->findOrFail($id);
-
-        foreach(config('admin.permissions', []) as $required) {
-            // We need to prevent users from deleting required permissions
-            // from the administration interface as this could deny
-            // them from accessing the administration interface.
-            if (array_key_exists('name', $required) && $required['name'] === $permission->name) {
-                flash()->important()->error('You cannot delete this permission. It is required.');
-
-                return redirect()->back();
-            }
-        }
-
-        if ($permission->delete()) {
-            flash()->success('Successfully deleted permission.');
-
-            return redirect()->route('admin.permissions.index');
-        } else {
-            flash()->error('There was an error deleting this permission. Please try again.');
-
-            return redirect()->back();
         }
     }
 }

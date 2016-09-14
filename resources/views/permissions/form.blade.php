@@ -1,10 +1,12 @@
-<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
+<div class="form-group">
 
     <label class="help-block">Name</label>
 
-    <input name="name" type="text" class="form-control" placeholder="Enter a permission name." value="{{ old('name', isset($permission) ? $permission->name : null) }}">
+    <div class="alert alert-warning alert-important">
+        <p>You cannot edit permission names.</p>
+    </div>
 
-    <p class="help-block">{{ $errors->first('name') }}</p>
+    <input name="name" disabled type="text" value="{{ $permission->name }}" class="form-control" placeholder="Enter the name of the permission.">
 
 </div>
 
@@ -12,7 +14,7 @@
 
     <label class="help-block">Label</label>
 
-    <input name="label" type="text" class="form-control" placeholder="Enter a permission label." value="{{ old('label', isset($permission) ? $permission->label : null) }}">
+    <input name="label" type="text" class="form-control" placeholder="Enter a permission label." value="{{ old('label', $permission->label) }}">
 
     <p class="help-block">{{ $errors->first('label') }}</p>
 

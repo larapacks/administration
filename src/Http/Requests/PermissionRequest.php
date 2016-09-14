@@ -23,16 +23,9 @@ class PermissionRequest extends Request
      */
     public function rules()
     {
-        $permissions = $this->route('permission');
-
         $rules = [
-            'name'  => 'required|max:250',
             'label' => 'required|max:250',
         ];
-
-        if ($this->method() === 'PATCH') {
-            $rules['name'] = "required|unique:permissions,name,$permissions|max:250";
-        }
 
         return $rules;
     }
@@ -46,7 +39,6 @@ class PermissionRequest extends Request
      */
     public function persist(Model $permission)
     {
-        $permission->name = $this->name;
         $permission->label = $this->label;
 
         return $permission->save();
