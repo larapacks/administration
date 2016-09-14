@@ -32,7 +32,7 @@ class AdministrationServiceProvider extends ServiceProvider
 
         $this->publishes([
             $config => config_path('admin.php'),
-            $views => resource_path('views/vendor/administration')
+            $views => resource_path('views/vendor/admin')
         ], 'admin');
 
         // We'll merge the configuration in case of updates.
