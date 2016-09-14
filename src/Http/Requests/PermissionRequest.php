@@ -26,12 +26,12 @@ class PermissionRequest extends Request
         $permissions = $this->route('permission');
 
         $rules = [
-            'name'  => 'required',
-            'label' => 'required',
+            'name'  => 'required|max:250',
+            'label' => 'required|max:250',
         ];
 
         if ($this->method() === 'PATCH') {
-            $rules['name'] = "required|unique:permissions,name,$permissions";
+            $rules['name'] = "required|unique:permissions,name,$permissions|max:250";
         }
 
         return $rules;

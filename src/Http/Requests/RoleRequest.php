@@ -29,8 +29,8 @@ class RoleRequest extends Request
         $role = Authorization::role()->find($roles);
 
         $rules = [
-            'name'  => "required|unique:roles,name,$roles",
-            'label' => 'required',
+            'name'  => "required|unique:roles,name,$roles|max:250",
+            'label' => 'required|max:250',
         ];
 
         if ($role instanceof Model && $role->isAdministrator()) {

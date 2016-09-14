@@ -26,14 +26,14 @@ class UserRequest extends Request
         $user = $this->route('user');
 
         $rules = [
-            'name'  => 'required|min:2',
-            'email' => "required|email|unique:users,email,$user",
+            'name'  => 'required|min:2|max:250',
+            'email' => "required|email|unique:users,email,$user|max:250",
         ];
 
         if ($this->method() === 'PATCH') {
-            $rules['password'] = 'confirmed|required_with:password_confirmation';
+            $rules['password'] = 'confirmed|required_with:password_confirmation|max:250';
         } else {
-            $rules['password'] = 'required|confirmed';
+            $rules['password'] = 'required|confirmed|max:250';
             $rules['password_confirmation'] = 'required';
         }
 

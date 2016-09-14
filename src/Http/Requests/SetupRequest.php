@@ -25,10 +25,10 @@ class SetupRequest extends Request
     public function rules()
     {
         return [
-            'name'                  => 'required|min:2',
-            'email'                 => 'required|email',
-            'password'              => 'required|confirmed',
-            'password_confirmation' => 'required',
+            'name'                  => 'required|min:2|max:250',
+            'email'                 => 'required|email|max:250',
+            'password'              => 'required|confirmed|max:250',
+            'password_confirmation' => 'required|max:250',
         ];
     }
 
