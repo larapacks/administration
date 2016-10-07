@@ -20,7 +20,7 @@
     @if (Auth::user()->id != $user->id)
 
         <div class="col-md-2 col-md-offset-5">
-            @include('admin::partials.forms.delete', [
+            @include('admin::layouts.partials.forms.delete', [
                 'action' => route('admin.users.destroy', [$user->id]),
                 'message' => 'Are you sure you want to delete this user?',
             ])

@@ -96,7 +96,7 @@
 
                             <td>
 
-                                @include('admin::partials.forms.remove', [
+                                @include('admin::layouts.partials.forms.remove', [
                                     'action' => route('admin.users.roles.destroy', [$user->id, $role->id]),
                                     'message' => "Are you sure you want to remove user: {$user->name}?",
                                 ])

@@ -35,7 +35,7 @@
 
     <div class="container">
 
-        <h3 class="text-center">Setup</h3>
+        <h3 class="text-center">{{ trans('admin::layouts.setup') }}</h3>
 
         <hr>
 

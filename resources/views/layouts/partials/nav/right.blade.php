@@ -1,6 +1,10 @@
 @if (Auth::guest())
 
-    <li><a href="{{ url('/login') }}">Login</a></li>
+    <li>
+        <a href="{{ url('/login') }}">
+            {{ trans('admin::layouts.partials.nav.login') }}
+        </a>
+    </li>
 
 @else
 
@@ -15,7 +19,8 @@
                 <a href="{{ route('admin.auth.logout') }}"
                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                    <i class="fa fa-btn fa-sign-out"></i>Logout
+                    <i class="fa fa-btn fa-sign-out"></i>
+                    {{ trans('admin::layouts.partials.nav.logout') }}
                 </a>
             </li>
 

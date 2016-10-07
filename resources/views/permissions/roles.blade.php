@@ -91,7 +91,7 @@
                         </td>
 
                         <td>
-                            @include('admin::partials.forms.remove', [
+                            @include('admin::layouts.partials.forms.remove', [
                                 'action' => route('admin.roles.permissions.destroy', [$role->id, $permission->id]),
                                 'message' => "Are you sure you want to remove role: {$role->label}?",
                             ])

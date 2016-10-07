@@ -4,7 +4,7 @@
         <li>
             <a href="{{ route('admin.dashboard.index') }}">
                 <i class="fa fa-bars"></i>
-                Dashboard
+                {{ trans('admin::layouts.partials.nav.dashboard') }}
             </a>
         </li>
     @endif
@@ -13,7 +13,7 @@
         <li>
             <a href="{{ route('admin.users.index') }}">
                 <i class="fa fa-users"></i>
-                Users
+                {{ trans('admin::layouts.partials.nav.users') }}
             </a>
         </li>
     @endif
@@ -22,7 +22,7 @@
         <li>
             <a href="{{ route('admin.roles.index') }}">
                 <i class="fa fa-user-md"></i>
-                Roles
+                {{ trans('admin::layouts.partials.nav.roles') }}
             </a>
         </li>
     @endif
@@ -31,7 +31,7 @@
         <li>
             <a href="{{ route('admin.permissions.index') }}">
                 <i class="fa fa-check-circle-o"></i>
-                Permissions
+                {{ trans('admin::layouts.partials.nav.permissions') }}
             </a>
         </li>
     @endif

@@ -120,7 +120,7 @@
 
                             @if(Auth::user()->can('admin.permissions'))
 
-                                @include('admin::partials.forms.remove', [
+                                @include('admin::layouts.partials.forms.remove', [
                                     'action' => route('admin.users.permissions.destroy', [$user->id, $permission->id]),
                                     'message' => "Are you sure you want to remove permission: {$permission->label}?",
                                 ])

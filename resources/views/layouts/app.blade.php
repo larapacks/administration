@@ -26,7 +26,7 @@
 
         <nav class="navbar navbar-default navbar-static-top">
 
-            @include('admin::partials.nav')
+            @include('admin::layouts.partials.nav')
 
         </nav>
 

@@ -9,7 +9,7 @@
 
     <button class="btn btn-block btn-danger" type="submit">
         <i class="fa fa-trash"></i>
-        Delete
+        {{ trans('admin::layouts.partials.forms.delete') }}
     </button>
 
 </form>

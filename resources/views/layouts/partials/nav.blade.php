@@ -22,14 +22,14 @@
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
 
-            @include('admin::partials.nav.left')
+            @include('admin::layouts.partials.nav.left')
 
         </ul>
 
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">
 
-            @include('admin::partials.nav.right')
+            @include('admin::layouts.partials.nav.right')
 
         </ul>
 

@@ -20,7 +20,7 @@
         {{-- Prevent user from deleting role that they are apart of. --}}
         @if (!request()->user()->hasRole($role->name))
 
-            @include('admin::partials.forms.delete', [
+            @include('admin::layouts.partials.forms.delete', [
                 'action' => route('admin.roles.destroy', [$role->getKey()]),
                 'message' => 'Are you sure you want to delete this role?',
             ])
