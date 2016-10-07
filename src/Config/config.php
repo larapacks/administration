@@ -58,7 +58,6 @@ return [
     | The below permission cannot be modified, but you may
     | add as many new permissions as you'd like.
     |
-    |
     */
 
     'permissions' => [
