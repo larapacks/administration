@@ -24,6 +24,9 @@ class AdministrationServiceProvider extends ServiceProvider
         // Load our views.
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
 
+        // Load our translations.
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'admin');
+
         // Our configuration file.
         $config = __DIR__.'/Config/config.php';
 

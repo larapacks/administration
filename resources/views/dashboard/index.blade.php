@@ -6,9 +6,13 @@
 
     <div class="text-white text-center">
 
-        <h1 class="hidden-xs">Welcome.</h1>
+        <h1 class="hidden-xs">
+            {{ trans('admin::dashboard.welcome') }}
+        </h1>
 
-        <h3 class="visible-xs">Welcome.</h3>
+        <h3 class="visible-xs">
+            {{ trans('admin::dashboard.welcome') }}
+        </h3>
 
         <hr>
 
@@ -26,14 +30,16 @@
 
                     <div class="pull-left">
                         <h3>
-                            Users:
+                            {{ trans('admin::dashboard.users') }}:
 
                             <span class="h2">
                                 {{ $users }}
                             </span>
                         </h3>
 
-                        <a class="btn btn-xs btn-default" href="{{ route('admin.users.index') }}">View All</a>
+                        <a class="btn btn-xs btn-default" href="{{ route('admin.users.index') }}">
+                            {{ trans('admin::dashboard.view') }}
+                        </a>
                     </div>
 
                 </div>
@@ -56,14 +62,16 @@
 
                     <div class="pull-left">
                         <h3>
-                            Roles:
+                            {{ trans('admin::dashboard.roles') }}:
 
                             <span class="h2">
                                 {{ $roles }}
                             </span>
                         </h3>
 
-                        <a class="btn btn-xs btn-default" href="{{ route('admin.roles.index') }}">View All</a>
+                        <a class="btn btn-xs btn-default" href="{{ route('admin.roles.index') }}">
+                            {{ trans('admin::dashboard.view') }}
+                        </a>
                     </div>
 
                 </div>
@@ -86,14 +94,16 @@
 
                     <div class="pull-left">
                         <h3>
-                            Permissions:
+                            {{ trans('admin::dashboard.permissions') }}:
 
                             <span class="h2">
                                 {{ $permissions }}
                             </span>
                         </h3>
 
-                        <a class="btn btn-xs btn-default" href="{{ route('admin.permissions.index') }}">View All</a>
+                        <a class="btn btn-xs btn-default" href="{{ route('admin.permissions.index') }}">
+                            {{ trans('admin::dashboard.view') }}
+                        </a>
                     </div>
 
                 </div>
