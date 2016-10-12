@@ -3,9 +3,9 @@
 namespace Larapacks\Administration\Http\Middleware;
 
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\QueryException;
 use Larapacks\Authorization\Authorization;
 
 class SetupMigrationsMiddleware
@@ -26,9 +26,10 @@ class SetupMigrationsMiddleware
                 // the user to the administrator account creation page.
                 return redirect()->route('admin.setup.account.create');
             }
-        } catch (QueryException $e) {
+        } catch (Exception $e) {
             // We'll catch the query exception in case the
-            // settings table hasn't been migrated.
+            // settings table hasn't been migrated, or
+            // we can't connect to our database.
         }
 
         // Migrations haven't been setup. Allow the user to run them.
