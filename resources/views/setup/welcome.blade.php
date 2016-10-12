@@ -2,24 +2,84 @@
 
 @section('content')
 
-    <div class="col-md-12 text-center">
+    <h1 class="has-text-centered">
+        Welcome.
+    </h1>
 
-        <i class="fa fa-5x fa-cogs text-muted"></i>
+    @if($connected)
+        <div class="notification is-success">
+            <p>We're connected and ready to go.</p>
+        </div>
+    @else
+        <div class="notification is-danger">
+            Hmm... Looks like we can't connect to your database shown below.
+        </div>
+    @endif
 
-        <br>
+    <div class="box">
 
-        <h3>
-            Welcome to the Administration setup.
-        </h3>
+        <article>
 
-        <br>
+            <div class="media-content">
 
-        <p>
-            <a class="btn btn-lg btn-primary" href="{{ route('admin.setup.migrations.create') }}">
-                Begin Setup
-            </a>
-        </p>
+                <div class="content">
+
+                    <h3>Database</h3>
+
+                    <table class="table">
+
+                        <tbody>
+
+                            <tr>
+                                <th>Database</th>
+                                <td>{{ $database }}</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <h3>Configuration</h3>
+
+                        <table class="table">
+
+                            <tbody>
+
+                            @foreach($config as $key => $value)
+                                <tr>
+                                    <th>{{ $key }}</th>
+                                    <td>
+                                        @if($value)
+                                            {{ $value }}
+                                        @else
+                                            <em>null</em>
+                                        @endif
+
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                </div>
+
+            </div>
+
+        </article>
 
     </div>
+
+    <p class="has-text-centered">
+        <a class="button is-large is-primary {{ ! $connected ? 'is-disabled' : null }}" href="{{ route('admin.setup.migrations.create') }}">
+
+            <span class="icon">
+                <i class="fa fa-cog"></i>
+            </span>
+
+            <span>Begin Setup</span>
+        </a>
+    </p>
 
 @endsection

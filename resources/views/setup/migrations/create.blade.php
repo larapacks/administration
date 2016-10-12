@@ -2,28 +2,37 @@
 
 @section('content')
 
-    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
+    <h1 class="has-text-centered">
+        Setup Database Tables
+    </h1>
 
-        <h3 class="text-center text-muted">
-            Setup Database Tables
-        </h3>
+    <div class="notification is-default">
 
-        <hr>
+        <p>
+            We'll automatically run your database migrations for you,
+            as well as seed crucial data for roles and permissions.
+        </p>
 
-        <form method="POST" action="{{ route('admin.setup.migrations.store') }}">
+    </div>
 
-            {{ csrf_field() }}
+    <form method="POST" action="{{ route('admin.setup.migrations.store') }}">
 
-            <button type="submit" class="btn btn-lg btn-primary btn-block">
+        {{ csrf_field() }}
 
+        <p class="has-text-centered">
+
+            <button type="submit" class="button is-primary is-large">
+
+            <span class="icon">
                 <i class="fa fa-cogs"></i>
+            </span>
 
-                Begin
+                <span>Start Migrations</span>
 
             </button>
 
-        </form>
+        </p>
 
-    </div>
+    </form>
 
 @endsection

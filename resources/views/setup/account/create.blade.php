@@ -2,72 +2,74 @@
 
 @section('content')
 
-    <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
+    <h3 class="has-text-centered">
+        Create an Administrator Account
+    </h3>
 
-        <h3 class="text-center text-muted">
-            Create an Administrator Account
-        </h3>
+    <form method="POST" action="{{ route('admin.setup.account.store') }}">
 
-        <hr>
+        {{ csrf_field() }}
 
-        <form method="POST" action="{{ route('admin.setup.account.store') }}">
+        <label class="label">Name</label>
 
-            {{ csrf_field() }}
+        <input
+                name="name"
+                type="text"
+                value="{{ old('name') }}"
+                class="input {{ $errors->has('name') ? 'is-danger' : null }}"
+                placeholder="Enter the administrators name"
+        >
 
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
+        <p class="help is-danger">{{ $errors->first('name') }}</p>
 
-                <label class="help-block">Name</label>
+        <label class="label">Email</label>
 
-                <input name="name" type="text" value="{{ old('name') }}" class="form-control" placeholder="Enter the administrators name">
+        <input
+                name="email"
+                type="email"
+                value="{{ old('email') }}"
+                class="input {{ $errors->has('email') ? 'is-danger' : null }}"
+                placeholder="Enter the administrators email"
+        >
 
-                <p class="help-block">{{ $errors->first('name') }}</p>
+        <p class="help is-danger">{{ $errors->first('email') }}</p>
 
-            </div>
+        <label class="label">Password</label>
 
-            <div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
+        <input
+                name="password"
+                type="password"
+                class="input {{ $errors->has('password') ? 'is-danger' : null }}"
+                placeholder="Enter the administrator password"
+        >
 
-                <label class="help-block">Email</label>
+        <p class="help is-danger">{{ $errors->first('password') }}</p>
 
-                <input name="email" type="email" value="{{ old('email') }}" class="form-control" placeholder="Enter the administrators email">
+        <label class="label">Confirm Password</label>
 
-                <p class="help-block">{{ $errors->first('email') }}</p>
+        <input
+                name="password_confirmation"
+                type="password"
+                class="input {{ $errors->has('password_confirmation') ? 'is-danger' : null }}"
+                placeholder="Confirm administrator password"
+        >
 
-            </div>
+        <p class="help is-danger">{{ $errors->first('password_confirmation') }}</p>
 
-            <div class="form-group {{ $errors->has('password') ? 'has-error' : null }}">
+        <div class="has-text-centered">
 
-                <label class="help-block">Password</label>
+            <button type="submit" class="button is-primary is-large">
 
-                <input name="password" type="password" class="form-control" placeholder="Enter the administrator password">
-
-                <p class="help-block">{{ $errors->first('password') }}</p>
-
-            </div>
-
-            <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : null }}">
-
-                <label class="help-block">Confirm Password</label>
-
-                <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm administrator password">
-
-                <p class="help-block">{{ $errors->first('password_confirmation') }}</p>
-
-            </div>
-
-            <div class="form-group text-center">
-
-                <button type="submit" class="btn btn-primary">
-
+                <span class="icon">
                     <i class="fa fa-check-circle-o"></i>
+                </span>
 
-                    Complete Setup
+                <span>Complete Setup</span>
 
-                </button>
+            </button>
 
-            </div>
+        </div>
 
-        </form>
-
-    </div>
+    </form>
 
 @endsection
