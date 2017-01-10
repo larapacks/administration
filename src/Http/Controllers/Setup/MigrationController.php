@@ -47,8 +47,6 @@ class MigrationController extends Controller
             return redirect()->back();
         }
 
-        flash()->success('Successfully migrated database tables.');
-
         return view('admin::setup.migrations.finished');
     }
 }
