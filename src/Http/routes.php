@@ -13,6 +13,7 @@
 
 // The administration setup group.
 Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'namespace' => 'Setup'], function () {
+
     // The administration begin setup route.
     Route::get('/', [
         'as'    => 'index',
@@ -34,63 +35,68 @@ Route::group(['prefix' => 'setup', 'as' => 'admin.setup.', 'namespace' => 'Setup
             'store' => 'account.store',
         ],
     ]);
+
 });
 
-Route::group(['as' => 'admin.', 'middleware' => ['admin.auth']], function () {
+Route::group(['as' => 'admin.', 'middleware' => ['admin.has-administrator']], function () {
 
-    Route::get('/', 'DashboardController@index')
-        ->name('dashboard.index');
+    Route::group(['middleware' => ['admin.auth']], function () {
 
-    // The users resource.
-    Route::resource('users', 'UserController');
+        Route::get('/', 'DashboardController@index')
+            ->name('dashboard.index');
 
-    // The user permissions resource.
-    Route::resource('users.permissions', 'UserPermissionController', [
-        'only' => ['store', 'destroy'],
-    ]);
+        // The users resource.
+        Route::resource('users', 'UserController');
 
-    // The user roles resource.
-    Route::resource('users.roles', 'UserRoleController', [[
-        'only' => ['store', 'destroy'],
-    ]]);
+        // The user permissions resource.
+        Route::resource('users.permissions', 'UserPermissionController', [
+            'only' => ['store', 'destroy'],
+        ]);
 
-    // The roles resource.
-    Route::resource('roles', 'RoleController');
+        // The user roles resource.
+        Route::resource('users.roles', 'UserRoleController', [[
+            'only' => ['store', 'destroy'],
+        ]]);
 
-    // The role users resource.
-    Route::resource('roles.users', 'RoleUserController', [
-        'only' => ['store'],
-    ]);
+        // The roles resource.
+        Route::resource('roles', 'RoleController');
 
-    // The role permissions resource.
-    Route::resource('roles.permissions', 'RolePermissionController', [
-        'only' => ['store', 'destroy'],
-    ]);
+        // The role users resource.
+        Route::resource('roles.users', 'RoleUserController', [
+            'only' => ['store'],
+        ]);
 
-    // The permissions resource.
-    Route::resource('permissions', 'PermissionController', [
-        'except' => ['create', 'store', 'destroy']
-    ]);
+        // The role permissions resource.
+        Route::resource('roles.permissions', 'RolePermissionController', [
+            'only' => ['store', 'destroy'],
+        ]);
 
-    // The permission roles resource.
-    Route::resource('permissions.roles', 'PermissionRoleController', [
-        'only' => ['store'],
-    ]);
+        // The permissions resource.
+        Route::resource('permissions', 'PermissionController', [
+            'except' => ['create', 'store', 'destroy']
+        ]);
 
-    // The permission users resource.
-    Route::resource('permissions.users', 'PermissionUserController', [
-        'only' => ['store'],
-    ]);
+        // The permission roles resource.
+        Route::resource('permissions.roles', 'PermissionRoleController', [
+            'only' => ['store'],
+        ]);
+
+        // The permission users resource.
+        Route::resource('permissions.users', 'PermissionUserController', [
+            'only' => ['store'],
+        ]);
+    });
+
+    Route::group(['namespace' => 'Auth'], function () {
+        Route::get('login', 'LoginController@showLoginForm')
+            ->name('auth.login');
+
+        Route::post('login', 'LoginController@login')
+            ->name('auth.login');
+
+        Route::post('logout', 'LoginController@logout')
+            ->name('auth.logout');
+    });
+
 });
 
-// The 'admin' route prefixed group.
-Route::group(['as' => 'admin.', 'namespace' => 'Auth'], function () {
-    Route::get('login', 'LoginController@showLoginForm')
-        ->name('auth.login');
-
-    Route::post('login', 'LoginController@login')
-        ->name('auth.login');
-
-    Route::post('logout', 'LoginController@logout')
-        ->name('auth.logout');
-});
