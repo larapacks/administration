@@ -10,7 +10,7 @@
 
         <p>
             We'll automatically run your database migrations for you,
-            as well as seed crucial data for roles and permissions.
+            as well as seed crucial data such as roles and permissions.
         </p>
 
     </div>

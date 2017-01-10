@@ -12,22 +12,10 @@
         <title>Setup | {{ config('admin.title', 'Administration') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.1/css/bulma.min.css">
-
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css">
 
     </head>
 
@@ -74,6 +62,26 @@
             </div>
 
         </section>
+
+        <footer class="footer">
+
+            <div class="container">
+
+                <div class="content has-text-centered">
+
+                    <p>
+                        <strong>Administration</strong> by <a href="https://github.com/larapacks">Larapacks</a>. The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                    </p>
+
+                    <div id="social">
+                        <iframe class="github-btn" src="https://ghbtns.com/github-btn.html?user=larapacks&repo=administration&type=star&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="105px" height="20px"></iframe>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </footer>
 
     </body>
 

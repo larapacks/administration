@@ -2,15 +2,19 @@
 
 @section('content')
 
-    <div class="col-md-12 text-center">
+    <div class="has-text-centered">
 
-        <i class="fa fa-check-circle-o fa-5x text-muted"></i>
+        <h1>Successfully created administrator.</h1>
 
-        <br>
+        <hr>
 
-        <p class="h4">
-            You've successfully created an administrator. You can now <a href="{{ route('admin.auth.login') }}">login</a>.
-        </p>
+        <a class="button is-large is-primary" href="{{ route('admin.auth.login') }}">
+            <span class="icon">
+                <i class="fa fa-sign-in"></i>
+            </span>
+
+            <span>Login</span>
+        </a>
 
     </div>
 

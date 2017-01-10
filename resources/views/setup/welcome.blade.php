@@ -7,12 +7,14 @@
     </h1>
 
     @if($connected)
-        <div class="notification is-success">
+        <div class="notification is-success has-text-centered">
             <p>We're connected and ready to go.</p>
         </div>
     @else
-        <div class="notification is-danger">
-            Hmm... Looks like we can't connect to your database shown below.
+        <div class="notification is-danger has-text-centered">
+            <p>Hmm... Looks like we can't connect to your database shown below.</p>
+
+            <p>Check your settings below and make sure they're correct.</p>
         </div>
     @endif
 
@@ -24,21 +26,6 @@
 
                 <div class="content">
 
-                    <h3>Database</h3>
-
-                    <table class="table">
-
-                        <tbody>
-
-                            <tr>
-                                <th>Database</th>
-                                <td>{{ $database }}</td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
                     <h3>Configuration</h3>
 
                         <table class="table">
@@ -47,7 +34,7 @@
 
                             @foreach($config as $key => $value)
                                 <tr>
-                                    <th>{{ $key }}</th>
+                                    <th>{{ ucfirst($key) }}</th>
                                     <td>
                                         @if($value)
                                             {{ $value }}
@@ -80,6 +67,16 @@
 
             <span>Begin Setup</span>
         </a>
+
+        @if(!$connected)
+            <a class="button is-large is-default" onclick="window.location.reload()">
+                <span class="icon">
+                    <i class="fa fa-refresh"></i>
+                </span>
+
+                <span>Refresh</span>
+            </a>
+        @endif
     </p>
 
 @endsection
