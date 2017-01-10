@@ -27,6 +27,8 @@
 
                 <tr>
 
+                    <th>#</th>
+
                     <th>Name</th>
 
                     <th>Email</th>
@@ -42,6 +44,8 @@
                 @foreach($users as $user)
 
                     <tr>
+
+                        <td>{{ $user->id }}</td>
 
                         <td><a href="{{ route('admin.users.show', [$user->id]) }}">{{ $user->name }}</a></td>
 
