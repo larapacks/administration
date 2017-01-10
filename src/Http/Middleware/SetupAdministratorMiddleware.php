@@ -32,19 +32,19 @@ class SetupAdministratorMiddleware
             $users = Authorization::user()->count();
 
             if ($admin instanceof $role && !$request->user() && $users === 0) {
-                // If the administrator role has been created, no user
-                // is logged in, and no users exist,
+                // If the administrator role has been created, no
+                // user is logged in, and no users exist,
                 // we'll allow the setup request.
                 return $next($request);
             }
         } catch (QueryException $e) {
-            // Looks like our tables haven't been migrated, we'll
-            // redirect to our migration controller.
+            // Looks like our tables haven't been migrated.
+            // We'll redirect to our migration setup.
             return redirect()->route('admin.setup.migrations.create');
         }
 
         // If the administrator role hasn't already been created,
         // we'll throw an Unauthorized Exception.
-        throw new UnauthorizedException();
+        throw new UnauthorizedException("An administrator account already exists.");
     }
 }
