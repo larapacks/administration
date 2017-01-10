@@ -2,7 +2,7 @@
 
 return [
 
-    'welcome' => 'Welcome.',
+    'welcome' => 'Welcome to Administration',
 
     'users' => 'Users',
 
