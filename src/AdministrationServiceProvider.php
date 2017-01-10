@@ -8,12 +8,23 @@ use Laracasts\Flash\FlashServiceProvider;
 class AdministrationServiceProvider extends ServiceProvider
 {
     /**
+     * The administrations dependent service providers.
+     *
+     * @var array
+     */
+    protected $dependencies = [
+        RouteServiceProvider::class,
+        FlashServiceProvider::class
+    ];
+
+    /**
      * {@inheritdoc}
      */
     public function register()
     {
-        $this->app->register(RouteServiceProvider::class);
-        $this->app->register(FlashServiceProvider::class);
+        foreach ($this->dependencies as $dependency) {
+            $this->app->register($dependency);
+        }
     }
 
     /**
