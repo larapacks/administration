@@ -23,7 +23,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = Authorization::user()->paginate();
+        $query = Authorization::user()->newQuery();
+
+        if (request()->has('search')) {
+            $search = request('search');
+
+            $query
+                ->orWhere('name', 'like',  "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        $users = $query->paginate();
 
         return view('admin::users.index', compact('users'));
     }
