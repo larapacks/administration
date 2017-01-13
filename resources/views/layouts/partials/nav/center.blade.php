@@ -2,7 +2,7 @@
 
 @if(Auth::check())
 
-    @if(Auth::user()->can('admin'))
+    @if(auth()->user()->can('admin'))
         <a
                 class="nav-item is-tab {{ $menu::isActiveRoute('admin.dashboard.index')  }}"
                 href="{{ route('admin.dashboard.index') }}"
@@ -11,7 +11,7 @@
         </a>
     @endif
 
-    @if(Auth::user()->can('admin.users'))
+    @if(auth()->user()->can('admin.users'))
         <a
                 class="nav-item is-tab {{ $menu::isActiveRoute('admin.users.index')  }}"
                 href="{{ route('admin.users.index') }}"
@@ -20,7 +20,7 @@
         </a>
     @endif
 
-    @if(Auth::user()->can('admin.roles'))
+    @if(auth()->user()->can('admin.roles'))
         <a
                 class="nav-item is-tab {{ $menu::isActiveRoute('admin.roles.index')  }}"
                 href="{{ route('admin.roles.index') }}"
@@ -29,7 +29,7 @@
         </a>
     @endif
 
-    @if(Auth::user()->can('admin.permissions'))
+    @if(auth()->user()->can('admin.permissions'))
         <a
                 class="nav-item is-tab {{ $menu::isActiveRoute('admin.permissions.index')  }}"
                 href="{{ route('admin.permissions.index') }}"

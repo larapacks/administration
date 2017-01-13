@@ -5,7 +5,7 @@
 @section('content')
 
     <nav class="level is-mobile">
-        @if(Auth::user()->can('admin.users'))
+        @if(auth()->user()->can('admin.users'))
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">Users</p>
@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        @if(Auth::user()->can('admin.roles'))
+        @if(auth()->user()->can('admin.roles'))
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">Roles</p>
@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        @if(Auth::user()->can('admin.permissions'))
+        @if(auth()->user()->can('admin.permissions'))
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">Permissions</p>

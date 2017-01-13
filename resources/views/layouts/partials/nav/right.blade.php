@@ -1,4 +1,4 @@
-@if (Auth::guest())
+@if (auth()->guest())
 
     <a class="nav-item" href="{{ route('admin.auth.login') }}">
         {{ trans('admin::layouts.partials.nav.login') }}
@@ -6,7 +6,7 @@
 
 @else
 
-    <a class="nav-item">
+    <a class="nav-item" href="{{ route('admin.users.show', [auth()->user()->id]) }}">
         Profile
     </a>
 

@@ -6,7 +6,7 @@
 
         <span class="hidden-xs">User Specific</span> Permissions
 
-        @if(Auth::user()->can('admin.permissions'))
+        @if(auth()->user()->can('admin.permissions'))
 
             <a data-toggle="modal" data-target="#form-permissions" class="btn btn-xs btn-success pull-right">
 
@@ -22,7 +22,7 @@
 
     <div class="panel-body">
 
-        @if(Auth::user()->can('admin.permissions'))
+        @if(auth()->user()->can('admin.permissions'))
 
             <div class="modal fade" id="form-permissions" tabindex="-1" role="dialog">
 
@@ -102,7 +102,7 @@
                     <tr>
 
                         <td>
-                            @if(Auth::user()->can('admin.permissions'))
+                            @if(auth()->user()->can('admin.permissions'))
 
                                 <a href="{{ route('admin.permissions.show', [$permission->getKey()]) }}">
                                     {{ $permission->label }}
@@ -118,7 +118,7 @@
 
                         <td>
 
-                            @if(Auth::user()->can('admin.permissions'))
+                            @if(auth()->user()->can('admin.permissions'))
 
                                 @include('admin::layouts.partials.forms.remove', [
                                     'action' => route('admin.users.permissions.destroy', [$user->id, $permission->id]),
