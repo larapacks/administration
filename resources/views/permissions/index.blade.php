@@ -1,16 +1,6 @@
 @extends('admin::layouts.app')
 
-@section('header')
-
-    <h3>
-        @section('title') All Permissions @show
-    </h3>
-
-    <div class="clearfix"></div>
-
-    <hr>
-
-@endsection
+@section('title', 'Permissions')
 
 @section('content')
 

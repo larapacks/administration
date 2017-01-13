@@ -2,14 +2,12 @@
 
 return [
 
-    'welcome' => 'Welcome to Administration',
+    'welcome' => 'Welcome',
 
     'users' => 'Users',
 
     'roles' => 'Roles',
 
     'permissions' => 'Permissions',
-
-    'view' => 'View All',
 
 ];

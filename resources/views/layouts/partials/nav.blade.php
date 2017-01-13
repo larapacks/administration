@@ -22,7 +22,7 @@
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
 
-            @include('admin::layouts.partials.nav.left')
+            @include('admin::layouts.partials.nav.center.php')
 
         </ul>
 

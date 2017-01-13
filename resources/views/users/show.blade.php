@@ -1,31 +1,33 @@
 @extends('admin::layouts.app')
 
-@section('header')
+@section('title', $user->name)
 
-    <h3>@section('title') User: {{ $user->name }} @show</h3>
-
-    <hr>
-
-@endsection
+@section('subtitle', "Created {$user->created_at->diffForHumans()}")
 
 @section('content')
 
-    @include('admin::users.profile')
+    <div class="column is-4">
+        @include('admin::users.profile')
+    </div>
 
-    @include('admin::users.roles')
+    <div class="column is-8">
 
-    @include('admin::users.permissions')
+        @include('admin::users.roles')
 
-    {{-- Prevent user from deleting self. --}}
-    @if (Auth::user()->id != $user->id)
+        @include('admin::users.permissions')
 
-        <div class="col-md-2 col-md-offset-5">
-            @include('admin::layouts.partials.forms.delete', [
-                'action' => route('admin.users.destroy', [$user->id]),
-                'message' => 'Are you sure you want to delete this user?',
-            ])
-        </div>
+        {{-- Prevent user from deleting self. --}}
+        @if (auth()->user()->id != $user->id)
 
-    @endif
+            <div class="col-md-2 col-md-offset-5">
+                @include('admin::layouts.partials.forms.delete', [
+                    'action' => route('admin.users.destroy', [$user->id]),
+                    'message' => 'Are you sure you want to delete this user?',
+                ])
+            </div>
+
+        @endif
+
+    </div>
 
 @endsection

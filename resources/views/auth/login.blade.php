@@ -1,99 +1,106 @@
-@extends('admin::layouts.app')
+<!DOCTYPE html>
 
-@section('title.header')
+<html>
 
-    <h3 class="text-center">@section('title') Login @show</h3>
+    <head>
 
-@endsection
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
+        <title>{{ config('admin.title') }} | Login</title>
 
-    <div class="col-md-2"></div>
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
-    <div class="col-md-8">
+        <!-- Styles -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css">
 
-        <div class="panel panel-default">
+    </head>
 
-            <div class="panel-heading">Login</div>
+    <body>
 
-            <div class="panel-body">
+        <section class="hero is-fullheight is-dark is-bold">
 
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.auth.login')  }}">
+            <div class="hero-body">
 
-                    {{ csrf_field() }}
+                <div class="container">
 
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <div class="columns">
 
-                        <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        <div class="column is-4 is-offset-4">
 
-                        <div class="col-md-6">
+                            <h1 class="title has-text-centered">
+                                Login
+                            </h1>
 
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                            <div class="box">
 
-                            @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
+                                <form action="{{ route('admin.auth.login') }}" method="POST">
 
-                        </div>
+                                    {{ csrf_field() }}
 
-                    </div>
+                                    <label class="label">Email</label>
 
-                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <p class="control">
+                                        <input
+                                                name="email"
+                                                class="input {{ $errors->has('email') ? 'is-danger' : '' }}"
+                                                type="text"
+                                                placeholder="jsmith@example.org"
+                                        >
 
-                        <label for="password" class="col-md-4 control-label">Password</label>
+                                        @if($errors->has('email'))
+                                            <span class="help is-danger">{{ $errors->first('email') }}</span>
+                                        @endif
+                                    </p>
 
-                        <div class="col-md-6">
+                                    <label class="label">Password</label>
 
-                            <input id="password" type="password" class="form-control" name="password">
+                                    <p class="control">
+                                        <input
+                                                name="password"
+                                                class="input {{ $errors->has('password') ? 'is-danger' : '' }}"
+                                                type="password" placeholder="●●●●●●●"
+                                        >
 
-                            @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
+                                        @if($errors->has('password'))
+                                            <span class="help is-danger">{{ $errors->first('password') }}</span>
+                                        @endif
+                                    </p>
 
-                        </div>
+                                    <hr>
 
-                    </div>
+                                    <p class="control is-pulled-left">
+                                        <button class="button is-default" onclick="window.location.href = '/'">Cancel</button>
+                                    </p>
 
-                    <div class="form-group">
+                                    <p class="control is-pulled-right">
+                                        <button class="button is-success" onclick="this.className += ' is-loading'">Login</button>
+                                    </p>
 
-                        <div class="col-md-6 col-md-offset-4">
+                                    <div class="is-clearfix"></div>
 
-                            <div class="checkbox">
-
-                                <label>
-                                    <input type="checkbox" name="remember"> Remember Me
-                                </label>
+                                </form>
 
                             </div>
 
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <div class="col-md-6 col-md-offset-4">
-
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-sign-in"></i> Login
-                            </button>
+                            <p class="has-text-centered">
+                                <a href="#">Forgot password</a>
+                                |
+                                <a href="#">Need help?</a>
+                            </p>
 
                         </div>
 
                     </div>
 
-                </form>
+                </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </body>
 
-    <div class="col-md-3"></div>
-
-@endsection
+</html>

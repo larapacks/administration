@@ -1,23 +1,50 @@
 @extends('admin::layouts.app')
 
-@section('header')
-
-    <h3>
-        @section('title') All Users @show
-
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary pull-right">
-            <i class="fa fa-plus-circle"></i>
-            Create
-        </a>
-    </h3>
-
-    <div class="clearfix"></div>
-
-    <hr>
-
-@endsection
+@section('title', trans('admin::dashboard.users'))
 
 @section('content')
+
+    <nav class="level">
+
+        <!-- Left side -->
+        <div class="level-left">
+
+            <div class="level-item">
+
+                <p class="subtitle is-5">
+                    <strong>{{ $users->count() }}</strong> {{ trans('admin::dashboard.users') }}
+                </p>
+
+            </div>
+
+            <div class="level-item">
+
+                <form action="{{ route('admin.users.index') }}" method="get">
+
+                    <p class="control has-addons">
+
+                        <input name="search" value="{{ old('search', request('search')) }}" class="input" type="text" placeholder="Find a User">
+
+                        <button type="submit" class="button" onclick="this.className += ' is-loading'">
+                            Search
+                        </button>
+
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Right side -->
+        <div class="level-right">
+            <p class="level-item">
+                <a href="{{ route('admin.users.create') }}" class="button is-success">New User</a>
+            </p>
+        </div>
+
+    </nav>
 
     <div class="table table-responsive">
 

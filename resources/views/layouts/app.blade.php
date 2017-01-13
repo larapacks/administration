@@ -12,49 +12,150 @@
         <title>@yield('title') | {{ config('admin.title', 'Administration') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.2/css/selectize.bootstrap3.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css">
+
+        <style>
+            .table {
+                font-size: 16px;
+            }
+        </style>
 
     </head>
 
     <body id="app">
 
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="nav has-shadow">
 
-            @include('admin::layouts.partials.nav')
+            <div class="container">
+
+                <div class="nav-left">
+                    <a class="nav-item title is-4">
+                        {{ config('admin.title', 'Administration') }}
+                    </a>
+                </div>
+
+                <div id="nav-menu" class="nav-menu nav-center">
+
+                    @include('admin::layouts.partials.nav.center')
+
+                </div>
+
+                <span id="nav-toggle" class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+
+                <div class="nav-right nav-menu">
+
+                    @include('admin::layouts.partials.nav.right')
+
+                </div>
+
+            </div>
 
         </nav>
 
-        <div class="container">
+        @section('header')
 
-            @include('flash::message')
+            <section id="header" class="hero is-dark is-bold">
 
-            @yield('header')
+                <div class="hero-body">
 
-            @yield('content')
+                    <div class="container">
 
-            @yield('footer')
+                        <h1 class="title">
+                            @yield('title')
+                        </h1>
 
-        </div>
+                        <h2 class="subtitle">
+                            @yield('subtitle')
+                        </h2>
 
-        <!-- JavaScripts -->
+                    </div>
+
+                </div>
+
+            </section>
+
+        @show
+
+        <section id="content" class="section">
+
+            <div class="container">
+
+                @include('admin::layouts.partials.notifications')
+
+                @yield('content')
+
+            </div>
+
+        </section>
+
+        @section('footer')
+
+            <footer class="footer">
+
+                <div class="container">
+
+                    <div class="content has-text-centered">
+
+                        <p>
+                            <strong>Administration</strong> by <a href="https://github.com/larapacks">Larapacks</a>. The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                        </p>
+
+                        <div id="social">
+                            <iframe class="github-btn" src="https://ghbtns.com/github-btn.html?user=larapacks&repo=administration&type=star&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="105px" height="20px"></iframe>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+        @show
+
+        <!-- Scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.2/js/standalone/selectize.min.js"></script>
 
         <script type="text/javascript">
-            // Add multi-select to selectize form inputs.
-            $('.selectize').selectize();
+            $(document).ready(function ($) {
 
-            // Fade out alerts.
-            $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+                var $toggle = $('#nav-toggle');
+                var $menu = $('#nav-menu');
+
+                $toggle.click(function() {
+                    $(this).toggleClass('is-active');
+                    $menu.toggleClass('is-active');
+                });
+
+                $('.modal-button').click(function() {
+                    var target = $(this).data('target');
+                    $('html').addClass('is-clipped');
+                    $(target).addClass('is-active');
+                });
+
+                $('.modal-background, .modal-close').click(function() {
+                    $('html').removeClass('is-clipped');
+                    $(this).parent().removeClass('is-active');
+                });
+
+                $('.modal-card-head .delete, .modal-card-foot .button').click(function() {
+                    $('html').removeClass('is-clipped');
+                    $('#modal-ter').removeClass('is-active');
+                });
+
+                // Add multi-select to selectize form inputs.
+                $('.selectize').selectize();
+
+                // Fade out alerts.
+                $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+            });
         </script>
 
         @yield('scripts')

@@ -1,12 +1,6 @@
 @extends('admin::layouts.app')
 
-@section('header')
-
-    <h3>@section('title') Role: {{ $role->label }} @show</h3>
-
-    <hr>
-
-@endsection
+@section('title', $role->label)
 
 @section('content')
 
