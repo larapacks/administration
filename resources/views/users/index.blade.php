@@ -40,7 +40,9 @@
         <!-- Right side -->
         <div class="level-right">
             <p class="level-item">
-                <a href="{{ route('admin.users.create') }}" class="button is-success">New User</a>
+                <a href="{{ route('admin.users.create') }}" class="button is-success">
+                    New User
+                </a>
             </p>
         </div>
 

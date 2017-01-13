@@ -1,51 +1,85 @@
-<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
+<label class="label">Name</label>
 
-    <label class="help-block">Name</label>
+<p class="control has-icon">
 
-    <input name="name" type="text" class="form-control" placeholder="Enter a name." value="{{ old('name', isset($user) ? $user->name : null) }}">
+    <input
+            name="name"
+            type="text"
+            class="input {{ $errors->has('name') ? 'is-danger' : '' }}"
+            placeholder="John Doe" value="{{ old('name', $user->name) }}"
+    >
 
-    <p class="help-block">{{ $errors->first('name') }}</p>
+    <span class="icon is-small">
+        <i class="fa fa-user"></i>
+    </span>
 
-</div>
+    <span class="help is-danger">{{ $errors->first('name') }}</span>
 
-<div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
+</p>
 
-    <label class="help-block">Email</label>
+<label class="label">Email</label>
 
-    <input name="email" type="email" class="form-control" placeholder="Enter an email address." value="{{ old('email', isset($user) ? $user->email : null) }}">
+<p class="control has-icon">
 
-    <p class="help-block">{{ $errors->first('email') }}</p>
+    <input
+            name="email"
+            type="email"
+            class="input {{ $errors->has('email') ? 'is-danger' : '' }}"
+            placeholder="Enter an email address."
+            value="{{ old('email', $user->email) }}"
+    >
 
-</div>
+    <span class="icon is-small">
+        <i class="fa fa-envelope"></i>
+    </span>
 
-@if(isset($user) && $user->exists)
+    <span class="help is-danger">{{ $errors->first('email') }}</span>
 
-    <div class="form-group">
+</p>
 
-        <div class="alert alert-warning alert-important">
-            Enter a password only if you would like to change the users current password.
-        </div>
 
+@if($user->exists)
+
+    <div class="notification is-warning">
+        Enter a password only if you would like to change the users current password.
     </div>
 
 @endif
 
-<div class="form-group {{ $errors->has('password') ? 'has-error' : null }}">
+<label class="label">Password</label>
 
-    <label class="help-block">Password</label>
+<p class="control has-icon">
 
-    <input name="password" type="password" class="form-control" placeholder="Enter a password.">
+    <input
+            name="password"
+            type="password"
+            class="input {{ $errors->has('password') ? 'is-danger' : '' }}"
+            placeholder="Enter a password."
+    >
 
-    <p class="help-block">{{ $errors->first('password') }}</p>
+    <span class="icon is-small">
+        <i class="fa fa-key"></i>
+    </span>
 
-</div>
+    <span class="help is-danger">{{ $errors->first('password') }}</span>
 
-<div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : null }}">
+</p>
 
-    <label class="help-block">Confirm Password</label>
+<label class="label">Confirm Password</label>
 
-    <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm the above password.">
+<p class="control has-icon">
 
-    <p class="help-block">{{ $errors->first('password_confirmation') }}</p>
+    <input
+            name="password_confirmation"
+            type="password"
+            class="input {{ $errors->has('password_confirmation') ? 'is-danger' : '' }}"
+            placeholder="Confirm the above password."
+    >
 
-</div>
+    <span class="icon is-small">
+        <i class="fa fa-key"></i>
+    </span>
+
+    <span class="help is-danger">{{ $errors->first('password_confirmation') }}</span>
+
+</p>

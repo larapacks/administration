@@ -1,14 +1,8 @@
 @extends('admin::layouts.app')
 
-@section('header')
+@section('title', "Editing User: {$user->name}")
 
-    <h3>
-        @section('title') Edit User @show
-    </h3>
-
-    <hr>
-
-@endsection
+@section('subtitle', "Updated: {$user->updated_at->diffForHumans()}")
 
 @section('content')
 
@@ -20,9 +14,21 @@
 
         @include('admin::users.form')
 
-        <button type="submit" class="btn btn-primary">
-            Save
-        </button>
+        <p class="control is-pulled-left">
+            <a class="button" href="{{ route('admin.users.index') }}">
+                Cancel
+            </a>
+        </p>
+
+        <p class="control is-pulled-right">
+
+            <button type="submit" class="button is-success">
+                Save
+            </button>
+
+        </p>
+
+        <div class="is-clearfix"></div>
 
     </form>
 

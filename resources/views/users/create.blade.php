@@ -1,25 +1,35 @@
 @extends('admin::layouts.app')
 
-@section('title', 'Create User')
-
-@section('header')
-
-    <h3>Create a User</h3>
-
-@endsection
+@section('title', 'Create a User')
 
 @section('content')
 
-    <form method="post" action="{{ route('admin.users.store') }}">
+    <div class="column is-half is-offset-one-quarter">
 
-        {{ csrf_field() }}
+        <form method="post" action="{{ route('admin.users.store') }}">
 
-        @include('admin::users.form')
+            {{ csrf_field() }}
 
-        <button type="submit" class="btn btn-primary">
-            Create
-        </button>
+            @include('admin::users.form')
 
-    </form>
+            <p class="control is-pulled-left">
+                <a class="button" href="{{ route('admin.users.index') }}">
+                    Cancel
+                </a>
+            </p>
+
+            <p class="control is-pulled-right">
+
+                <button type="submit" class="button is-success">
+                    Create
+                </button>
+
+            </p>
+
+            <div class="is-clearfix"></div>
+
+        </form>
+
+    </div>
 
 @endsection

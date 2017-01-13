@@ -45,7 +45,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin::users.create');
+        $user = Authorization::user();
+
+        return view('admin::users.create', compact('user'));
     }
 
     /**
@@ -101,7 +103,7 @@ class UserController extends Controller
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View|void
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {

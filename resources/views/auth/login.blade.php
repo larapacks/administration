@@ -36,7 +36,11 @@
 
                             <div class="box">
 
-                                <form action="{{ route('admin.auth.login') }}" method="POST">
+                                <form
+                                        action="{{ route('admin.auth.login') }}"
+                                        method="POST"
+                                        onsubmit="document.getElementById('login').className += ' is-loading'"
+                                >
 
                                     {{ csrf_field() }}
 
@@ -50,9 +54,7 @@
                                                 placeholder="jsmith@example.org"
                                         >
 
-                                        @if($errors->has('email'))
-                                            <span class="help is-danger">{{ $errors->first('email') }}</span>
-                                        @endif
+                                        <span class="help is-danger">{{ $errors->first('email') }}</span>
                                     </p>
 
                                     <label class="label">Password</label>
@@ -64,9 +66,7 @@
                                                 type="password" placeholder="●●●●●●●"
                                         >
 
-                                        @if($errors->has('password'))
-                                            <span class="help is-danger">{{ $errors->first('password') }}</span>
-                                        @endif
+                                        <span class="help is-danger">{{ $errors->first('password') }}</span>
                                     </p>
 
                                     <hr>
@@ -76,7 +76,7 @@
                                     </p>
 
                                     <p class="control is-pulled-right">
-                                        <button class="button is-success" onclick="this.className += ' is-loading'">Login</button>
+                                        <button id="login" class="button is-success">Login</button>
                                     </p>
 
                                     <div class="is-clearfix"></div>
