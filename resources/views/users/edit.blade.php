@@ -6,7 +6,11 @@
 
 @section('content')
 
-    <form method="post" action="{{ route('admin.users.update', [$user->getKey()]) }}">
+    <form
+            method="post"
+            action="{{ route('admin.users.update', [$user->getKey()]) }}"
+            onsubmit="document.getElementById('save').className += ' is-loading'"
+    >
 
         {{ method_field('PATCH') }}
 
@@ -22,7 +26,7 @@
 
         <p class="control is-pulled-right">
 
-            <button type="submit" class="button is-success">
+            <button id="save" type="submit" class="button is-success">
                 Save
             </button>
 

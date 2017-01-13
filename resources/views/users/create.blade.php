@@ -6,7 +6,11 @@
 
     <div class="column is-half is-offset-one-quarter">
 
-        <form method="post" action="{{ route('admin.users.store') }}">
+        <form
+                method="post"
+                action="{{ route('admin.users.store') }}"
+                onsubmit="document.getElementById('create').className += ' is-loading'"
+        >
 
             {{ csrf_field() }}
 
@@ -20,7 +24,7 @@
 
             <p class="control is-pulled-right">
 
-                <button type="submit" class="button is-success">
+                <button id="create" type="submit" class="button is-success">
                     Create
                 </button>
 

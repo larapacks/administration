@@ -60,7 +60,7 @@
 
                     <th>Name</th>
 
-                    <th>Email</th>
+                    <th class="is-hidden-mobile">Email</th>
 
                     <th>Created</th>
 
@@ -78,7 +78,7 @@
 
                         <td><a href="{{ route('admin.users.show', [$user->id]) }}">{{ $user->name }}</a></td>
 
-                        <td>{{ $user->email }}</td>
+                        <td class="is-hidden-mobile">{{ $user->email }}</td>
 
                         <td>{{ $user->created_at->diffForHumans() }}</td>
 
