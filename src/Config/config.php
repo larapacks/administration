@@ -18,12 +18,24 @@ return [
     | Prefix
     |--------------------------------------------------------------------------
     |
-    | This option allows you to configure the route
+    | This option allows you to configure the URL route
     | prefix to access the administration panel.
     |
     */
 
     'prefix' => 'admin',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global Middleware
+    |--------------------------------------------------------------------------
+    |
+    | This option allows you to configure the global
+    | middleware used on all administrator routes.
+    |
+    */
+
+    'middleware' => 'web',
 
     /*
     |--------------------------------------------------------------------------
