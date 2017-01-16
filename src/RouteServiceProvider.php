@@ -3,7 +3,6 @@
 namespace Larapacks\Administration;
 
 use Illuminate\Routing\Router;
-
 use Larapacks\Authorization\Middleware\RoleMiddleware;
 use Larapacks\Authorization\Middleware\PermissionMiddleware;
 use Larapacks\Administration\Http\Middleware\AuthMiddleware;
@@ -15,7 +14,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
+     * This namespace is applied to all of the controller routes.
      *
      * In addition, it is set as the URL generator's root namespace.
      *
@@ -24,9 +23,10 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'Larapacks\Administration\Http\Controllers';
 
     /**
-     * Define the routes for the application.
+     * Defines the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param Router $router
+     *
      * @return void
      */
     public function map(Router $router)
@@ -42,11 +42,12 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Defines the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param Router $router
+     *
      * @return void
      */
     protected function mapWebRoutes(Router $router)
