@@ -14,7 +14,7 @@ class AdministrationServiceProvider extends ServiceProvider
      */
     protected $dependencies = [
         RouteServiceProvider::class,
-        FlashServiceProvider::class
+        FlashServiceProvider::class,
     ];
 
     /**
