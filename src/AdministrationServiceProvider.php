@@ -44,10 +44,20 @@ class AdministrationServiceProvider extends ServiceProvider
         // Our views directory.
         $views = __DIR__.'/../resources/views';
 
+        // Our assets directory.
+        $assets = __DIR__.'/../resources/assets/public';
+
         $this->publishes([
-            $config => config_path('admin.php'),
+            $config => config_path('admin.php')
+        ], 'config');
+
+        $this->publishes([
             $views => resource_path('views/vendor/admin')
-        ], 'admin');
+        ], 'views');
+
+        $this->publishes([
+            $assets => public_path('vendor/administration')
+        ], 'public');
 
         // We'll merge the configuration in case of updates.
         $this->mergeConfigFrom($config, 'admin');
