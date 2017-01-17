@@ -18,6 +18,8 @@
 
         @include('admin::users.form')
 
+        <hr>
+
         <p class="control is-pulled-left">
             <a class="button" href="{{ route('admin.users.show', [$user->id]) }}">
                 Cancel

@@ -49,6 +49,7 @@
                                     <p class="control">
                                         <input
                                                 name="email"
+                                                value="{{ old('email') }}"
                                                 class="input {{ $errors->has('email') ? 'is-danger' : '' }}"
                                                 type="text"
                                                 placeholder="jsmith@example.org"

@@ -15,7 +15,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css">
+        <link rel="stylesheet" href="{{ asset('vendor/administration/css/app.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.default.min.css">
 
         <style>
             .table {
@@ -149,7 +150,7 @@
 
                 $('.modal-card-head .delete, .modal-card-foot .button').click(function() {
                     $('html').removeClass('is-clipped');
-                    $('#modal-ter').removeClass('is-active');
+                    $('.modal').removeClass('is-active');
                 });
 
                 // Add multi-select to selectize form inputs.

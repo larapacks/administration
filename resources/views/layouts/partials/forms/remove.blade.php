@@ -7,7 +7,7 @@
 
     {{ method_field('DELETE') }}
 
-    <button class="btn btn-xs btn-danger" type="submit">
+    <button class="button is-danger" type="submit">
         Remove
     </button>
 

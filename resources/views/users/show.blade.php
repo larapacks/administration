@@ -6,15 +6,21 @@
 
 @section('content')
 
-    <div class="column is-4">
-        @include('admin::users.profile')
-    </div>
+    <div class="columns">
 
-    <div class="column is-8">
+        <div class="column is-4">
+            @include('admin::users.profile')
+        </div>
 
-        @include('admin::users.roles')
+        <div class="column is-8">
 
-        @include('admin::users.permissions')
+            @include('admin::users.roles')
+
+            <hr>
+
+            @include('admin::users.permissions')
+
+        </div>
 
     </div>
 
