@@ -32,9 +32,11 @@
             <div class="container">
 
                 <div class="nav-left">
+
                     <a class="nav-item title is-4">
                         {{ config('admin.title', 'Administration') }}
                     </a>
+
                 </div>
 
                 <div id="nav-menu" class="nav-menu nav-center">
@@ -49,7 +51,7 @@
                     <span></span>
                 </span>
 
-                <div class="nav-right nav-menu">
+                <div class="nav-menu nav-right">
 
                     @include('admin::layouts.partials.nav.right')
 

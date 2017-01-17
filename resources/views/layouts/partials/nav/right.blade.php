@@ -15,7 +15,7 @@
            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
             <span class="icon">
-                <i class="fa fa-paper-plane-o"></i>
+                <i class="fa fa-power-off"></i>
             </span>
 
             <span>

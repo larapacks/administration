@@ -6,107 +6,35 @@
             Profile
         </p>
 
-        <a class="card-header-icon">
-            <span class="icon">
-                <i class="fa fa-angle-down"></i>
-            </span>
-        </a>
-
     </header>
 
     <div class="card-content">
 
         <div class="content">
 
-            <table class="table is-narrow">
+            <label class="label">Name</label>
 
-                <tbody>
+            <p>{{ $user->name }}</p>
 
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ $user->name }}</td>
-                    </tr>
+            <label class="label">Email</label>
 
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ $user->email }}</td>
-                    </tr>
+            <p>{{ $user->email }}</p>
 
-                    <tr>
-                        <th>Created</th>
-                        <td title="{{ $user->created_at }}">{{ $user->created_at->diffForHumans() }}</td>
-                    </tr>
+            <label class="label">Created</label>
 
-                    <tr>
-                        <th>Last Updated</th>
-                        <td title="{{ $user->updated_at }}">{{ $user->updated_at->diffForHumans() }}</td>
-                    </tr>
+            <p>{{ $user->created_at->diffForHumans() }}</p>
 
-                </tbody>
+            <label class="label">Last Updated</label>
 
-            </table>
+            <p>{{ $user->updated_at->diffForHumans() }}</p>
 
         </div>
 
     </div>
 
     <footer class="card-footer">
-        <a class="card-footer-item">Save</a>
-        <a class="card-footer-item">Edit</a>
+        <a class="card-footer-item" href="{{ route('admin.users.edit', [$user->id]) }}">Edit</a>
         <a class="card-footer-item">Delete</a>
     </footer>
-
-</div>
-
-<div class="panel panel-primary">
-
-    <div class="panel-heading">
-
-        <i class="fa fa-list"></i>
-
-        Profile
-
-        <div class="btn-group pull-right">
-
-            <a href="{{ route('admin.users.edit', [$user->id]) }}" class="btn btn-xs btn-warning">
-                <i class="fa fa-edit"></i>
-                Edit
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="panel-body">
-
-        <table class="table table-striped">
-
-            <tbody>
-
-                <tr>
-                    <th>Name</th>
-                    <td>{{ $user->name }}</td>
-                </tr>
-
-                <tr>
-                    <th>Email</th>
-                    <td>{{ $user->email }}</td>
-                </tr>
-
-                <tr>
-                    <th>Created</th>
-                    <td title="{{ $user->created_at }}">{{ $user->created_at->diffForHumans() }}</td>
-                </tr>
-
-                <tr>
-                    <th>Last Updated</th>
-                    <td title="{{ $user->updated_at }}">{{ $user->updated_at->diffForHumans() }}</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
 
 </div>

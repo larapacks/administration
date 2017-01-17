@@ -7,9 +7,12 @@
 
     {{ method_field('DELETE') }}
 
-    <button class="btn btn-block btn-danger" type="submit">
-        <i class="fa fa-trash"></i>
-        {{ trans('admin::layouts.partials.forms.delete') }}
+    <button class="button is-danger" type="submit">
+
+        <span>
+            {{ trans('admin::layouts.partials.forms.delete') }}
+        </span>
+
     </button>
 
 </form>
