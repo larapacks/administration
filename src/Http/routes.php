@@ -88,6 +88,7 @@ Route::group(['as' => 'admin.', 'middleware' => ['admin.has-administrator']], fu
     });
 
     Route::group(['namespace' => 'Auth'], function () {
+        // Authentication Routes...
         Route::get('login', 'LoginController@showLoginForm')
             ->name('auth.login');
 
@@ -96,6 +97,19 @@ Route::group(['as' => 'admin.', 'middleware' => ['admin.has-administrator']], fu
 
         Route::post('logout', 'LoginController@logout')
             ->name('auth.logout');
+
+        // Password Reset Routes...
+        Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')
+            ->name('auth.password.reset');
+
+        Route::post('password/reset', 'ResetPasswordController@reset')
+            ->name('auth.password.reset');
+
+        Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')
+            ->name('auth.password.reset.token');
+
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')
+            ->name('auth.password.email');
     });
 
 });

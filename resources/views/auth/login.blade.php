@@ -1,107 +1,63 @@
-<!DOCTYPE html>
+@extends('admin::layouts.auth')
 
-<html>
+@section('title', 'Login')
 
-    <head>
+@section('content')
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <form
+            action="{{ route('admin.auth.login') }}"
+            method="POST"
+            onsubmit="document.getElementById('login').className += ' is-loading'"
+    >
 
-        <title>{{ config('admin.title') }} | Login</title>
+        {{ csrf_field() }}
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <label class="label">Email</label>
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css">
+        <p class="control">
+            <input
+                    name="email"
+                    value="{{ old('email') }}"
+                    class="input {{ $errors->has('email') ? 'is-danger' : '' }}"
+                    type="text"
+                    placeholder="jsmith@example.org"
+            >
 
-    </head>
+            <span class="help is-danger">{{ $errors->first('email') }}</span>
+        </p>
 
-    <body>
+        <label class="label">Password</label>
 
-        <section class="hero is-fullheight is-dark is-bold">
+        <p class="control">
+            <input
+                    name="password"
+                    class="input {{ $errors->has('password') ? 'is-danger' : '' }}"
+                    type="password"
+                    placeholder="●●●●●●●"
+            >
 
-            <div class="hero-body">
+            <span class="help is-danger">{{ $errors->first('password') }}</span>
+        </p>
 
-                <div class="container">
+        <hr>
 
-                    <div class="columns">
+        <p class="control is-pulled-left">
 
-                        <div class="column is-4 is-offset-4">
+            <button
+                    type="button"
+                    class="button is-default"
+                    onclick="window.location.href = '{{ url('/') }}'">
+                Cancel
+            </button>
 
-                            <h1 class="title has-text-centered">
-                                Login
-                            </h1>
+        </p>
 
-                            <div class="box">
+        <p class="control is-pulled-right">
+            <button id="login" class="button is-success">Login</button>
+        </p>
 
-                                <form
-                                        action="{{ route('admin.auth.login') }}"
-                                        method="POST"
-                                        onsubmit="document.getElementById('login').className += ' is-loading'"
-                                >
+        <div class="is-clearfix"></div>
 
-                                    {{ csrf_field() }}
+    </form>
 
-                                    <label class="label">Email</label>
-
-                                    <p class="control">
-                                        <input
-                                                name="email"
-                                                value="{{ old('email') }}"
-                                                class="input {{ $errors->has('email') ? 'is-danger' : '' }}"
-                                                type="text"
-                                                placeholder="jsmith@example.org"
-                                        >
-
-                                        <span class="help is-danger">{{ $errors->first('email') }}</span>
-                                    </p>
-
-                                    <label class="label">Password</label>
-
-                                    <p class="control">
-                                        <input
-                                                name="password"
-                                                class="input {{ $errors->has('password') ? 'is-danger' : '' }}"
-                                                type="password" placeholder="●●●●●●●"
-                                        >
-
-                                        <span class="help is-danger">{{ $errors->first('password') }}</span>
-                                    </p>
-
-                                    <hr>
-
-                                    <p class="control is-pulled-left">
-                                        <button class="button is-default" onclick="window.location.href = '/'">Cancel</button>
-                                    </p>
-
-                                    <p class="control is-pulled-right">
-                                        <button id="login" class="button is-success">Login</button>
-                                    </p>
-
-                                    <div class="is-clearfix"></div>
-
-                                </form>
-
-                            </div>
-
-                            <p class="has-text-centered">
-                                <a href="#">Forgot password</a>
-                                |
-                                <a href="#">Need help?</a>
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </body>
-
-</html>
+@endsection
